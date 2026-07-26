@@ -212,6 +212,11 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
       }
     }
 
+    // 4. MANDATORY ENDING: Ensure message ends with "Reply kariye ji"
+    if (!reply.toLowerCase().includes('reply kariye ji')) {
+      reply = `${reply}\n\nReply kariye ji 🙏`;
+    }
+
     history.push({ role: 'assistant', content: reply });
     record.history = history;
     saveLeadRecord(phone, record);
