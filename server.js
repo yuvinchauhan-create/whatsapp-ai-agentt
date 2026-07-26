@@ -1,11 +1,12 @@
-// server.js — BotBiz webhook handler + Dashboard + Qualification Profile + Date Filters + Simulation
+// server.js — BotBiz webhook handler + Dashboard + Qualification Profile + Campaign Engine
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { handleMessage } = require('./agent');
 const { sendMessage } = require('./whatsapp');
 const { sendWelcomeEmail, sendWebinarReminderEmail } = require('./email');
-const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord } = require('./memory');
+const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord, saveLeadRecord } = require('./memory');
+const { startWebinarCampaign, handleCampaignReply, cancelCampaignFollowup } = require('./campaign');
 
 const app = express();
 app.use(express.json());
@@ -304,6 +305,41 @@ app.get('/', (req, res) => {
 });
 
 // =============================================
+// CAMPAIGN API ENDPOINTS
+// =============================================
+
+// Start Webinar Follow-up Campaign
+app.post('/api/start-campaign', async (req, res) => {
+  const { limit = 100 } = req.body;
+  console.log(`\n🚀 [CAMPAIGN API] Starting webinar campaign for ${limit} leads...`);
+  try {
+    const count = await startWebinarCampaign(Number(limit));
+    res.json({ success: true, message: `Campaign started! Messages sent to ${count} leads.`, count });
+  } catch (err) {
+    console.error('❌ Campaign error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get Hot Leads (I AM INTERESTED)
+app.get('/api/hot-leads', (req, res) => {
+  const leads = getAllLeads();
+  const hotLeads = leads.filter(l => l.status === 'Hot Lead' || l.profile?.campaignStatus === 'INTERESTED');
+  res.json({ count: hotLeads.length, leads: hotLeads });
+});
+
+// Reset campaign status for a lead (to resend campaign msg)
+app.post('/api/reset-campaign-lead', (req, res) => {
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ error: 'Phone required' });
+  const record = getLeadRecord(phone);
+  delete record.campaignStatus;
+  record.history = [];
+  saveLeadRecord(phone, record);
+  res.json({ success: true });
+});
+
+// =============================================
 // BOTBIZ INCOMING WEBHOOK
 // =============================================
 app.post('/webhook', async (req, res) => {
@@ -402,6 +438,21 @@ app.post('/webhook', async (req, res) => {
 
     if (!aiEnabled) {
       console.log('⏸️ AI Agent is PAUSED — skipping automated reply');
+      return;
+    }
+
+    // Check if this lead is in active campaign — route to campaign handler
+    const leadRec2 = getLeadRecord(phone);
+    if (leadRec2.campaignStatus && !['NOT_INTERESTED', 'INTERESTED', 'CLOSED'].includes(leadRec2.campaignStatus)) {
+      console.log(`🎯 [CAMPAIGN LEAD] Routing ${phone} to campaign handler...`);
+      cancelCampaignFollowup(phone);
+      await sleep(5000); // 5-sec typing gap
+      const campaignResult = await handleCampaignReply(phone, text, leadName);
+      console.log(`✅ Campaign reply handled for ${phone}: ${campaignResult}`);
+      // Also log to lead history
+      leadRec2.history = leadRec2.history || [];
+      leadRec2.history.push({ role: 'user', content: text });
+      saveLeadRecord(phone, leadRec2);
       return;
     }
 
