@@ -472,9 +472,10 @@ app.post('/webhook', async (req, res) => {
 
     const reply = await handleMessage(phone, text, leadName, customFields);
     if (reply) {
-      // 5-Second Typing Delay gap for natural human feel
-      console.log(`⏳ [TYPING GAP] Waiting 5 seconds before replying to ${phone}...`);
-      await sleep(5000);
+      // Dynamic 5 to 8 Seconds Typing Delay gap for natural human feel
+      const typingMs = Math.floor(Math.random() * 3000) + 5000; // 5000ms - 8000ms
+      console.log(`⏳ [HUMAN TYPING GAP] Waiting ${(typingMs/1000).toFixed(1)}s before replying to ${phone}...`);
+      await sleep(typingMs);
 
       await sendMessage(phone, reply);
       console.log(`✅ WhatsApp Reply bheja to ${phone}: "${reply.substring(0, 100)}..."\n`);
