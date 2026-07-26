@@ -7,6 +7,7 @@ const { sendMessage } = require('./whatsapp');
 const { sendWelcomeEmail, sendWebinarReminderEmail } = require('./email');
 const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord, saveLeadRecord } = require('./memory');
 const { startWebinarCampaign, handleCampaignReply, cancelCampaignFollowup } = require('./campaign');
+const { schedulePerLeadFollowup, cancelPerLeadFollowup } = require('./followup_scheduler');
 
 const app = express();
 app.use(express.json());
@@ -414,8 +415,8 @@ app.post('/webhook', async (req, res) => {
     if (followUpTimers[phone]) {
       clearTimeout(followUpTimers[phone]);
       delete followUpTimers[phone];
-      console.log(`🛑 40-Min Follow-up timer cancelled for ${phone} (User replied)`);
     }
+    cancelPerLeadFollowup(phone); // Cancel per-lead smart timer on reply
 
     if (messageId && processedMessages.has(messageId)) return;
     if (messageId) {
@@ -453,6 +454,7 @@ app.post('/webhook', async (req, res) => {
       leadRec2.history = leadRec2.history || [];
       leadRec2.history.push({ role: 'user', content: text });
       saveLeadRecord(phone, leadRec2);
+      schedulePerLeadFollowup(phone); // Schedule smart per-lead followup
       return;
     }
 
@@ -465,15 +467,8 @@ app.post('/webhook', async (req, res) => {
       await sendMessage(phone, reply);
       console.log(`✅ WhatsApp Reply bheja to ${phone}: "${reply.substring(0, 100)}..."\n`);
 
-      // 1-Hour (60 Minutes) Automated Follow-up Timer
-      followUpTimers[phone] = setTimeout(async () => {
-        if (!unsubscribedLeads.has(phone)) {
-          const followUpText = `Hi ${leadName || 'Friend'}, 1 ghanta ho gaya aapka reply nahi aaya! 😊 Kya soch rahe ho? Agar course ya earning system se related koi bhi doubt hai toh bejhijhak pucho. Main help karne ke liye taiyar hoon! 🙏\n\n(Reply STOP to unsubscribe anytime)`;
-          await sendMessage(phone, followUpText);
-          console.log(`⏰ [1-HOUR FOLLOW-UP] Sent to ${phone}`);
-        }
-        delete followUpTimers[phone];
-      }, 60 * 60 * 1000);
+      // Schedule smart 3-stage per-lead dynamic followups (20m, 1h, 4h)
+      schedulePerLeadFollowup(phone);
     }
 
   } catch (err) {
