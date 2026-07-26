@@ -398,6 +398,8 @@
   <div class="header-right">
     <div class="live-badge"><div class="live-dot"></div><span id="aiStatusText">AI ACTIVE</span></div>
     <button class="btn btn-danger active" id="toggleAiBtn" onclick="toggleAI()">⏸ Pause AI</button>
+    <button class="btn" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:700;" onclick="launchCampaign()">🚀 Launch Campaign</button>
+    <button class="btn" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;" onclick="showHotLeads()">🔥 Hot Leads</button>
     <button class="btn btn-cyan" onclick="openImport()">📥 Import Leads</button>
     <a href="/api/export-csv" class="btn btn-outline">⬇️ Export CSV</a>
     <button class="btn btn-grad" onclick="sendWebinarBlast()">🔴 8 PM Blast</button>
@@ -810,6 +812,43 @@
   function statusEmoji(s) {
     const m = { 'New Lead':'✨','Hot Lead':'🔥','Warm Lead':'⚡','Cold Lead':'❄️','Webinar Joined':'🔴','Closed Sale':'💰','Not Interested':'❌' };
     return m[s] || '📋';
+  }
+
+  // ===== CAMPAIGN LAUNCH =====
+  async function launchCampaign() {
+    const limit = prompt('Kitne leads ko campaign message bhejna hai?', '100');
+    if (!limit) return;
+    if (!confirm(`🚀 ${limit} leads ko Webinar Follow-up Campaign message bhejoge?\n\nHar lead ko message aur 20-min auto followup milega!`)) return;
+    toast('🚀 Campaign launch ho raha hai...', 'info');
+    try {
+      const res = await fetch('/api/start-campaign', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ limit: parseInt(limit) }) });
+      const data = await res.json();
+      if (data.success) toast(`✅ Campaign started! ${data.count} leads ko message bheja gaya!`, 'success');
+      else toast('❌ Campaign error: ' + (data.error || 'Unknown'), 'error');
+    } catch(e) { toast('❌ Server error: ' + e.message, 'error'); }
+  }
+
+  // ===== HOT LEADS =====
+  async function showHotLeads() {
+    try {
+      const res = await fetch('/api/hot-leads');
+      const data = await res.json();
+      if (data.count === 0) { toast('Abhi koi Hot Lead nahi hai. Campaign chalao!', 'info'); return; }
+      let msg = `🔥 ${data.count} HOT LEADS (I AM INTERESTED):\n\n`;
+      data.leads.forEach((l, i) => { msg += `${i+1}. ${l.leadName} — ${l.phone}\n`; });
+      alert(msg);
+    } catch(e) { toast('❌ Error: ' + e.message, 'error'); }
+  }
+
+  // ===== WEBINAR BLAST =====
+  async function sendWebinarBlast() {
+    if (!confirm('🔴 Sabhi leads ko 8 PM Webinar blast message bhejoge?')) return;
+    toast('📡 Webinar blast bheja ja raha hai...', 'info');
+    try {
+      const res = await fetch('/api/send-webinar-now', { method:'POST' });
+      const data = await res.json();
+      toast(data.success ? `✅ Webinar blast complete! ${data.count || ''} leads ko message gaya.` : '❌ Blast error!', data.success ? 'success' : 'error');
+    } catch(e) { toast('❌ Error: ' + e.message, 'error'); }
   }
 
   // Close modal on overlay click
