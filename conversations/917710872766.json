@@ -1,0 +1,21 @@
+{
+  "phone": "917710872766",
+  "leadName": "J.K",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "J.K",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.984Z",
+  "updatedAt": "2026-07-26T00:55:52.984Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

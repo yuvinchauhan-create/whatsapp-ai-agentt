@@ -1,0 +1,21 @@
+{
+  "phone": "918882071147",
+  "leadName": "anjalisingh45662",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "anjalisingh45662",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.669Z",
+  "updatedAt": "2026-07-26T00:55:53.669Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

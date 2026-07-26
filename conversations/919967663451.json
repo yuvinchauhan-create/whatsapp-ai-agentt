@@ -1,0 +1,21 @@
+{
+  "phone": "919967663451",
+  "leadName": "Sabbir Moiyadi",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Sabbir Moiyadi",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.185Z",
+  "updatedAt": "2026-07-26T00:55:53.185Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "919555443743",
+  "leadName": "Pintu Kushwaha",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Pintu Kushwaha",
+    "age": "",
+    "city": "City jhansi\nState up",
+    "occupation": "STUDENT",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.555Z",
+  "updatedAt": "2026-07-26T00:55:52.555Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

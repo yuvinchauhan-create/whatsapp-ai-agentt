@@ -1,0 +1,21 @@
+{
+  "phone": "919540147762",
+  "leadName": "Mr.Lucky",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Mr.Lucky",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.665Z",
+  "updatedAt": "2026-07-26T00:55:52.665Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

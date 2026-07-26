@@ -1,0 +1,21 @@
+{
+  "phone": "917999829427",
+  "leadName": "kamini",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "kamini",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.790Z",
+  "updatedAt": "2026-07-26T00:55:52.790Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "918743883029",
+  "leadName": "Ravi",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Ravi",
+    "age": "",
+    "city": "My. Name. Ravi",
+    "occupation": "Delhi",
+    "qualification": "",
+    "budget": "8743883029",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.519Z",
+  "updatedAt": "2026-07-26T00:55:52.519Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

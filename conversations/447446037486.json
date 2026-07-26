@@ -1,0 +1,21 @@
+{
+  "phone": "447446037486",
+  "leadName": "ã€ŠArnavã€‹",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ã€ŠArnavã€‹",
+    "age": "",
+    "city": "test",
+    "occupation": "BUSINESS",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.774Z",
+  "updatedAt": "2026-07-26T00:55:53.774Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

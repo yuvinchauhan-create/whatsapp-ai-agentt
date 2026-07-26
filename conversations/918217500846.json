@@ -1,0 +1,21 @@
+{
+  "phone": "918217500846",
+  "leadName": "Jeevan sai p",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Jeevan sai p",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.971Z",
+  "updatedAt": "2026-07-26T00:55:53.971Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

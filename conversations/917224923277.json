@@ -1,0 +1,21 @@
+{
+  "phone": "917224923277",
+  "leadName": "G Krishna Sahu",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "G Krishna Sahu",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.563Z",
+  "updatedAt": "2026-07-26T00:55:53.563Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

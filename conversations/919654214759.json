@@ -1,0 +1,21 @@
+{
+  "phone": "919654214759",
+  "leadName": "IKS",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "IKS",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.557Z",
+  "updatedAt": "2026-07-26T00:55:54.557Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917991884612",
+  "leadName": "shrutikrishnani",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "shrutikrishnani",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.230Z",
+  "updatedAt": "2026-07-26T00:55:53.230Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

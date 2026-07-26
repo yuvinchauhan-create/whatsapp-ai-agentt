@@ -1,0 +1,21 @@
+{
+  "phone": "916352990940",
+  "leadName": "Khushi Sen",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Khushi Sen",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.209Z",
+  "updatedAt": "2026-07-26T00:55:54.209Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917011461421",
+  "leadName": "waseemraza301",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "waseemraza301",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.525Z",
+  "updatedAt": "2026-07-26T00:55:53.525Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

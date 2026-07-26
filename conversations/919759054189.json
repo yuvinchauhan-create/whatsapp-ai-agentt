@@ -1,0 +1,21 @@
+{
+  "phone": "919759054189",
+  "leadName": "pundirrakesh56",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "pundirrakesh56",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.719Z",
+  "updatedAt": "2026-07-26T00:55:53.719Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

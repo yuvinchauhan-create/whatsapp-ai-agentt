@@ -1,0 +1,21 @@
+{
+  "phone": "917388726326",
+  "leadName": "Dev Verma .......ðŸ˜‡",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dev Verma .......ðŸ˜‡",
+    "age": "",
+    "city": "City Lucknow state Uttar Pradesh",
+    "occupation": "Job kar raha hun",
+    "qualification": "",
+    "budget": "15000",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.509Z",
+  "updatedAt": "2026-07-26T00:55:52.509Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

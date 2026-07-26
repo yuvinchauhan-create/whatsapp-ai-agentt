@@ -1,0 +1,21 @@
+{
+  "phone": "917310651408",
+  "leadName": "fizza",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "fizza",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.371Z",
+  "updatedAt": "2026-07-26T00:55:54.371Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

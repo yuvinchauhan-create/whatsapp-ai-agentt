@@ -1,0 +1,21 @@
+{
+  "phone": "917607541514",
+  "leadName": "Dada vinit mishra",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dada vinit mishra",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.026Z",
+  "updatedAt": "2026-07-26T00:55:54.026Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

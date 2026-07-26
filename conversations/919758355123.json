@@ -1,0 +1,21 @@
+{
+  "phone": "919758355123",
+  "leadName": "Sonu",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Sonu",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.734Z",
+  "updatedAt": "2026-07-26T00:55:53.735Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

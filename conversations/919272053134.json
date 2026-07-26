@@ -1,0 +1,21 @@
+{
+  "phone": "919272053134",
+  "leadName": "bhaktibhorkade23",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "bhaktibhorkade23",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.590Z",
+  "updatedAt": "2026-07-26T00:55:54.590Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

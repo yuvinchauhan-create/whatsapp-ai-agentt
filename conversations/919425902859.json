@@ -1,0 +1,21 @@
+{
+  "phone": "919425902859",
+  "leadName": "Archana jain",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Archana jain",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.299Z",
+  "updatedAt": "2026-07-26T00:55:53.299Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917067663110",
+  "leadName": "king ðŸ‘‘",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "king ðŸ‘‘",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.215Z",
+  "updatedAt": "2026-07-26T00:55:54.215Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

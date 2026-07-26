@@ -1,0 +1,21 @@
+{
+  "phone": "917983603971",
+  "leadName": "Krishna Kumar",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Krishna Kumar",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.708Z",
+  "updatedAt": "2026-07-26T00:55:54.708Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

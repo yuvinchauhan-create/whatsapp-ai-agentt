@@ -1,0 +1,21 @@
+{
+  "phone": "919315555582",
+  "leadName": "Anil Kaushik",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Anil Kaushik",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.409Z",
+  "updatedAt": "2026-07-26T00:55:52.409Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

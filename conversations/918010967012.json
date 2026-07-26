@@ -1,0 +1,21 @@
+{
+  "phone": "918010967012",
+  "leadName": "N.P.ðŸ’«",
+  "status": "Not Interested",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "N.P.ðŸ’«",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.592Z",
+  "updatedAt": "2026-07-26T00:55:53.592Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

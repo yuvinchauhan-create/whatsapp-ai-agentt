@@ -1,0 +1,21 @@
+{
+  "phone": "919602799355",
+  "leadName": "bhawanakumawat99",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "bhawanakumawat99",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.135Z",
+  "updatedAt": "2026-07-26T00:55:54.135Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

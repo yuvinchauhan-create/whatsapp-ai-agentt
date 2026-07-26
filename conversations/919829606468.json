@@ -1,0 +1,21 @@
+{
+  "phone": "919829606468",
+  "leadName": "archanabkn5",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "archanabkn5",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.871Z",
+  "updatedAt": "2026-07-26T00:55:53.871Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

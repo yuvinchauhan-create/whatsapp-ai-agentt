@@ -1,0 +1,21 @@
+{
+  "phone": "919589813088",
+  "leadName": "itz_sagar_king_3x2_i",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "itz_sagar_king_3x2_i",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.354Z",
+  "updatedAt": "2026-07-26T00:55:52.354Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

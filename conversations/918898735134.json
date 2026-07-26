@@ -1,0 +1,21 @@
+{
+  "phone": "918898735134",
+  "leadName": "Saniyaa Shaikh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Saniyaa Shaikh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.839Z",
+  "updatedAt": "2026-07-26T00:55:52.839Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

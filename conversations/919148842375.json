@@ -1,0 +1,21 @@
+{
+  "phone": "919148842375",
+  "leadName": "Gaana Shree R",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Gaana Shree R",
+    "age": "",
+    "city": "Sent",
+    "occupation": "STUDENT",
+    "qualification": "",
+    "budget": "99",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.556Z",
+  "updatedAt": "2026-07-26T00:55:52.556Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "919310885355",
+  "leadName": "aartimahor511",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "aartimahor511",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.541Z",
+  "updatedAt": "2026-07-26T00:55:54.541Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

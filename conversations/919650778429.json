@@ -1,0 +1,21 @@
+{
+  "phone": "919650778429",
+  "leadName": "Nitin",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Nitin",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.418Z",
+  "updatedAt": "2026-07-26T00:55:53.418Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

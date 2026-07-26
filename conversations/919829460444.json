@@ -1,0 +1,21 @@
+{
+  "phone": "919829460444",
+  "leadName": "dpk sikar007",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "dpk sikar007",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.190Z",
+  "updatedAt": "2026-07-26T00:55:53.190Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

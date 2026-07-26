@@ -1,0 +1,21 @@
+{
+  "phone": "919711282834",
+  "leadName": "anujgoutam",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "anujgoutam",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.641Z",
+  "updatedAt": "2026-07-26T00:55:53.641Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

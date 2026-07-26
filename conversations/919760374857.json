@@ -1,0 +1,21 @@
+{
+  "phone": "919760374857",
+  "leadName": "Hare Krishna",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Hare Krishna",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.532Z",
+  "updatedAt": "2026-07-26T00:55:53.532Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

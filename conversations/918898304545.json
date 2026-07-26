@@ -1,0 +1,21 @@
+{
+  "phone": "918898304545",
+  "leadName": "rahul varma1993 rv22",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "rahul varma1993 rv22",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.491Z",
+  "updatedAt": "2026-07-26T00:55:52.491Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

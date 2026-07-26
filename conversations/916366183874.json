@@ -1,0 +1,21 @@
+{
+  "phone": "916366183874",
+  "leadName": "Farhan Khan",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Farhan Khan",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.932Z",
+  "updatedAt": "2026-07-26T00:55:53.932Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

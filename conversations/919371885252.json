@@ -1,0 +1,21 @@
+{
+  "phone": "919371885252",
+  "leadName": "huzaifkhan5252",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "huzaifkhan5252",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.899Z",
+  "updatedAt": "2026-07-26T00:55:53.899Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

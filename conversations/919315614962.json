@@ -1,0 +1,21 @@
+{
+  "phone": "919315614962",
+  "leadName": "sweetpie",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "sweetpie",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.324Z",
+  "updatedAt": "2026-07-26T00:55:53.324Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

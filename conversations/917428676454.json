@@ -1,0 +1,21 @@
+{
+  "phone": "917428676454",
+  "leadName": "vartika singh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "vartika singh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.233Z",
+  "updatedAt": "2026-07-26T00:55:53.234Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

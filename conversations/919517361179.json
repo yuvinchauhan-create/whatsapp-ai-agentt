@@ -1,0 +1,21 @@
+{
+  "phone": "919517361179",
+  "leadName": "Raman",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Raman",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.709Z",
+  "updatedAt": "2026-07-26T00:55:54.709Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

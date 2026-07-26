@@ -1,0 +1,21 @@
+{
+  "phone": "919993765180",
+  "leadName": "9993765180hemant",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "9993765180hemant",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.990Z",
+  "updatedAt": "2026-07-26T00:55:53.990Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

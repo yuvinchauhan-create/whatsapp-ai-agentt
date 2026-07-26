@@ -1,0 +1,21 @@
+{
+  "phone": "919164669508",
+  "leadName": "~Jai Hind",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "~Jai Hind",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.493Z",
+  "updatedAt": "2026-07-26T00:55:54.493Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "919773633941",
+  "leadName": "Ankiit Raghuvansh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Ankiit Raghuvansh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.224Z",
+  "updatedAt": "2026-07-26T00:55:54.225Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917743983818",
+  "leadName": "Ê·Ê°Ê¸áµáµƒá¶»â±â±Ë£",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Ê·Ê°Ê¸áµáµƒá¶»â±â±Ë£",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.991Z",
+  "updatedAt": "2026-07-26T00:55:52.991Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917909086359",
+  "leadName": "Rama Nand Ranjan",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Rama Nand Ranjan",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.671Z",
+  "updatedAt": "2026-07-26T00:55:53.672Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

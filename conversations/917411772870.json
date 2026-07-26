@@ -1,0 +1,21 @@
+{
+  "phone": "917411772870",
+  "leadName": "Sudeep Emovur",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Sudeep Emovur",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.780Z",
+  "updatedAt": "2026-07-26T00:55:54.780Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

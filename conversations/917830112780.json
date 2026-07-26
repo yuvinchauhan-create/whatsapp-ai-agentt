@@ -1,0 +1,21 @@
+{
+  "phone": "917830112780",
+  "leadName": "Shekhar Randhawa",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Shekhar Randhawa",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.349Z",
+  "updatedAt": "2026-07-26T00:55:52.349Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

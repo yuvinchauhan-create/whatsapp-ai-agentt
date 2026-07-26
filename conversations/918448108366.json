@@ -1,0 +1,21 @@
+{
+  "phone": "918448108366",
+  "leadName": "amitabhpatel1157",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "amitabhpatel1157",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.891Z",
+  "updatedAt": "2026-07-26T00:55:53.891Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

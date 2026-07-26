@@ -1,0 +1,21 @@
+{
+  "phone": "919897638084",
+  "leadName": "busy",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "busy",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.163Z",
+  "updatedAt": "2026-07-26T00:55:53.163Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

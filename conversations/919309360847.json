@@ -1,0 +1,21 @@
+{
+  "phone": "919309360847",
+  "leadName": "Dilip Choudhary",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dilip Choudhary",
+    "age": "",
+    "city": "Name- Dilip Choudhary \nCity- ichalkaranji \nAge 26\nCurrent work- student",
+    "occupation": "STUDENT",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.548Z",
+  "updatedAt": "2026-07-26T00:55:52.548Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

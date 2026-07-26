@@ -1,0 +1,21 @@
+{
+  "phone": "917400333532",
+  "leadName": "Pruthivraj Swain",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Pruthivraj Swain",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.172Z",
+  "updatedAt": "2026-07-26T00:55:54.173Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

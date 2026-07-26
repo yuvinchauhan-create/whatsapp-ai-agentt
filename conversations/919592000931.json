@@ -1,0 +1,21 @@
+{
+  "phone": "919592000931",
+  "leadName": "narindernikky87",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "narindernikky87",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.156Z",
+  "updatedAt": "2026-07-26T00:55:53.156Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

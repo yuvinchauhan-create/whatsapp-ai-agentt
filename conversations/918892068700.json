@@ -1,0 +1,21 @@
+{
+  "phone": "918892068700",
+  "leadName": "Maahi Khan",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Maahi Khan",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.605Z",
+  "updatedAt": "2026-07-26T00:55:52.605Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "916351001788",
+  "leadName": "gamirajashi40",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "gamirajashi40",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.407Z",
+  "updatedAt": "2026-07-26T00:55:52.408Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

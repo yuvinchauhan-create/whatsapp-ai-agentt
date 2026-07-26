@@ -1,0 +1,21 @@
+{
+  "phone": "917876352020",
+  "leadName": "_mohit",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "_mohit",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.441Z",
+  "updatedAt": "2026-07-26T00:55:54.441Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

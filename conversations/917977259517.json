@@ -1,0 +1,21 @@
+{
+  "phone": "917977259517",
+  "leadName": "nadim Shaikh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "nadim Shaikh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.872Z",
+  "updatedAt": "2026-07-26T00:55:52.872Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

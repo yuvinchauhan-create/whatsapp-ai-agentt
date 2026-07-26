@@ -1,0 +1,21 @@
+{
+  "phone": "919560334988",
+  "leadName": "Rajveer",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Rajveer",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.340Z",
+  "updatedAt": "2026-07-26T00:55:53.341Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

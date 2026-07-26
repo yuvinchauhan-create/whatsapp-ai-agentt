@@ -1,0 +1,21 @@
+{
+  "phone": "919310936435",
+  "leadName": "Raj Rani Shanker",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Raj Rani Shanker",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.062Z",
+  "updatedAt": "2026-07-26T00:55:54.062Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

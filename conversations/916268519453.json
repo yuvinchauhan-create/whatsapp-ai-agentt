@@ -1,0 +1,21 @@
+{
+  "phone": "916268519453",
+  "leadName": "Shiva Sahu",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Shiva Sahu",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.981Z",
+  "updatedAt": "2026-07-26T00:55:53.981Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

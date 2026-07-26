@@ -1,0 +1,21 @@
+{
+  "phone": "917842844066",
+  "leadName": "Deepthi Sree G",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Deepthi Sree G",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.601Z",
+  "updatedAt": "2026-07-26T00:55:52.601Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

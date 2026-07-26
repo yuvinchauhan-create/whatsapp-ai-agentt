@@ -1,0 +1,21 @@
+{
+  "phone": "917985438705",
+  "leadName": "Vaishali",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Vaishali",
+    "age": "",
+    "city": "Or free?",
+    "occupation": "Any charges or free of cost? Please reply ðŸ™",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.561Z",
+  "updatedAt": "2026-07-26T00:55:52.561Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

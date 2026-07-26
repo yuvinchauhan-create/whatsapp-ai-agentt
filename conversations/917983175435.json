@@ -1,0 +1,21 @@
+{
+  "phone": "917983175435",
+  "leadName": "rukams801",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "rukams801",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.682Z",
+  "updatedAt": "2026-07-26T00:55:54.682Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

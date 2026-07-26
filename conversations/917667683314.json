@@ -1,0 +1,21 @@
+{
+  "phone": "917667683314",
+  "leadName": "laligourav83",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "laligourav83",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.416Z",
+  "updatedAt": "2026-07-26T00:55:53.416Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

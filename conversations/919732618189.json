@@ -1,0 +1,21 @@
+{
+  "phone": "919732618189",
+  "leadName": "Saurabh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Saurabh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.522Z",
+  "updatedAt": "2026-07-26T00:55:52.523Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

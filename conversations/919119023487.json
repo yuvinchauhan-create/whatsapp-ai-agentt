@@ -1,0 +1,21 @@
+{
+  "phone": "919119023487",
+  "leadName": "Shahzad",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Shahzad",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.165Z",
+  "updatedAt": "2026-07-26T00:55:53.165Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

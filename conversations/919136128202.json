@@ -1,0 +1,21 @@
+{
+  "phone": "919136128202",
+  "leadName": "durgakc3233",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "durgakc3233",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.315Z",
+  "updatedAt": "2026-07-26T00:55:54.315Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

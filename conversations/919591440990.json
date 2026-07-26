@@ -1,0 +1,21 @@
+{
+  "phone": "919591440990",
+  "leadName": "Thomas KJ",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Thomas KJ",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.425Z",
+  "updatedAt": "2026-07-26T00:55:54.425Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

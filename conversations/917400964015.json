@@ -1,0 +1,21 @@
+{
+  "phone": "917400964015",
+  "leadName": "ketankamle152",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ketankamle152",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.043Z",
+  "updatedAt": "2026-07-26T00:55:54.043Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

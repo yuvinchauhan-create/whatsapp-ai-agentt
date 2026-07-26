@@ -1,0 +1,21 @@
+{
+  "phone": "918128259714",
+  "leadName": "Mota bhai wali baji",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Mota bhai wali baji",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.422Z",
+  "updatedAt": "2026-07-26T00:55:54.422Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

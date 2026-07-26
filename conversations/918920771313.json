@@ -1,0 +1,21 @@
+{
+  "phone": "918920771313",
+  "leadName": "jai Maa Bhawani",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "jai Maa Bhawani",
+    "age": "",
+    "city": "",
+    "occupation": "STUDENT",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.609Z",
+  "updatedAt": "2026-07-26T00:55:52.609Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

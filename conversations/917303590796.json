@@ -1,0 +1,21 @@
+{
+  "phone": "917303590796",
+  "leadName": "Amman",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Amman",
+    "age": "",
+    "city": "https://bot-data.s3.ap-southeast-1.wasabisys.com/livechat/2026/6/whatsapp-419261/274648-419261-1567883158012578.ogg",
+    "occupation": "https://bot-data.s3.ap-southeast-1.wasabisys.com/livechat/2026/6/whatsapp-419261/274648-419261-1354868523234469.ogg",
+    "qualification": "",
+    "budget": "99",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.569Z",
+  "updatedAt": "2026-07-26T00:55:52.570Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

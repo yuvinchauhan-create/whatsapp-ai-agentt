@@ -1,0 +1,21 @@
+{
+  "phone": "919365827680",
+  "leadName": "Dutta?",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dutta?",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.649Z",
+  "updatedAt": "2026-07-26T00:55:52.650Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

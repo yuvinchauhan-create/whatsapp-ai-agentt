@@ -1,0 +1,21 @@
+{
+  "phone": "918950952199",
+  "leadName": "Rajesh",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Rajesh",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.089Z",
+  "updatedAt": "2026-07-26T00:55:54.089Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

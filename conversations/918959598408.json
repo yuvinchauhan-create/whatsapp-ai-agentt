@@ -1,0 +1,21 @@
+{
+  "phone": "918959598408",
+  "leadName": "Laxminarayan",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Laxminarayan",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.153Z",
+  "updatedAt": "2026-07-26T00:55:53.153Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

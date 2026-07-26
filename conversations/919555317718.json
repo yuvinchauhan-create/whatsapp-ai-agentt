@@ -1,0 +1,21 @@
+{
+  "phone": "919555317718",
+  "leadName": "Tabassumamnoon",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Tabassumamnoon",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.220Z",
+  "updatedAt": "2026-07-26T00:55:53.220Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

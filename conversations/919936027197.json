@@ -1,0 +1,21 @@
+{
+  "phone": "919936027197",
+  "leadName": "College Life",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "College Life",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.625Z",
+  "updatedAt": "2026-07-26T00:55:54.625Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

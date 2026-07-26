@@ -1,0 +1,21 @@
+{
+  "phone": "918439229345",
+  "leadName": "rajendrak82215",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "rajendrak82215",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.477Z",
+  "updatedAt": "2026-07-26T00:55:52.477Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

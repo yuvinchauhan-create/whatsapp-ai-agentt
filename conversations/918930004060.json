@@ -1,0 +1,21 @@
+{
+  "phone": "918930004060",
+  "leadName": "ritupradeepoct",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ritupradeepoct",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.922Z",
+  "updatedAt": "2026-07-26T00:55:52.922Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

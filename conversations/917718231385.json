@@ -1,0 +1,21 @@
+{
+  "phone": "917718231385",
+  "leadName": "ÊŸá´œÒ“Ò“Ê",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ÊŸá´œÒ“Ò“Ê",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.676Z",
+  "updatedAt": "2026-07-26T00:55:54.676Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

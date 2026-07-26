@@ -1,0 +1,21 @@
+{
+  "phone": "919658843392",
+  "leadName": "Debashis",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Debashis",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.178Z",
+  "updatedAt": "2026-07-26T00:55:53.178Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

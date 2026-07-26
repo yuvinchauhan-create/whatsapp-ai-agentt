@@ -1,0 +1,21 @@
+{
+  "phone": "917505799203",
+  "leadName": "Rishabh Dubey",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Rishabh Dubey",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.988Z",
+  "updatedAt": "2026-07-26T00:55:52.988Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

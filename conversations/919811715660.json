@@ -1,0 +1,30 @@
+{
+  "phone": "919811715660",
+  "leadName": "Lead",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:54:26.123Z",
+  "updatedAt": "2026-07-26T00:55:54.865Z",
+  "history": [
+    {
+      "role": "user",
+      "content": "Yogesh room ka kiraya doge kya"
+    },
+    {
+      "role": "assistant",
+      "content": "Arre bhai, Yogesh kaun? 😅 Mera naam Yuvin Chauhan hai, LeadsGuru se hu. Room ka kiraya toh main nahi de sakta, lekin tera apna room ka kiraya nikalne ka tareeka sikha sakta hoon! 🚀\n\nTu bata pehle apna naam aur city kya hai? Phir t"
+    }
+  ],
+  "source": "BotBiz CSV Import"
+}

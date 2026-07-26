@@ -1,0 +1,21 @@
+{
+  "phone": "919149172598",
+  "leadName": "adnanrana9117",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "adnanrana9117",
+    "age": "",
+    "city": "https://bot-data.s3.ap-southeast-1.wasabisys.com/livechat/2026/6/whatsapp-419261/274648-419261-2860517187618844.ogg",
+    "occupation": "https://bot-data.s3.ap-southeast-1.wasabisys.com/livechat/2026/6/whatsapp-419261/274648-419261-3037038613354214.ogg",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.546Z",
+  "updatedAt": "2026-07-26T00:55:52.546Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

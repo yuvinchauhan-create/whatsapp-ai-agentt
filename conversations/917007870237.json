@@ -1,0 +1,21 @@
+{
+  "phone": "917007870237",
+  "leadName": "Chait Amit",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Chait Amit",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.703Z",
+  "updatedAt": "2026-07-26T00:55:53.703Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

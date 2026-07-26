@@ -1,0 +1,21 @@
+{
+  "phone": "917087703421",
+  "leadName": "ðŸ˜ŽKumar Saab ðŸ˜Ž",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ðŸ˜ŽKumar Saab ðŸ˜Ž",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.160Z",
+  "updatedAt": "2026-07-26T00:55:54.160Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

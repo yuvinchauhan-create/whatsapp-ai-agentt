@@ -1,0 +1,21 @@
+{
+  "phone": "918770991435",
+  "leadName": ".mamta Sharma",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": ".mamta Sharma",
+    "age": "",
+    "city": "9_qBIusTL2eZngt",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.532Z",
+  "updatedAt": "2026-07-26T00:55:52.532Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

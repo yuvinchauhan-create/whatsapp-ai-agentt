@@ -1,0 +1,21 @@
+{
+  "phone": "919289384909",
+  "leadName": "Prashant Growth Manager",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Prashant Growth Manager",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.718Z",
+  "updatedAt": "2026-07-26T00:55:52.718Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

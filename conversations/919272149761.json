@@ -1,0 +1,21 @@
+{
+  "phone": "919272149761",
+  "leadName": "9272149761",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "9272149761",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.925Z",
+  "updatedAt": "2026-07-26T00:55:53.925Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

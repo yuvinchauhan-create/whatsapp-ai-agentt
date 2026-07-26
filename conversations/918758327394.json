@@ -1,0 +1,21 @@
+{
+  "phone": "918758327394",
+  "leadName": "hina",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "hina",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.760Z",
+  "updatedAt": "2026-07-26T00:55:54.760Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "916268169304",
+  "leadName": "charan bairagi",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "charan bairagi",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.812Z",
+  "updatedAt": "2026-07-26T00:55:52.813Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

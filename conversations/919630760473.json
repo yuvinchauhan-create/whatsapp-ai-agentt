@@ -1,0 +1,21 @@
+{
+  "phone": "919630760473",
+  "leadName": "Monty Shakya",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Monty Shakya",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.482Z",
+  "updatedAt": "2026-07-26T00:55:52.482Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

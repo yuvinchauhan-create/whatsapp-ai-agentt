@@ -1,0 +1,21 @@
+{
+  "phone": "919618998721",
+  "leadName": "khan bhai",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "khan bhai",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.513Z",
+  "updatedAt": "2026-07-26T00:55:54.513Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "917858029985",
+  "leadName": "Dhiraj",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dhiraj",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.180Z",
+  "updatedAt": "2026-07-26T00:55:53.180Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

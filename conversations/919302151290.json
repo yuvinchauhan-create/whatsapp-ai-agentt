@@ -1,0 +1,21 @@
+{
+  "phone": "919302151290",
+  "leadName": "Dadu Sahu",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Dadu Sahu",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.829Z",
+  "updatedAt": "2026-07-26T00:55:52.829Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

@@ -1,0 +1,21 @@
+{
+  "phone": "919900722651",
+  "leadName": "Kumar",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Kumar",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:53.091Z",
+  "updatedAt": "2026-07-26T00:55:53.091Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

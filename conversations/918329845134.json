@@ -1,0 +1,21 @@
+{
+  "phone": "918329845134",
+  "leadName": "ðŸ™à¤œà¤¯ à¤¸à¥‡à¤µà¤¾ à¤œà¤¯ à¤ªà¥‡à¤°à¤¸à¤¾à¤ªà¥‡à¤¨ðŸ™",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ðŸ™à¤œà¤¯ à¤¸à¥‡à¤µà¤¾ à¤œà¤¯ à¤ªà¥‡à¤°à¤¸à¤¾à¤ªà¥‡à¤¨ðŸ™",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.455Z",
+  "updatedAt": "2026-07-26T00:55:52.456Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

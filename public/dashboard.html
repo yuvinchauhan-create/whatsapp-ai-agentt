@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuvin Chauhan — AI Sales Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05070f;
+      --card: rgba(13, 20, 40, 0.85);
+      --card2: rgba(18, 28, 55, 0.7);
+      --border: rgba(120, 100, 255, 0.12);
+      --border2: rgba(255,255,255,0.06);
+      --purple: #7c3aed;
+      --indigo: #4f46e5;
+      --pink: #ec4899;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --text: #f1f5f9;
+      --sub: #94a3b8;
+      --muted: #475569;
+      --grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+      --grad2: linear-gradient(135deg, #06b6d4 0%, #4f46e5 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 0% 0%, rgba(99,102,241,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(236,72,153,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.05) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: rgba(8,12,25,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-logo {
+      width: 42px; height: 42px;
+      background: var(--grad);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 25px rgba(124,58,237,0.5);
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 15px rgba(124,58,237,0.4); }
+      to { box-shadow: 0 0 35px rgba(236,72,153,0.6); }
+    }
+    .brand-text h1 { font-size: 18px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-text p { font-size: 11px; color: var(--sub); font-weight: 400; }
+
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
+    .live-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 14px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 30px;
+      font-size: 12px; font-weight: 700; color: #34d399;
+    }
+    .live-dot {
+      width: 7px; height: 7px; background: #34d399; border-radius: 50%;
+      box-shadow: 0 0 8px #34d399;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+
+    .btn {
+      padding: 9px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; border: none; display: flex; align-items: center; gap: 7px;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .btn-grad { background: var(--grad); color: #fff; box-shadow: 0 4px 20px rgba(124,58,237,0.35); }
+    .btn-grad:hover { transform: translateY(-1px); box-shadow: 0 6px 25px rgba(124,58,237,0.5); }
+    .btn-outline { background: rgba(255,255,255,0.05); border: 1px solid var(--border2); color: var(--sub); }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    .btn-danger { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); color: #f87171; }
+    .btn-danger.active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.25); color: #34d399; }
+    .btn-cyan { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.25); color: #22d3ee; }
+    .btn-cyan:hover { background: rgba(6,182,212,0.2); }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main { max-width: 1600px; margin: 28px auto; padding: 0 24px; }
+
+    /* ===== CATEGORY TABS ===== */
+    .tabs-wrap {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+      margin-bottom: 24px; scrollbar-width: none;
+    }
+    .tabs-wrap::-webkit-scrollbar { display: none; }
+
+    .tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 30px;
+      background: var(--card2); border: 1px solid var(--border2);
+      font-size: 13px; font-weight: 600; color: var(--sub);
+      cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    }
+    .tab:hover { border-color: rgba(124,58,237,0.3); color: var(--text); }
+    .tab.active { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 4px 20px rgba(124,58,237,0.4); }
+    .tab .cnt { background: rgba(0,0,0,0.3); padding: 2px 7px; border-radius: 12px; font-size: 11px; }
+
+    /* ===== METRICS ===== */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .metric:hover { transform: translateY(-2px); }
+    .metric::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--grad);
+    }
+    .metric-icon { font-size: 24px; margin-bottom: 8px; }
+    .metric-label { font-size: 11px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: 0.5px; }
+    .metric-val { font-size: 32px; font-weight: 800; margin-top: 4px; }
+    .metric-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .glow-purple { color: #a78bfa; }
+    .glow-pink { color: #f472b6; }
+    .glow-cyan { color: #22d3ee; }
+    .glow-green { color: #34d399; }
+    .glow-yellow { color: #fbbf24; }
+    .glow-red { color: #f87171; }
+    .glow-white { color: #f1f5f9; }
+
+    /* ===== SECTION CARD ===== */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .section-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border2);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .section-title { font-size: 15px; font-weight: 700; }
+
+    .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border2);
+      padding: 9px 14px 9px 36px;
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 13px;
+      width: 240px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: rgba(124,58,237,0.4); }
+    .search-box .search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 14px;
+    }
+
+    select.filter-sel {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border2);
+      padding: 9px 14px;
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      padding: 13px 16px;
+      font-size: 11px; font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--border2);
+      white-space: nowrap;
+    }
+    td {
+      padding: 14px 16px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top;
+    }
+    tr:hover td { background: rgba(255,255,255,0.018); }
+    tr:last-child td { border-bottom: none; }
+
+    .lead-phone { font-family: monospace; font-weight: 700; color: #818cf8; font-size: 13px; }
+    .lead-name { font-weight: 700; font-size: 14px; color: var(--text); }
+    .lead-source { font-size: 10px; font-weight: 600; color: var(--muted); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 5px; margin-top: 2px; display: inline-block; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 5px; max-width: 320px; }
+    .pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px 9px; border-radius: 6px;
+      font-size: 11px; color: #cbd5e1;
+    }
+    .pill b { color: #818cf8; }
+
+    /* email status badges */
+    .badge-sent { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .badge-failed { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .badge-pending { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+
+    .status-sel {
+      background: #0b1120;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 6px 10px;
+      border-radius: 8px; font-size: 12px; font-weight: 600;
+      cursor: pointer; outline: none; min-width: 140px;
+    }
+
+    .btn-view {
+      background: rgba(99,102,241,0.1);
+      color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2);
+      padding: 6px 13px; border-radius: 8px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-view:hover { background: #4f46e5; color: #fff; }
+
+    /* ===== MODAL ===== */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 200; display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      width: 95%; max-width: 1000px; height: 88vh;
+      border-radius: 22px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+      overflow: hidden;
+    }
+    .modal-head {
+      padding: 18px 24px;
+      background: linear-gradient(135deg, rgba(79,70,229,0.2) 0%, rgba(124,58,237,0.1) 100%);
+      border-bottom: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-head h3 { font-size: 15px; font-weight: 700; }
+    .btn-close { background: none; border: none; color: var(--sub); font-size: 26px; cursor: pointer; line-height: 1; }
+    .btn-close:hover { color: var(--text); }
+
+    .modal-body { display: flex; flex: 1; overflow: hidden; }
+
+    .profile-pane {
+      width: 300px; background: rgba(0,0,0,0.3);
+      border-right: 1px solid var(--border2);
+      padding: 22px; overflow-y: auto;
+    }
+    .profile-pane h4 {
+      font-size: 11px; font-weight: 700; color: #818cf8;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 16px;
+    }
+    .profile-field { margin-bottom: 14px; }
+    .profile-field label { font-size: 10px; color: var(--muted); text-transform: uppercase; display: block; margin-bottom: 2px; }
+    .profile-field span { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    .chat-pane {
+      flex: 1; padding: 20px; overflow-y: auto;
+      background: #060a14;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .bubble {
+      max-width: 78%;
+      padding: 11px 16px;
+      border-radius: 16px;
+      font-size: 13px; line-height: 1.6;
+    }
+    .bubble.user { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
+    .bubble.ai { align-self: flex-end; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+    .bubble-role { font-size: 11px; font-weight: 700; opacity: 0.6; margin-bottom: 4px; }
+
+    /* ===== IMPORT MODAL ===== */
+    .import-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 300; display: none;
+      align-items: center; justify-content: center;
+    }
+    .import-modal {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      width: 95%; max-width: 680px;
+      border-radius: 22px;
+      padding: 32px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+    }
+    .import-modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .import-modal p { font-size: 13px; color: var(--sub); margin-bottom: 16px; line-height: 1.6; }
+    .import-modal textarea {
+      width: 100%; height: 200px; padding: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border2);
+      border-radius: 12px; color: var(--text);
+      font-size: 12px; font-family: monospace;
+      resize: vertical; outline: none; margin-bottom: 12px;
+    }
+    .import-modal textarea:focus { border-color: rgba(124,58,237,0.4); }
+    .import-btns { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #1e293b; border: 1px solid var(--border2);
+      border-radius: 12px; padding: 14px 20px;
+      font-size: 14px; font-weight: 600;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      max-width: 360px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 3px solid #34d399; }
+    .toast.error { border-left: 3px solid #f87171; }
+    .toast.info { border-left: 3px solid #818cf8; }
+
+    /* ===== EMPTY STATE ===== */
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+    .empty h3 { font-size: 16px; font-weight: 700; color: var(--sub); }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 10px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      .main { padding: 0 12px; margin-top: 16px; }
+      .modal { height: 95vh; }
+      .profile-pane { display: none; }
+      .search-box input { width: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="brand">
+    <div class="brand-logo">🤖</div>
+    <div class="brand-text">
+      <h1>Yuvin Chauhan AI</h1>
+      <p>Sales Command Center & Lead CRM</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div><span id="aiStatusText">AI ACTIVE</span></div>
+    <button class="btn btn-danger active" id="toggleAiBtn" onclick="toggleAI()">⏸ Pause AI</button>
+    <button class="btn btn-cyan" onclick="openImport()">📥 Import Leads</button>
+    <a href="/api/export-csv" class="btn btn-outline">⬇️ Export CSV</a>
+    <button class="btn btn-grad" onclick="sendWebinarBlast()">🔴 8 PM Blast</button>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- Category Tabs -->
+  <div class="tabs-wrap" id="tabsWrap">
+    <div class="tab active" onclick="setTab('ALL')" id="tab-ALL">📋 All Leads <span class="cnt" id="cnt-ALL">0</span></div>
+    <div class="tab" onclick="setTab('New Lead')" id="tab-New Lead">✨ New Leads <span class="cnt" id="cnt-New Lead">0</span></div>
+    <div class="tab" onclick="setTab('Hot Lead')" id="tab-Hot Lead">🔥 Hot Leads <span class="cnt" id="cnt-Hot Lead">0</span></div>
+    <div class="tab" onclick="setTab('Warm Lead')" id="tab-Warm Lead">⚡ Warm Leads <span class="cnt" id="cnt-Warm Lead">0</span></div>
+    <div class="tab" onclick="setTab('Cold Lead')" id="tab-Cold Lead">❄️ Cold Leads <span class="cnt" id="cnt-Cold Lead">0</span></div>
+    <div class="tab" onclick="setTab('Webinar Joined')" id="tab-Webinar Joined">🔴 Webinar Joined <span class="cnt" id="cnt-Webinar Joined">0</span></div>
+    <div class="tab" onclick="setTab('Closed Sale')" id="tab-Closed Sale">💰 Closed Sales <span class="cnt" id="cnt-Closed Sale">0</span></div>
+    <div class="tab" onclick="setTab('Not Interested')" id="tab-Not Interested">❌ Not Interested <span class="cnt" id="cnt-Not Interested">0</span></div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-icon">👥</div>
+      <div class="metric-label">Total Leads</div>
+      <div class="metric-val glow-white" id="m-total">0</div>
+      <div class="metric-sub">All WhatsApp contacts</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">🔥</div>
+      <div class="metric-label">Hot Prospects</div>
+      <div class="metric-val glow-pink" id="m-hot">0</div>
+      <div class="metric-sub">Ready to convert</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">💰</div>
+      <div class="metric-label">Closed Sales</div>
+      <div class="metric-val glow-green" id="m-closed">0</div>
+      <div class="metric-sub">Paid customers</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">📧</div>
+      <div class="metric-label">Emails Sent</div>
+      <div class="metric-val glow-cyan" id="m-emails">0</div>
+      <div class="metric-sub">Welcome emails delivered</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">🔴</div>
+      <div class="metric-label">Webinar Joined</div>
+      <div class="metric-val glow-yellow" id="m-webinar">0</div>
+      <div class="metric-sub">Attended 8 PM session</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">💬</div>
+      <div class="metric-label">Total Messages</div>
+      <div class="metric-val glow-purple" id="m-msgs">0</div>
+      <div class="metric-sub">Total conversation turns</div>
+    </div>
+  </div>
+
+  <!-- Leads Table -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📊 Live Lead Database</div>
+      <div class="controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search name, phone, city, email..." oninput="renderTable()">
+        </div>
+        <select class="filter-sel" id="dateFilter" onchange="renderTable()">
+          <option value="ALL">🗓 All Time</option>
+          <option value="TODAY">📅 Today</option>
+          <option value="YESTERDAY">📅 Yesterday</option>
+          <option value="7DAYS">📅 Last 7 Days</option>
+          <option value="30DAYS">📅 Last 30 Days</option>
+        </select>
+        <select class="filter-sel" id="sortFilter" onchange="renderTable()">
+          <option value="NEWEST">↓ Newest First</option>
+          <option value="OLDEST">↑ Oldest First</option>
+          <option value="MESSAGES">💬 Most Messages</option>
+        </select>
+        <span id="tableCount" style="font-size:12px; color:var(--muted); font-weight:600;"></span>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Lead Info</th>
+            <th>Qualification Details</th>
+            <th>📧 Email Status</th>
+            <th>Last Seen</th>
+            <th>CRM Label</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="7"><div class="empty"><div class="empty-icon">⏳</div><h3>Loading lead data...</h3></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHAT MODAL ===== -->
+<div class="overlay" id="chatOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">💬 Lead Profile & Chat</h3>
+      <button class="btn-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="profile-pane">
+        <h4>📋 Qualification</h4>
+        <div class="profile-field"><label>Name</label><span id="pName">—</span></div>
+        <div class="profile-field"><label>Age</label><span id="pAge">—</span></div>
+        <div class="profile-field"><label>City</label><span id="pCity">—</span></div>
+        <div class="profile-field"><label>Occupation</label><span id="pOccupation">—</span></div>
+        <div class="profile-field"><label>Education</label><span id="pQualification">—</span></div>
+        <div class="profile-field"><label>Budget</label><span id="pBudget">—</span></div>
+        <div class="profile-field"><label>Dream / Reason</label><span id="pDream" style="font-size:12px;">—</span></div>
+        <div class="profile-field"><label>Email ID</label><span id="pEmail">—</span></div>
+        <div class="profile-field"><label>Welcome Email</label><span id="pEmailStatus">—</span></div>
+        <div class="profile-field"><label>Source</label><span id="pSource">—</span></div>
+        <div class="profile-field"><label>Phone</label><span id="pPhone" style="font-family:monospace; color:#818cf8;">—</span></div>
+      </div>
+      <div class="chat-pane" id="chatPane">
+        <div class="empty"><div class="empty-icon">💬</div><h3>Loading chat history...</h3></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== IMPORT MODAL ===== -->
+<div class="import-overlay" id="importOverlay">
+  <div class="import-modal">
+    <h2>📥 Import BotBiz Subscribers</h2>
+    <p>Apne BotBiz subscribers ko JSON format mein paste karo. Har subscriber mein <b>phone</b> field zaruri hai. Optional: name, email, city, status.</p>
+    <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 10px; padding: 14px; margin-bottom: 14px; font-size: 12px; font-family: monospace; color: #a5b4fc;">
+      Example Format:<br/>
+      [<br/>
+      &nbsp;&nbsp;{ "phone": "919876543210", "name": "Rahul", "email": "r@gmail.com", "city": "Delhi" },<br/>
+      &nbsp;&nbsp;{ "phone": "918708538708", "name": "Priya", "city": "Mumbai" }<br/>
+      ]
+    </div>
+    <textarea id="importJson" placeholder='[{"phone":"919876543210","name":"Rahul Sharma","email":"rahul@gmail.com","city":"Delhi"},...]'></textarea>
+    <div class="import-btns">
+      <button class="btn btn-outline" onclick="closeImport()">Cancel</button>
+      <button class="btn btn-grad" onclick="processImport()">📥 Import Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let allLeads = [];
+  let activeTab = 'ALL';
+  let aiEnabled = true;
+
+  // ===== DATA LOADING =====
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/stats');
+      const data = await res.json();
+      allLeads = (data.leads || []);
+      aiEnabled = data.aiEnabled;
+
+      const c = data.counts || {};
+      document.getElementById('m-total').innerText = data.totalLeads || 0;
+      document.getElementById('m-hot').innerText = c.hotLeads || 0;
+      document.getElementById('m-closed').innerText = c.closedSale || 0;
+      document.getElementById('m-emails').innerText = allLeads.filter(l => l.welcomeEmailStatus === 'SENT').length;
+      document.getElementById('m-webinar').innerText = c.webinarJoined || 0;
+      document.getElementById('m-msgs').innerText = data.totalMessages || 0;
+
+      const cnts = {
+        'ALL': data.totalLeads || 0,
+        'New Lead': c.newLeads || 0,
+        'Hot Lead': c.hotLeads || 0,
+        'Warm Lead': c.warmLeads || 0,
+        'Cold Lead': c.coldLeads || 0,
+        'Webinar Joined': c.webinarJoined || 0,
+        'Closed Sale': c.closedSale || 0,
+        'Not Interested': c.notInterested || 0,
+      };
+      Object.keys(cnts).forEach(k => {
+        const el = document.getElementById(`cnt-${k}`);
+        if (el) el.innerText = cnts[k];
+      });
+
+      updateAiUI();
+      renderTable();
+    } catch(e) { console.error(e); }
+  }
+
+  // ===== TABLE RENDER =====
+  function renderTable() {
+    const tbody = document.getElementById('tableBody');
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const df = document.getElementById('dateFilter').value;
+    const sf = document.getElementById('sortFilter').value;
+    const now = new Date();
+
+    let rows = allLeads.filter(l => {
+      if (activeTab !== 'ALL' && l.status !== activeTab) return false;
+      if (q) {
+        const p = l.profile || {};
+        const combo = [l.phone, l.leadName, p.city, p.email, l.email, p.name].join(' ').toLowerCase();
+        if (!combo.includes(q)) return false;
+      }
+      if (df !== 'ALL') {
+        const d = new Date(l.updatedAt);
+        const diff = (now - d) / 86400000;
+        if (df === 'TODAY' && d.toDateString() !== now.toDateString()) return false;
+        if (df === 'YESTERDAY') {
+          const yd = new Date(); yd.setDate(now.getDate()-1);
+          if (d.toDateString() !== yd.toDateString()) return false;
+        }
+        if (df === '7DAYS' && diff > 7) return false;
+        if (df === '30DAYS' && diff > 30) return false;
+      }
+      return true;
+    });
+
+    if (sf === 'OLDEST') rows.sort((a,b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+    else if (sf === 'MESSAGES') rows.sort((a,b) => (b.totalMessages||0) - (a.totalMessages||0));
+
+    document.getElementById('tableCount').innerText = `${rows.length} lead${rows.length !== 1 ? 's' : ''}`;
+
+    if (rows.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">🔍</div><h3>Koi lead nahi mila</h3></div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = rows.map((l, i) => {
+      const p = l.profile || {};
+      const dt = new Date(l.updatedAt).toLocaleString('en-IN', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:true});
+
+      let ebadge = `<span class="badge-pending">⏳ NOT SENT</span>`;
+      if (l.welcomeEmailStatus === 'SENT') ebadge = `<span class="badge-sent">✅ SENT</span>`;
+      else if (l.welcomeEmailStatus && l.welcomeEmailStatus.includes('FAILED')) ebadge = `<span class="badge-failed">❌ FAILED</span>`;
+
+      const source = l.source === 'BotBiz Import' ? '📥 Imported' : '💬 WhatsApp';
+
+      return `<tr>
+        <td style="color:var(--muted);font-size:12px;font-weight:700;">#${i+1}</td>
+        <td>
+          <div class="lead-phone">+${l.phone}</div>
+          <div class="lead-name">${esc(l.leadName || p.name || 'Lead')}</div>
+          <div class="lead-source">${source}</div>
+        </td>
+        <td>
+          <div class="pills">
+            ${p.age ? `<div class="pill">🎂 <b>Age:</b> ${p.age}</div>` : ''}
+            ${p.city ? `<div class="pill">📍 <b>City:</b> ${esc(p.city)}</div>` : ''}
+            ${p.occupation ? `<div class="pill">💼 <b>Occ:</b> ${esc(p.occupation)}</div>` : ''}
+            ${p.budget ? `<div class="pill">💰 <b>Budget:</b> ${esc(p.budget)}</div>` : ''}
+            ${p.email||l.email ? `<div class="pill">📧 ${esc(p.email||l.email)}</div>` : ''}
+            ${!p.age && !p.city && !p.budget ? `<span style="font-size:11px;color:var(--muted);">Collecting info...</span>` : ''}
+          </div>
+        </td>
+        <td>${ebadge}${(p.email||l.email) ? `<div style="font-size:10px;color:var(--muted);margin-top:3px;">${esc(p.email||l.email)}</div>` : ''}</td>
+        <td style="font-size:12px;color:var(--sub);white-space:nowrap;">${dt}<div style="font-size:10px;color:var(--muted);">${l.totalMessages||0} messages</div></td>
+        <td>
+          <select class="status-sel" onchange="updateStatus('${l.phone}', this.value)">
+            ${['New Lead','Hot Lead','Warm Lead','Cold Lead','Webinar Joined','Closed Sale','Not Interested'].map(s =>
+              `<option value="${s}" ${l.status===s?'selected':''}>${statusEmoji(s)} ${s}</option>`).join('')}
+          </select>
+        </td>
+        <td><button class="btn-view" onclick="openChat('${l.phone}')">💬 View Chat</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ===== TAB =====
+  function setTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${tab}`)?.classList.add('active');
+    renderTable();
+  }
+
+  // ===== STATUS UPDATE =====
+  async function updateStatus(phone, status) {
+    try {
+      await fetch('/api/update-lead-status', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ phone, status })
+      });
+      toast(`✅ Status updated to ${status}`, 'success');
+      loadStats();
+    } catch(e) { toast('❌ Failed to update', 'error'); }
+  }
+
+  // ===== CHAT MODAL =====
+  async function openChat(phone) {
+    document.getElementById('chatOverlay').style.display = 'flex';
+    document.getElementById('modalTitle').innerText = `💬 Lead Chat — +${phone}`;
+    document.getElementById('chatPane').innerHTML = `<div class="empty"><div class="empty-icon">⏳</div><h3>Loading...</h3></div>`;
+
+    try {
+      const res = await fetch(`/api/lead-history?phone=${phone}`);
+      const data = await res.json();
+      const p = data.profile || {};
+      const lead = allLeads.find(l => l.phone === phone) || {};
+
+      document.getElementById('pPhone').innerText = `+${phone}`;
+      document.getElementById('pName').innerText = p.name || lead.leadName || '—';
+      document.getElementById('pAge').innerText = p.age || '—';
+      document.getElementById('pCity').innerText = p.city || '—';
+      document.getElementById('pOccupation').innerText = p.occupation || '—';
+      document.getElementById('pQualification').innerText = p.qualification || '—';
+      document.getElementById('pBudget').innerText = p.budget || '—';
+      document.getElementById('pDream').innerText = p.dream || '—';
+      document.getElementById('pEmail').innerText = p.email || lead.email || '—';
+      document.getElementById('pEmailStatus').innerText = lead.welcomeEmailStatus || 'NOT SENT';
+      document.getElementById('pSource').innerText = lead.source || 'WhatsApp';
+
+      const hist = data.history || [];
+      if (hist.length === 0) {
+        document.getElementById('chatPane').innerHTML = `<div class="empty"><div class="empty-icon">💬</div><h3>No messages yet</h3></div>`;
+        return;
+      }
+      document.getElementById('chatPane').innerHTML = hist.map(m => `
+        <div class="bubble ${m.role === 'user' ? 'user' : 'ai'}">
+          <div class="bubble-role">${m.role === 'user' ? '👤 Lead' : '🤖 Yuvin AI'}</div>
+          ${esc(m.content)}
+        </div>`).join('');
+      document.getElementById('chatPane').scrollTop = 9999;
+    } catch(e) {
+      document.getElementById('chatPane').innerHTML = `<div class="empty"><div class="empty-icon">❌</div><h3>Failed to load</h3></div>`;
+    }
+  }
+  function closeModal() { document.getElementById('chatOverlay').style.display = 'none'; }
+
+  // ===== IMPORT =====
+  function openImport() { document.getElementById('importOverlay').style.display = 'flex'; }
+  function closeImport() { document.getElementById('importOverlay').style.display = 'none'; document.getElementById('importJson').value = ''; }
+
+  async function processImport() {
+    const raw = document.getElementById('importJson').value.trim();
+    if (!raw) return toast('JSON paste karo!', 'error');
+    let subs;
+    try { subs = JSON.parse(raw); }
+    catch(e) { return toast('❌ Invalid JSON format!', 'error'); }
+    if (!Array.isArray(subs)) return toast('❌ Array format chahiye!', 'error');
+
+    try {
+      const res = await fetch('/api/import-subscribers', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ subscribers: subs })
+      });
+      const data = await res.json();
+      toast(`✅ ${data.imported} leads imported! (${data.skipped} skipped)`, 'success');
+      closeImport();
+      loadStats();
+    } catch(e) { toast('❌ Import failed!', 'error'); }
+  }
+
+  // ===== WEBINAR BLAST =====
+  async function sendWebinarBlast() {
+    if (!confirm('8 PM Webinar Blast sabhi eligible leads ko bhejna chahte hain?')) return;
+    try {
+      const res = await fetch('/api/send-webinar-now', { method: 'POST' });
+      const data = await res.json();
+      toast(`🔴 Blast bheja: ${data.count} leads!`, 'success');
+      loadStats();
+    } catch(e) { toast('❌ Blast failed!', 'error'); }
+  }
+
+  // ===== AI TOGGLE =====
+  async function toggleAI() {
+    try {
+      const res = await fetch('/api/toggle-ai', { method: 'POST' });
+      const data = await res.json();
+      aiEnabled = data.aiEnabled;
+      updateAiUI();
+      toast(aiEnabled ? '✅ AI Agent Resumed!' : '⏸ AI Agent Paused!', 'info');
+    } catch(e) { toast('❌ Toggle failed!', 'error'); }
+  }
+  function updateAiUI() {
+    const btn = document.getElementById('toggleAiBtn');
+    const txt = document.getElementById('aiStatusText');
+    if (aiEnabled) {
+      btn.innerText = '⏸ Pause AI'; btn.className = 'btn btn-danger active';
+      txt.innerText = 'AI ACTIVE';
+    } else {
+      btn.innerText = '▶ Resume AI'; btn.className = 'btn btn-danger';
+      txt.innerText = 'AI PAUSED';
+    }
+  }
+
+  // ===== TOAST =====
+  function toast(msg, type='info') {
+    const el = document.getElementById('toast');
+    el.className = `toast ${type} show`;
+    el.innerText = msg;
+    setTimeout(() => el.classList.remove('show'), 3500);
+  }
+
+  // ===== HELPERS =====
+  function esc(t) {
+    if (!t) return '';
+    return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function statusEmoji(s) {
+    const m = { 'New Lead':'✨','Hot Lead':'🔥','Warm Lead':'⚡','Cold Lead':'❄️','Webinar Joined':'🔴','Closed Sale':'💰','Not Interested':'❌' };
+    return m[s] || '📋';
+  }
+
+  // Close modal on overlay click
+  document.getElementById('chatOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
+  document.getElementById('importOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeImport(); });
+
+  // Auto refresh every 5 seconds
+  setInterval(loadStats, 5000);
+  loadStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "phone": "917906387384",
+  "leadName": "Ã‡2",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "Ã‡2",
+    "age": "",
+    "city": "Bulandshahr",
+    "occupation": "STUDENT",
+    "qualification": "",
+    "budget": "11000",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:52.564Z",
+  "updatedAt": "2026-07-26T00:55:52.564Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}

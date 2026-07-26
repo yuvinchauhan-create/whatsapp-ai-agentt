@@ -1,0 +1,21 @@
+{
+  "phone": "919896987770",
+  "leadName": "ATUL BHATIA",
+  "status": "New Lead",
+  "welcomeEmailStatus": "NOT SENT",
+  "profile": {
+    "name": "ATUL BHATIA",
+    "age": "",
+    "city": "",
+    "occupation": "",
+    "qualification": "",
+    "budget": "",
+    "reason": "",
+    "dream": "",
+    "email": ""
+  },
+  "createdAt": "2026-07-26T00:55:54.629Z",
+  "updatedAt": "2026-07-26T00:55:54.629Z",
+  "history": [],
+  "source": "BotBiz CSV Import"
+}
