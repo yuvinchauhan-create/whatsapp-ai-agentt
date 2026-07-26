@@ -393,20 +393,27 @@ app.post('/webhook', async (req, res) => {
     const strText = String(text).trim();
     if (!strText) return;
 
-    if (strText.toUpperCase() === 'STOP' || strText.toUpperCase() === 'UNSUBSCRIBE') {
-      unsubscribedLeads.add(phone);
+    const upperText = strText.toUpperCase();
+    const isStopWord = upperText === 'STOP' || upperText === 'UNSUBSCRIBE' || upperText.includes('NOT INTERESTED') || upperText.includes('NAHI KARNA') || upperText.includes('IRRITATE') || upperText.includes('DON\'T MSG') || upperText.includes('MAT KARO MSG');
+
+    if (isStopWord) {
+      const record = getLeadRecord(phone);
+      record.aiDisabled = true; // Turn OFF AI agent for THIS specific lead only
+      record.status = 'Not Interested';
+      saveLeadRecord(phone, record);
       updateLeadStatus(phone, 'Not Interested');
-      if (followUpTimers[phone]) {
-        clearTimeout(followUpTimers[phone]);
-        delete followUpTimers[phone];
-      }
-      await sendMessage(phone, "Aapko reminders se unsubscribe kar diya gaya hai. Agar wapas start karna ho toh RESTART message bhejein. Thank you! 🙏");
-      console.log(`🛑 Lead ${phone} opted-out (STOP received)`);
+      cancelPerLeadFollowup(phone);
+
+      await sendMessage(phone, "Okay! Thank you. Aapko ab message nahi aayega. Good luck! 😊");
+      console.log(`🛑 AI Agent turned OFF for lead ${phone} (Opted out / STOP received)`);
       return;
     }
 
-    if (strText.toUpperCase() === 'RESTART') {
-      unsubscribedLeads.delete(phone);
+    if (upperText === 'RESTART' || upperText === 'START') {
+      const record = getLeadRecord(phone);
+      record.aiDisabled = false; // Turn AI BACK ON if requested
+      record.status = 'New Lead';
+      saveLeadRecord(phone, record);
       updateLeadStatus(phone, 'New Lead');
       await sendMessage(phone, "Aapka subscription wapas active ho gaya hai! 🎉 Main Yuvin Chauhan aapki help ke liye ready hoon.");
       return;
