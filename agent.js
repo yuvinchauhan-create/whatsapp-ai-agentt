@@ -134,13 +134,22 @@ async function handleMessage(phone, userMessage, leadName = '', customFields = {
       }
     }
 
+    const { detectGender, getRespectfulSalutation } = require('./gender');
+    const gender = record.profile.gender || detectGender(record.profile.name || record.leadName || leadName);
+    record.profile.gender = gender;
+    const salutation = getRespectfulSalutation(gender, record.leadName || record.profile.name);
+
     record.status = detectIntentStatus(userMessage, record.status);
 
-    console.log(`🤖 DeepSeek AI processing for ${record.leadName} (${phone}) [Profile Updated]...`);
+    console.log(`🤖 Groq AI processing for ${record.leadName} (${phone}) [Gender: ${gender.toUpperCase()}]...`);
 
     let leadContext = `
-LEAD QUALIFICATION PROFILE:
+LEAD QUALIFICATION PROFILE & RESPECT RULES:
 - Name: ${record.profile.name || record.leadName || 'Not known'}
+- Gender: ${gender.toUpperCase()}
+- Address As: "${salutation}"
+${gender === 'female' ? '⚠️ CRITICAL RULE: THIS LEAD IS FEMALE! Never use "bhai", "bro", "bro/bhai", "bhai/mam", or male slang! Address her ONLY as "Mam", "' + (record.leadName || 'Lead') + ' ji", or "Di"!' : ''}
+${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || 'Lead') + ' bhai".' : ''}
 - Age: ${record.profile.age || 'Not known'}
 - City: ${record.profile.city || 'Not known'}
 - Occupation: ${record.profile.occupation || 'Not known'}

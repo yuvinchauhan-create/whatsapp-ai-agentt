@@ -1,16 +1,16 @@
 // campaign.js — Webinar Follow-up Campaign Engine
-// Sends initial message to 100 leads, tracks replies, auto-follows up after 20 min
+// Gender-aware, history-preserving, personalized follow-ups
 
 const { getAllLeads, getLeadRecord, saveLeadRecord, updateLeadStatus } = require('./memory');
 const { sendMessage } = require('./whatsapp');
+const { detectGender, getRespectfulSalutation } = require('./gender');
 
 const campaignTimers = {}; // phone -> followup timer
-const campaignReplied = new Set(); // phones who replied to campaign
 
 // =============================================
-// CAMPAIGN MESSAGES
+// GENDER-AWARE DYNAMIC MESSAGES
 // =============================================
-const INITIAL_MSG = `Namaste! 🙏
+const INITIAL_MSG = (salutation) => `Namaste ${salutation}! 🙏
 
 Aapne hamare ad dekh ke contact kiya tha — aaj main seedha poochna chahta hoon:
 
@@ -22,7 +22,7 @@ Agar aap *sach mein apna online business shuru karna chahte hain* toh reply kare
 
 — Yuvin Chauhan | LeadsGuru Top Affiliate`;
 
-const FOLLOWUP_20MIN = `Bhai/Mam, abhi tak aapne reply nahi kiya... 😅
+const FOLLOWUP_20MIN = (salutation) => `${salutation}, abhi tak aapne reply nahi kiya... 😅
 
 Kam se kam itna toh bata do — *serious ho ya nahi?*
 
@@ -32,7 +32,7 @@ Reply karo — ek message bhejo. Main wait kar raha hoon. 🙏
 
 — Yuvin`;
 
-const WEBINAR_NOT_SEEN_MSG = (name) => `Koi baat nahi ${name || 'bhai'}! 😊
+const WEBINAR_NOT_SEEN_MSG = (salutation) => `Koi baat nahi ${salutation}! 😊
 
 Agar aap *sach mein serious ho* toh mujhe WhatsApp call karo — main aapko personally:
 ✅ Pura business samjha dunga
@@ -43,7 +43,7 @@ Agar aap *sach mein serious ho* toh mujhe WhatsApp call karo — main aapko pers
 
 Ya reply karo: *"I AM INTERESTED"* — main khud aapko call karunga! 🔥`;
 
-const WEBINAR_SEEN_MSG = (name) => `Wah! Achha hua aapne dekha ${name || ''}! 😊
+const WEBINAR_SEEN_MSG = (salutation) => `Wah! Achha hua aapne dekha ${salutation}! 😊
 
 Quick questions:
 1️⃣ *Pura dekha ya aadha?* (1.5 ghante ka tha)
@@ -57,7 +57,7 @@ Quick questions:
 
 Sach batao — *har problem ka solution hai!* 💪`;
 
-const OBJECTION_REPLY = (name) => `${name || 'Bhai'}, sun — 
+const OBJECTION_REPLY = (salutation) => `${salutation}, suniye — 
 
 Yahan *chhote-chhote bacche bhi ₹4,000-10,000 lagake shuru kar rahe hain* aur paise kama rahe hain! 
 
@@ -71,7 +71,7 @@ Agar *ek bhi chance dena chahte ho apni life ko* toh likho:
 
 Main aapko call karke sab clear kar dunga! 📞`;
 
-const FINAL_FOLLOWUP = (name) => `${name || 'Bhai/Mam'}, last baar pooch raha hoon —
+const FINAL_FOLLOWUP = (salutation) => `${salutation}, last baar pooch raha hoon —
 
 *Aap serious ho ya nahi?*
 
@@ -90,35 +90,38 @@ Yahan sirf dekho status story mein rehne se kuch nahi hoga. Jo action leta hai, 
 async function startWebinarCampaign(limit = 100) {
   const allLeads = getAllLeads();
   
-  // Filter: exclude already interested/closed, take first `limit`
   const targetLeads = allLeads
     .filter(l => !['Closed Sale', 'Not Interested', 'Hot Lead'].includes(l.status))
     .slice(0, limit);
 
-  console.log(`\n🚀 [CAMPAIGN STARTED] Targeting ${targetLeads.length} leads...`);
+  console.log(`\n🚀 [CAMPAIGN STARTED] Targeting ${targetLeads.length} leads with gender awareness...`);
 
   let count = 0;
   for (const lead of targetLeads) {
-    // Clear old conversation history for fresh start
     const record = getLeadRecord(lead.phone);
-    record.history = [];
+
+    // Auto-detect gender if not set
+    const gender = record.profile.gender || detectGender(record.leadName || record.profile.name);
+    record.profile.gender = gender;
+
+    // DO NOT WIPE CONVERSATION HISTORY — Keep full history intact for LLM context!
     record.campaignStatus = 'SENT';
     record.campaignSentAt = new Date();
     saveLeadRecord(lead.phone, record);
 
-    // Send initial message with 3-second gap between each
+    const salutation = getRespectfulSalutation(gender, record.leadName);
+
     try {
-      await sendMessage(lead.phone, INITIAL_MSG);
-      console.log(`✅ Campaign msg sent to ${lead.leadName} (${lead.phone})`);
+      await sendMessage(lead.phone, INITIAL_MSG(salutation));
+      console.log(`✅ Campaign msg sent to ${record.leadName} (${gender.toUpperCase()}) -> ${lead.phone}`);
       count++;
 
-      // Set 20-min follow-up timer
-      scheduleCampaignFollowup(lead.phone, lead.leadName, 1);
+      scheduleCampaignFollowup(lead.phone, salutation, 1);
     } catch (err) {
       console.error(`❌ Failed to send to ${lead.phone}:`, err.message);
     }
 
-    await sleep(3000); // 3 sec gap between messages to avoid spam block
+    await sleep(3000); // 3 sec gap
   }
 
   console.log(`\n✅ [CAMPAIGN COMPLETE] Sent to ${count} leads.`);
@@ -128,29 +131,29 @@ async function startWebinarCampaign(limit = 100) {
 // =============================================
 // SCHEDULE 20-MIN FOLLOW-UP
 // =============================================
-function scheduleCampaignFollowup(phone, name, attempt) {
+function scheduleCampaignFollowup(phone, salutation, attempt) {
   if (campaignTimers[phone]) clearTimeout(campaignTimers[phone]);
 
   campaignTimers[phone] = setTimeout(async () => {
-    // Check if lead replied
     const record = getLeadRecord(phone);
     const lastHistory = record.history || [];
     const lastUserMsg = lastHistory.filter(h => h.role === 'user').pop();
 
-    if (lastUserMsg) {
-      // They replied — don't send followup
+    if (lastUserMsg && new Date(lastUserMsg.timestamp || record.updatedAt) > new Date(record.campaignSentAt || 0)) {
       console.log(`✅ ${phone} already replied — skipping followup`);
       return;
     }
 
-    // No reply — send followup
+    const gender = record.profile.gender || detectGender(record.leadName);
+    const sal = salutation || getRespectfulSalutation(gender, record.leadName);
+
     if (attempt === 1) {
-      console.log(`⏰ [FOLLOWUP 1] Sending 20-min followup to ${phone}...`);
-      await sendMessage(phone, FOLLOWUP_20MIN);
-      scheduleCampaignFollowup(phone, name, 2); // Schedule 2nd followup
+      console.log(`⏰ [FOLLOWUP 1] Sending 20-min followup to ${phone} (${gender})...`);
+      await sendMessage(phone, FOLLOWUP_20MIN(sal));
+      scheduleCampaignFollowup(phone, sal, 2);
     } else if (attempt === 2) {
-      console.log(`⏰ [FOLLOWUP 2] Sending final followup to ${phone}...`);
-      await sendMessage(phone, FINAL_FOLLOWUP(name));
+      console.log(`⏰ [FOLLOWUP 2] Sending final followup to ${phone} (${gender})...`);
+      await sendMessage(phone, FINAL_FOLLOWUP(sal));
     }
 
     delete campaignTimers[phone];
@@ -158,7 +161,7 @@ function scheduleCampaignFollowup(phone, name, attempt) {
 }
 
 // =============================================
-// CANCEL FOLLOWUP WHEN LEAD REPLIES
+// CANCEL FOLLOWUP
 // =============================================
 function cancelCampaignFollowup(phone) {
   if (campaignTimers[phone]) {
@@ -174,26 +177,29 @@ function cancelCampaignFollowup(phone) {
 async function handleCampaignReply(phone, message, leadName) {
   const msg = message.toLowerCase().trim();
   const record = getLeadRecord(phone);
-  const name = record.leadName || leadName || '';
 
-  cancelCampaignFollowup(phone); // Cancel pending followup
+  const gender = record.profile.gender || detectGender(record.leadName || leadName);
+  record.profile.gender = gender;
+  const salutation = getRespectfulSalutation(gender, record.leadName || leadName);
+
+  cancelCampaignFollowup(phone);
 
   // "I AM INTERESTED" detection
-  if (msg.includes('i am interested') || msg.includes('interested') || msg.includes('haan') || msg.includes('yes') || msg.includes('han')) {
+  if (msg.includes('i am interested') || msg.includes('interested') || msg.includes('haan karna hai') || msg.includes('call karo')) {
     updateLeadStatus(phone, 'Hot Lead');
     record.campaignStatus = 'INTERESTED';
     record.interestedAt = new Date();
     saveLeadRecord(phone, record);
-    console.log(`🔥 HOT LEAD DETECTED: ${phone} (${name}) replied INTERESTED!`);
+    console.log(`🔥 HOT LEAD DETECTED: ${phone} (${salutation}) replied INTERESTED!`);
 
-    await sendMessage(phone, `Bahut Badiya ${name}! 🔥
+    await sendMessage(phone, `Bahut Badiya ${salutation}! 🔥
 
 Main Yuvin Chauhan aapko *personally call karunga* aaj hi!
 
-Tab tak aap ye watch karo:
+Tab tak aap mera YouTube check kar sakte ho:
 👉 https://www.youtube.com/@yuvinchauhann
 
-Aur apna naam + best time for call reply karo! 📞`);
+Aur call ke liye best time reply kar dijiye! 📞`);
     return 'INTERESTED';
   }
 
@@ -201,16 +207,16 @@ Aur apna naam + best time for call reply karo! 📞`);
   if (msg.includes('dekha') || msg.includes('dekh') || msg.includes('watched') || msg.includes('seen')) {
     record.campaignStatus = 'WEBINAR_SEEN';
     saveLeadRecord(phone, record);
-    await sendMessage(phone, WEBINAR_SEEN_MSG(name));
-    scheduleCampaignFollowup(phone, name, 2);
+    await sendMessage(phone, WEBINAR_SEEN_MSG(salutation));
+    scheduleCampaignFollowup(phone, salutation, 2);
     return 'WEBINAR_SEEN';
   }
 
   if (msg.includes('nahi dekha') || msg.includes('nahin') || msg.includes('nhi') || msg.includes('not seen') || msg.includes('nhi dekha')) {
     record.campaignStatus = 'WEBINAR_NOT_SEEN';
     saveLeadRecord(phone, record);
-    await sendMessage(phone, WEBINAR_NOT_SEEN_MSG(name));
-    scheduleCampaignFollowup(phone, name, 2);
+    await sendMessage(phone, WEBINAR_NOT_SEEN_MSG(salutation));
+    scheduleCampaignFollowup(phone, salutation, 2);
     return 'WEBINAR_NOT_SEEN';
   }
 
@@ -218,8 +224,8 @@ Aur apna naam + best time for call reply karo! 📞`);
   if (msg.includes('paisa') || msg.includes('paise') || msg.includes('trust') || msg.includes('darr') || msg.includes('samajh') || msg.includes('problem') || msg.includes('doubt')) {
     record.campaignStatus = 'OBJECTION';
     saveLeadRecord(phone, record);
-    await sendMessage(phone, OBJECTION_REPLY(name));
-    scheduleCampaignFollowup(phone, name, 2);
+    await sendMessage(phone, OBJECTION_REPLY(salutation));
+    scheduleCampaignFollowup(phone, salutation, 2);
     return 'OBJECTION';
   }
 
@@ -228,15 +234,15 @@ Aur apna naam + best time for call reply karo! 📞`);
     updateLeadStatus(phone, 'Not Interested');
     record.campaignStatus = 'NOT_INTERESTED';
     saveLeadRecord(phone, record);
-    await sendMessage(phone, `Theek hai ${name}! Koi baat nahi 🙏\n\nAapko unsubscribe kar diya gaya. Kabhi bhi wapas aana chahein toh reply karein "START". Good luck! 😊`);
+    await sendMessage(phone, `Theek hai ${salutation}! Koi baat nahi 🙏\n\nAapko unsubscribe kar diya gaya hai. Good luck! 😊`);
     return 'NOT_INTERESTED';
   }
 
   // Generic reply — ask webinar question
   record.campaignStatus = 'REPLIED';
   saveLeadRecord(phone, record);
-  await sendMessage(phone, `Shukriya reply karne ke liye ${name}! 😊\n\nEk quick sawal: *Aapne hamare 8 PM ya 2 PM wala Live Webinar dekha hai?*\n\n✅ Haan dekha\n❌ Nahi dekha`);
-  scheduleCampaignFollowup(phone, name, 2);
+  await sendMessage(phone, `Shukriya reply karne ke liye ${salutation}! 😊\n\nEk quick sawal: *Aapne hamare 8 PM ya 2 PM wala Live Webinar dekha hai?*\n\n✅ Haan dekha\n❌ Nahi dekha`);
+  scheduleCampaignFollowup(phone, salutation, 2);
   return 'REPLIED';
 }
 
