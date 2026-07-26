@@ -15,24 +15,8 @@
     "email": "yuvindatashiva@gmail.com"
   },
   "createdAt": "2026-07-26T00:27:03.096Z",
-  "updatedAt": "2026-07-26T02:23:05.833Z",
+  "updatedAt": "2026-07-26T02:29:19.268Z",
   "history": [
-    {
-      "role": "user",
-      "content": "Kya"
-    },
-    {
-      "role": "assistant",
-      "content": "Bhai, aapka naam kya hai? Aur \"Mam\" ya \"Bhai\" bolte hain? Bas ek baar batao, agla step wahi se jayega! 🙌\n\nBhai, aapka naam kya hai? Aur \"Mam\" ya \"Bhai\" bolte hain? Bas ek baar batao, agla step wahi se jayega! 🙌"
-    },
-    {
-      "role": "user",
-      "content": "Ok"
-    },
-    {
-      "role": "assistant",
-      "content": "Bhai, \"Kya\" poocha? 😄 Bas itna bata do:  \n**Aapka naam boloonga toh main aapko \"Mam\" ya \"Bhai\" bol sakta hoon.**  \nName bolo! 👇"
-    },
     {
       "role": "user",
       "content": "Kartik"
@@ -136,6 +120,22 @@
     {
       "role": "assistant",
       "content": "**Kya aap jaanna chahte hain ki hum kaise kaam karte hain?**"
+    },
+    {
+      "role": "user",
+      "content": "Yes"
+    },
+    {
+      "role": "assistant",
+      "content": "Main logo ko Digital Marketing aur Social Media ke zariye earning karna sikhata hoon. **Kya aap jaanna chahte hain ki isse paise kaise kamaye jaate hain?**"
+    },
+    {
+      "role": "user",
+      "content": "Yes"
+    },
+    {
+      "role": "assistant",
+      "content": "Iska poora system main aapko ek **8 PM Live Webinar** mein samjhata hoon. **Kya aap aaj raat 8 baje webinar dekh payenge?**"
     }
   ],
   "email": "yuvindatashiva@gmail.com",

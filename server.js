@@ -13,6 +13,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 3000;
 
+// Root route -> serve CRM Dashboard
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'WhatsApp AI Agent is Running 🚀' });
+});
+
 // System state
 let aiEnabled = true;
 const processedMessages = new Set();
