@@ -312,14 +312,47 @@ app.post('/webhook', async (req, res) => {
   try {
     const body = req.body;
 
-    const phone = body.chat_id;
-    const text = body.user_message;
-    const messageId = body.wa_message_id;
-    const leadName = body.first_name || 'Lead';
-    const customFields = body.custom_fields || {};
+    // DEBUG: Log every incoming webhook payload on Render to diagnose format
+    console.log('📥 RAW BOTBIZ WEBHOOK PAYLOAD:', JSON.stringify(body));
+
+    // Support ALL possible BotBiz field name variants
+    const phone = (
+      body.chat_id ||
+      body.phone ||
+      body.from ||
+      body.contact?.phone ||
+      body.subscriber?.phone ||
+      (body.contact && body.contact.wa_id) ||
+      ''
+    ).toString().replace(/\D/g, '');
+
+    const text = (
+      body.user_message ||
+      body.message ||
+      body.text ||
+      body.body ||
+      (body.messages && body.messages[0]?.text?.body) ||
+      ''
+    );
+
+    const messageId = body.wa_message_id || body.message_id || body.id || null;
+
+    const leadName = (
+      body.first_name ||
+      body.name ||
+      body.contact_name ||
+      body.subscriber?.name ||
+      body.contact?.name ||
+      'Lead'
+    );
+
+    const customFields = body.custom_fields || body.fields || {};
     const leadEmail = customFields.EMAIL || customFields.email || body.email || null;
 
-    if (!phone || !text) return;
+    if (!phone || !text) {
+      console.log('⚠️ Webhook missing phone or text — payload was:', JSON.stringify(body));
+      return;
+    }
     const strText = String(text).trim();
     if (!strText) return;
 
