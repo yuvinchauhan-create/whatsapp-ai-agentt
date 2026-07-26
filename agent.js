@@ -153,33 +153,52 @@ LEAD QUALIFICATION PROFILE:
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
 
     const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-    const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat:free';
+    const PRIMARY_MODEL = process.env.OPENROUTER_MODEL || 'google/gemma-4-26b-a4b-it:free';
 
-    let response;
+    // Multiple free models as fallback - if one hits rate limit, next is tried
+    const FREE_MODELS = [
+      PRIMARY_MODEL,
+      'inclusionai/ling-3.0-flash:free',
+      'meta-llama/llama-3.1-8b-instruct:free',
+      'mistralai/mistral-7b-instruct:free',
+      'microsoft/phi-3-mini-128k-instruct:free'
+    ];
+
+    let response = null;
 
     if (OPENROUTER_API_KEY) {
-      // Use OpenRouter (Supports FREE models like deepseek/deepseek-chat:free)
-      response = await axios.post(
-        'https://openrouter.ai/api/v1/chat/completions',
-        {
-          model: OPENROUTER_MODEL,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            ...history
-          ],
-          max_tokens: 300,
-          temperature: 0.85
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-            'HTTP-Referer': 'http://localhost:3000',
-            'X-Title': 'WhatsApp AI CRM Agent',
-            'Content-Type': 'application/json'
-          },
-          timeout: 20000
+      for (const model of FREE_MODELS) {
+        try {
+          console.log(`🤖 Trying model: ${model}...`);
+          response = await axios.post(
+            'https://openrouter.ai/api/v1/chat/completions',
+            {
+              model,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                ...history
+              ],
+              max_tokens: 300,
+              temperature: 0.85
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+                'HTTP-Referer': 'https://whatsapp-ai-agentt.onrender.com',
+                'X-Title': 'WhatsApp AI CRM Agent',
+                'Content-Type': 'application/json'
+              },
+              timeout: 20000
+            }
+          );
+          console.log(`✅ Model OK: ${model}`);
+          break; // Success - stop trying more models
+        } catch (modelErr) {
+          const errMsg = modelErr.response?.data?.error?.message || modelErr.message;
+          console.warn(`⚠️ Model ${model} failed: ${errMsg} — trying next...`);
+          if (model === FREE_MODELS[FREE_MODELS.length - 1]) throw modelErr;
         }
-      );
+      }
     } else {
       // Direct DeepSeek API Fallback
       response = await axios.post(
@@ -195,7 +214,7 @@ LEAD QUALIFICATION PROFILE:
         },
         {
           headers: {
-            Authorization: `Bearer ${DEEPSEEK_API_KEY}`,
+            Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
             'Content-Type': 'application/json'
           },
           timeout: 15000
