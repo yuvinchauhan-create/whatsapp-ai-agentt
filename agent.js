@@ -203,7 +203,30 @@ LEAD QUALIFICATION PROFILE:
       );
     }
 
-    const reply = response.data.choices[0].message.content.trim();
+    let reply = response.data.choices[0].message.content.trim();
+
+    // 1. Remove XML/HTML style reasoning tags like <think>...</think> or <thought>...</thought>
+    reply = reply.replace(/<(think|thought|reasoning)>[\s\S]*?<\/\1>/gi, '').trim();
+
+    // 2. Remove lines starting with "User Safety:", "Response Safety:", "Note:", "Thinking:"
+    const lines = reply.split('\n');
+    const cleanLines = lines.filter(line => {
+      const l = line.trim().toLowerCase();
+      if (l.startsWith('user safety:') || l.startsWith('response safety:') || l.startsWith('note:') || l.startsWith('thinking:')) return false;
+      if (l.startsWith('we need to respond') || l.startsWith('the user is asking') || l.startsWith('okay, let me')) return false;
+      return true;
+    });
+
+    reply = cleanLines.join('\n').trim();
+
+    // 3. Fallback: If reply still has double breaks after meta header, take last section
+    if (reply.includes('\n\n')) {
+      const sections = reply.split('\n\n');
+      const lastSection = sections[sections.length - 1].trim();
+      if (lastSection.length > 5 && !lastSection.toLowerCase().includes('user safety:')) {
+        reply = lastSection;
+      }
+    }
 
     history.push({ role: 'assistant', content: reply });
     record.history = history;

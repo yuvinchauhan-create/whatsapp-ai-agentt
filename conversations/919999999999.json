@@ -6,7 +6,7 @@
   "profile": {
     "name": "",
     "age": "",
-    "city": "",
+    "city": "Cour",
     "occupation": "",
     "qualification": "",
     "budget": "",
@@ -15,7 +15,7 @@
     "email": ""
   },
   "createdAt": "2026-07-26T01:17:13.118Z",
-  "updatedAt": "2026-07-26T01:43:37.874Z",
+  "updatedAt": "2026-07-26T02:13:49.530Z",
   "history": [
     {
       "role": "user",
@@ -32,6 +32,14 @@
     {
       "role": "assistant",
       "content": "Arre bhaiya! Test karne wala kyaa? 😄 Mere saath kiya"
+    },
+    {
+      "role": "user",
+      "content": "Hi Yuvin bhai, detail batao course ki"
+    },
+    {
+      "role": "assistant",
+      "content": "Aur aap abhi kya karte hain—Student hain ya koi Job/Business karte hain?"
     }
   ]
 }
