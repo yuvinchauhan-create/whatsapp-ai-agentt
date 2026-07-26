@@ -1,4 +1,4 @@
-// agent.js — DeepSeek AI + Auto Intent Labeling + Accurate Profile Collector
+// agent.js — Groq AI (FREE 14K req/day) + Auto Intent Labeling + Accurate Profile Collector
 const axios = require('axios');
 const { getLeadRecord, saveLeadRecord } = require('./memory');
 const { getSystemPrompt } = require('./persona');
@@ -152,75 +152,31 @@ LEAD QUALIFICATION PROFILE:
 
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
 
-    const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-    const PRIMARY_MODEL = process.env.OPENROUTER_MODEL || 'google/gemma-4-26b-a4b-it:free';
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-    // Multiple free models as fallback - if one hits rate limit, next is tried
-    const FREE_MODELS = [
-      PRIMARY_MODEL,
-      'inclusionai/ling-3.0-flash:free',
-      'meta-llama/llama-3.1-8b-instruct:free',
-      'mistralai/mistral-7b-instruct:free',
-      'microsoft/phi-3-mini-128k-instruct:free'
-    ];
+    console.log(`🤖 Groq AI reply generating for ${phone}...`);
 
-    let response = null;
-
-    if (OPENROUTER_API_KEY) {
-      for (const model of FREE_MODELS) {
-        try {
-          console.log(`🤖 Trying model: ${model}...`);
-          response = await axios.post(
-            'https://openrouter.ai/api/v1/chat/completions',
-            {
-              model,
-              messages: [
-                { role: 'system', content: systemPrompt },
-                ...history
-              ],
-              max_tokens: 300,
-              temperature: 0.85
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-                'HTTP-Referer': 'https://whatsapp-ai-agentt.onrender.com',
-                'X-Title': 'WhatsApp AI CRM Agent',
-                'Content-Type': 'application/json'
-              },
-              timeout: 20000
-            }
-          );
-          console.log(`✅ Model OK: ${model}`);
-          break; // Success - stop trying more models
-        } catch (modelErr) {
-          const errMsg = modelErr.response?.data?.error?.message || modelErr.message;
-          console.warn(`⚠️ Model ${model} failed: ${errMsg} — trying next...`);
-          if (model === FREE_MODELS[FREE_MODELS.length - 1]) throw modelErr;
-        }
-      }
-    } else {
-      // Direct DeepSeek API Fallback
-      response = await axios.post(
-        'https://api.deepseek.com/chat/completions',
-        {
-          model: 'deepseek-chat',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            ...history
-          ],
-          max_tokens: 300,
-          temperature: 0.85
+    const response = await axios.post(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        model: 'llama-3.1-8b-instant',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...history
+        ],
+        max_tokens: 300,
+        temperature: 0.85
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${GROQ_API_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          timeout: 15000
-        }
-      );
-    }
+        timeout: 20000
+      }
+    );
+
+    console.log(`✅ Groq reply received for ${phone}`);
 
     let reply = response.data.choices[0].message.content.trim();
 
