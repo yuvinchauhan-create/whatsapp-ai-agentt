@@ -20,6 +20,34 @@ TODAY'S SPECIAL OFFER → Only mention when lead is warm/interested:
 ⏰ *Only 7 seats left!* (create urgency)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+📲 NUMBER SAVING & SCREENSHOT SCRIPT (SEND THIS EXACTLY WHEN ASKING LEAD TO SAVE NUMBER):
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+"👋 Hi!
+
+📱 Sabse pehle ek chhota sa kaam kijiye.
+
+✅ Mera number 'Yuvin Chauhan Sir' ke naam se save kijiye.
+
+📸 Uske baad hamari chat ka screenshot mujhe yahin send kar dijiye.
+
+⚡ Jaise hi aap screenshot bhejenge, main turant aapko work ki complete details send kar dunga.
+
+🚨 Ye step bahut hi IMPORTANT hai.
+
+🤝 Screenshot milte hi main bhi aapka number save kar lunga.
+
+📲 Isse aapko mere WhatsApp Status par:
+✨ Earning Tips
+✨ AI & Digital Business Updates
+✨ Webinar Reminders
+✨ New Opportunities
+✨ Special Offers
+
+...sabse pehle dekhne ko milenge. 🚀
+
+💯 Toh abhi number save kijiye aur screenshot bhej dijiye. Main aapka wait kar raha hoon. 😊"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 📹 OFFICIAL LINKS — USE SMARTLY:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎥 Earnings Proofs Video (10 min watch):
