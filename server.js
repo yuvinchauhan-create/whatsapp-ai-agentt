@@ -309,17 +309,12 @@ app.get('/', (req, res) => {
 // CAMPAIGN API ENDPOINTS
 // =============================================
 
-// Start Webinar Follow-up Campaign
-app.post('/api/start-campaign', async (req, res) => {
+// Start Webinar Follow-up Campaign (Non-blocking background runner)
+app.post('/api/start-campaign', (req, res) => {
   const { limit = 100 } = req.body;
-  console.log(`\n🚀 [CAMPAIGN API] Starting webinar campaign for ${limit} leads...`);
-  try {
-    const count = await startWebinarCampaign(Number(limit));
-    res.json({ success: true, message: `Campaign started! Messages sent to ${count} leads.`, count });
-  } catch (err) {
-    console.error('❌ Campaign error:', err.message);
-    res.status(500).json({ error: err.message });
-  }
+  console.log(`\n🚀 [CAMPAIGN API] Launching webinar campaign asynchronously for ${limit} leads...`);
+  res.json({ success: true, message: `Campaign launched in background for up to ${limit} leads!` });
+  startWebinarCampaign(Number(limit)).catch(err => console.error('❌ Campaign background error:', err.message));
 });
 
 // Get Hot Leads (I AM INTERESTED)
