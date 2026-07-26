@@ -428,6 +428,11 @@ app.post('/webhook', async (req, res) => {
     knownLeads.set(phone, { leadName, email: leadEmail, lastSeen: new Date() });
 
     const leadRec = getLeadRecord(phone);
+    const nowTime = new Date();
+    leadRec.lastUserMsgAt = nowTime;
+    leadRec.windowExpiresAt = new Date(nowTime.getTime() + (24 * 60 * 60 * 1000)); // 24 Hours window
+    saveLeadRecord(phone, leadRec);
+
     if (leadEmail && leadRec.welcomeEmailStatus !== 'SENT') {
       console.log(`📧 Sending Welcome Email to ${leadEmail}...`);
       sendWelcomeEmail(leadEmail, leadName);
