@@ -34,6 +34,18 @@ const followUpTimers = {};
 
 let last759RunDate = '';
 
+let broadcastTracker = {
+  isRunning: false,
+  startTime: null,
+  endTime: null,
+  totalTarget: 0,
+  sentCount: 0,
+  pendingCount: 0,
+  skippedCount: 0,
+  failedCount: 0,
+  leadDetails: []
+};
+
 // =============================================
 // REFINED 7:59 PM DAILY WEBINAR REMINDER BROADCAST
 // =============================================
@@ -59,12 +71,41 @@ Toh apna time waste mat kijiye! Apne doubts clear karne ke liye mujhe *ABHI CALL
 }
 
 async function triggerDaily759Broadcast() {
+  if (broadcastTracker.isRunning) {
+    console.log('⚠️ Broadcast already in progress — skipping duplicate trigger');
+    return broadcastTracker.sentCount;
+  }
+
   const leads = getAllLeads();
   console.log(`\n📢 [7:59 PM DAILY BROADCAST STARTED] Broadcasting to ${leads.length} leads...`);
-  let count = 0;
 
-  for (const lead of leads) {
+  broadcastTracker = {
+    isRunning: true,
+    startTime: new Date(),
+    endTime: null,
+    totalTarget: leads.length,
+    sentCount: 0,
+    pendingCount: leads.length,
+    skippedCount: 0,
+    failedCount: 0,
+    leadDetails: leads.map(l => ({
+      phone: l.phone,
+      name: l.leadName || 'Lead',
+      status: 'PENDING',
+      sentAt: null,
+      error: null
+    }))
+  };
+
+  for (let i = 0; i < leads.length; i++) {
+    const lead = leads[i];
+    const detail = broadcastTracker.leadDetails[i];
+
     if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested' || lead.aiDisabled) {
+      detail.status = 'SKIPPED';
+      detail.error = 'Unsubscribed or Not Interested';
+      broadcastTracker.skippedCount++;
+      broadcastTracker.pendingCount--;
       continue;
     }
 
@@ -72,17 +113,26 @@ async function triggerDaily759Broadcast() {
 
     try {
       await sendMessage(lead.phone, msg);
-      count++;
+      detail.status = 'SENT';
+      detail.sentAt = new Date();
+      broadcastTracker.sentCount++;
+      broadcastTracker.pendingCount--;
       console.log(`✅ [7:59 PM REMINDER] Sent to ${lead.leadName} (${lead.phone})`);
     } catch (err) {
+      detail.status = 'FAILED';
+      detail.error = err.message;
+      broadcastTracker.failedCount++;
+      broadcastTracker.pendingCount--;
       console.error(`❌ Failed 7:59 PM reminder to ${lead.phone}:`, err.message);
     }
 
     await sleep(1500); // 1.5s gap between sends
   }
 
-  console.log(`\n🎉 [7:59 PM DAILY BROADCAST COMPLETE] Sent to ${count} leads!`);
-  return count;
+  broadcastTracker.isRunning = false;
+  broadcastTracker.endTime = new Date();
+  console.log(`\n🎉 [7:59 PM DAILY BROADCAST COMPLETE] Sent to ${broadcastTracker.sentCount} leads!`);
+  return broadcastTracker.sentCount;
 }
 
 // Check every 60 seconds if current time is 7:59 PM IST (19:59)
@@ -338,6 +388,11 @@ app.post('/api/trigger-759-broadcast', (req, res) => {
   console.log(`\n📢 [API TRIGGER] Launching 7:59 PM Daily Broadcast asynchronously...`);
   res.json({ success: true, message: '7:59 PM Daily Broadcast launched in background!' });
   triggerDaily759Broadcast().catch(err => console.error('❌ Broadcast background error:', err.message));
+});
+
+// Get 8 PM Broadcast Live Tracker Stats
+app.get('/api/broadcast-tracker-stats', (req, res) => {
+  res.json(broadcastTracker);
 });
 
 // Get Hot Leads (I AM INTERESTED)
