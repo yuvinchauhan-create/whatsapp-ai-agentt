@@ -35,56 +35,6 @@ const followUpTimers = {};
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // =============================================
-// WEBINAR BLAST FUNCTION
-// =============================================
-async function triggerWebinarBlast() {
-  const leads = getAllLeads();
-  console.log(`\n🔴 [WEBINAR BLAST STARTED] Broadcasting to ${leads.length} leads with safety delays...`);
-  let count = 0;
-
-  const webinarBanner = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80";
-  const webinarLink = "https://www.zoom.com/8pm-meeting";
-
-  for (const lead of leads) {
-    if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested') {
-      console.log(`⏭️ Skipping unsubscribed/not interested lead: ${lead.phone}`);
-      continue;
-    }
-
-    updateLeadStatus(lead.phone, 'Webinar Joined');
-
-    const waMsg = 
-`🔴 *EXCLUSIVE 8 PM LIVE WEBINAR!* 🚀
-
-Hi ${lead.leadName || 'Friend'},
-
-Aaj raat *8:00 PM* Yuvin Chauhan ka Exclusive Masterclass start hone wala hai! 
-
-Is session mein seekho kaise 5 saal mein *₹15 Lakh+* earn kiya gaya aur aap kaise start kar sakte ho.
-
-🖼️ *Banner:* ${webinarBanner}
-🔗 *Join Zoom Link:* ${webinarLink}
-
-⚠️ *Note:* Seats limited hain, 5 mins pehle join kar lena!
-
----
-🛑 *Reply STOP to unsubscribe from reminders anytime.*`;
-
-    await sendMessage(lead.phone, waMsg);
-    count++;
-
-    if (lead.email) {
-      await sendWebinarReminderEmail(lead.email, lead.leadName, webinarLink);
-    }
-
-    await sleep(1500);
-  }
-
-  console.log(`✅ [WEBINAR BLAST COMPLETE] Sent to ${count} leads safely.`);
-  return count;
-}
-
-// =============================================
 // DASHBOARD & CRM API ROUTES
 // =============================================
 app.get('/dashboard', (req, res) => {
@@ -268,10 +218,7 @@ app.get('/api/export-csv', (req, res) => {
   res.send(csv);
 });
 
-app.post('/api/send-webinar-now', async (req, res) => {
-  const count = await triggerWebinarBlast();
-  res.json({ success: true, count });
-});
+
 
 // =============================================
 // TEST SIMULATION FOR LEAD 8708538708
