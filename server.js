@@ -32,7 +32,76 @@ const knownLeads = new Map();
 const unsubscribedLeads = new Set();
 const followUpTimers = {};
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let last759RunDate = '';
+
+// =============================================
+// REFINED 7:59 PM DAILY WEBINAR REMINDER BROADCAST
+// =============================================
+function get759ReminderMsg(leadName) {
+  const nameStr = leadName && leadName !== 'Lead' && leadName !== 'Subscriber' ? ` ${leadName}` : '';
+  return `🚨 *LAST REMINDER: 8:00 PM MEETING START HONE WALA HAI!* 🚀
+
+Namaste${nameStr}! 🙏
+
+Aaj raat *8:00 PM* ko hamara Special Live Workshop start hone wala hai jisme A to Z poora business aur earning process samjhaya jayega!
+
+👉 *Agar abhi tak WhatsApp Community join nahi kiya hai, toh abhi JOIN karo:*
+https://chat.whatsapp.com/GnC3hTbpeT4AR3DsgANnBp
+*(Meeting ka Zoom link issi group mein aayega — Join Fast! ⚡)*
+
+💬 *Agar aap pehle se Community mein ho:*
+Toh abhi Community message check kijiye, meeting link bhej diya gaya hai! Join karke poora kaam samjhiye.
+
+💡 *Agar aapne pehle Webinar dekh liya hai:*
+Toh apna time waste mat kijiye! Apne doubts clear karne ke liye mujhe *ABHI CALL KARO: 9217958980* aur aaj hi apna business & daily earning start karo! 🔥
+
+— Yuvin Chauhan | LeadsGuru Top Affiliate`;
+}
+
+async function triggerDaily759Broadcast() {
+  const leads = getAllLeads();
+  console.log(`\n📢 [7:59 PM DAILY BROADCAST STARTED] Broadcasting to ${leads.length} leads...`);
+  let count = 0;
+
+  for (const lead of leads) {
+    if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested' || lead.aiDisabled) {
+      continue;
+    }
+
+    const msg = get759ReminderMsg(lead.leadName);
+
+    try {
+      await sendMessage(lead.phone, msg);
+      count++;
+      console.log(`✅ [7:59 PM REMINDER] Sent to ${lead.leadName} (${lead.phone})`);
+    } catch (err) {
+      console.error(`❌ Failed 7:59 PM reminder to ${lead.phone}:`, err.message);
+    }
+
+    await sleep(1500); // 1.5s gap between sends
+  }
+
+  console.log(`\n🎉 [7:59 PM DAILY BROADCAST COMPLETE] Sent to ${count} leads!`);
+  return count;
+}
+
+// Check every 60 seconds if current time is 7:59 PM IST (19:59)
+setInterval(() => {
+  const now = new Date();
+  // Format IST time
+  const istOffset = 5.5 * 60 * 60 * 1000;
+  const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
+  
+  const hours = istDate.getHours();
+  const minutes = istDate.getMinutes();
+  const dateStr = istDate.toISOString().split('T')[0];
+
+  if (hours === 19 && minutes === 59 && last759RunDate !== dateStr) {
+    last759RunDate = dateStr;
+    console.log(`⏰ [7:59 PM CRON TRIGGERED] Running daily 7:59 PM webinar broadcast for date: ${dateStr}`);
+    triggerDaily759Broadcast();
+  }
+}, 60000);
 
 // =============================================
 // DASHBOARD & CRM API ROUTES
@@ -262,6 +331,13 @@ app.post('/api/start-campaign', (req, res) => {
   console.log(`\n🚀 [CAMPAIGN API] Launching webinar campaign asynchronously for ${limit} leads...`);
   res.json({ success: true, message: `Campaign launched in background for up to ${limit} leads!` });
   startWebinarCampaign(Number(limit)).catch(err => console.error('❌ Campaign background error:', err.message));
+});
+
+// Trigger 7:59 PM Daily Broadcast Manually Anytime
+app.post('/api/trigger-759-broadcast', (req, res) => {
+  console.log(`\n📢 [API TRIGGER] Launching 7:59 PM Daily Broadcast asynchronously...`);
+  res.json({ success: true, message: '7:59 PM Daily Broadcast launched in background!' });
+  triggerDaily759Broadcast().catch(err => console.error('❌ Broadcast background error:', err.message));
 });
 
 // Get Hot Leads (I AM INTERESTED)
