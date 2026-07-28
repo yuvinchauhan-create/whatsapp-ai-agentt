@@ -112,19 +112,25 @@ async function triggerDaily759Broadcast() {
     const msg = get759ReminderMsg(lead.leadName);
 
     try {
-      await sendMessage(lead.phone, msg);
-      detail.status = 'SENT';
-      detail.sentAt = new Date();
-      broadcastTracker.sentCount++;
-      broadcastTracker.pendingCount--;
-      console.log(`✅ [7:59 PM REMINDER] Sent to ${lead.leadName} (${lead.phone})`);
+      const res = await sendMessage(lead.phone, msg);
+      if (res && (res.status === 'success' || res.message?.includes('success') || res.status === 200 || res.id)) {
+        detail.status = 'SENT';
+        detail.sentAt = new Date();
+        broadcastTracker.sentCount++;
+        console.log(`✅ [7:59 PM REMINDER] Sent to ${lead.leadName} (${lead.phone})`);
+      } else {
+        detail.status = 'SKIPPED';
+        detail.error = res?.message || 'Outside 24h Window';
+        broadcastTracker.skippedCount++;
+        console.log(`⏭️ [7:59 PM REMINDER] Skipped ${lead.leadName} (${lead.phone}): Outside 24h Window`);
+      }
     } catch (err) {
       detail.status = 'FAILED';
       detail.error = err.message;
       broadcastTracker.failedCount++;
-      broadcastTracker.pendingCount--;
       console.error(`❌ Failed 7:59 PM reminder to ${lead.phone}:`, err.message);
     }
+    broadcastTracker.pendingCount--;
 
     await sleep(1500); // 1.5s gap between sends
   }
