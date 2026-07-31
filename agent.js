@@ -277,8 +277,9 @@ ${knowledgeBase}
     return reply;
 
   } catch (err) {
-    console.error('❌ DeepSeek error:', err.response?.data || err.message);
-    return null;
+    const errorDetails = err.response?.data ? JSON.stringify(err.response.data) : err.message;
+    console.error('❌ AI API error:', errorDetails);
+    throw new Error(`AI API failed: ${errorDetails}`);
   }
 }
 
