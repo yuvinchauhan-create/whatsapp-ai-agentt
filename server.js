@@ -593,7 +593,6 @@ app.all('/webhook', async (req, res) => {
     const isNewLead = !knownLeads.has(phone);
     knownLeads.set(phone, { leadName, email: leadEmail, lastSeen: new Date() });
 
-    const leadRec = getLeadRecord(phone);
     const nowTime = new Date();
     leadRec.lastUserMsgAt = nowTime;
     leadRec.windowExpiresAt = new Date(nowTime.getTime() + (24 * 60 * 60 * 1000)); // 24 Hours window
