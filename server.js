@@ -577,6 +577,19 @@ app.all('/webhook', async (req, res) => {
       setTimeout(() => processedMessages.delete(messageId), 3600000);
     }
 
+    const leadRec = getLeadRecord(phone);
+
+    // PREVENT RAPID MULTIPLE REPLIES (Wait until previous message is done)
+    if (leadRec.isProcessing) {
+      console.log(`⏳ Lead ${phone} is already being processed. Stacking message into history and skipping duplicate AI call.`);
+      leadRec.history = leadRec.history || [];
+      leadRec.history.push({ role: 'user', content: text });
+      saveLeadRecord(phone, leadRec);
+      return;
+    }
+    leadRec.isProcessing = true;
+    saveLeadRecord(phone, leadRec);
+
     const isNewLead = !knownLeads.has(phone);
     knownLeads.set(phone, { leadName, email: leadEmail, lastSeen: new Date() });
 
@@ -634,13 +647,44 @@ app.all('/webhook', async (req, res) => {
       // Schedule smart 3-stage per-lead dynamic followups (20m, 1h, 4h)
       schedulePerLeadFollowup(phone);
     } else {
-      addLog(`⚠️ AI Generated NULL reply for ${phone}. Check API keys or errors.`);
+      addLog(`🚨 AI Generated NULL reply for ${phone}. Check API keys or errors.`);
     }
+
+    // UNLOCK PROCESSING
+    const finalRec = getLeadRecord(phone);
+    finalRec.isProcessing = false;
+    saveLeadRecord(phone, finalRec);
 
   } catch (err) {
     addLog(`❌ Webhook error: ${err.message}`);
     console.error('❌ Webhook error:', err.message);
+    
+    // UNLOCK PROCESSING ON ERROR
+    try {
+      const body = req.body;
+      const phone = (body.chat_id || body.phone || body.from || '').toString().replace(/\D/g, '');
+      if (phone) {
+        const finalRec = getLeadRecord(phone);
+        finalRec.isProcessing = false;
+        saveLeadRecord(phone, finalRec);
+      }
+    } catch(e) {}
   }
+});
+
+// =============================================
+// START FOLLOWUPS FOR ALL LEADS
+// =============================================
+app.get('/api/start-followups', (req, res) => {
+  const leads = getAllLeads();
+  let count = 0;
+  leads.forEach(lead => {
+    if (lead.phone && !lead.aiDisabled && lead.status !== 'Closed Sale') {
+      schedulePerLeadFollowup(lead.phone);
+      count++;
+    }
+  });
+  res.json({ success: true, message: `Follow-ups started for ${count} leads.` });
 });
 
 // =============================================
