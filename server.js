@@ -380,6 +380,59 @@ app.get('/', (req, res) => {
 });
 
 // =============================================
+// TEST API ROUTE (FOR LIVE DEBUGGING)
+// =============================================
+app.get('/test-api', async (req, res) => {
+  try {
+    let result = { 
+      openRouter: 'not tested', 
+      botbiz: 'not tested', 
+      env: {
+        hasOpenRouterKey: !!process.env.OPENROUTER_API_KEY,
+        hasGroqKey: !!process.env.GROQ_API_KEY,
+        hasBotbizKey: !!process.env.BOTBIZ_API_KEY
+      }
+    };
+
+    // 1. Test AI Generation
+    const axios = require('axios');
+    const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
+    const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
+    const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-27b-it');
+
+    try {
+      const aiRes = await axios.post(API_URL, {
+        model: MODEL,
+        messages: [{ role: 'user', content: 'Say word OK' }],
+        max_tokens: 10
+      }, { headers: { Authorization: `Bearer ${API_KEY}` } });
+      result.openRouter = { status: 'Success', response: aiRes.data.choices[0].message.content };
+    } catch (e) {
+      result.openRouter = { status: 'Failed', error: e.response?.data || e.message };
+    }
+
+    // 2. Test BotBiz Sending
+    const BOTBIZ_API_KEY = process.env.BOTBIZ_API_KEY;
+    try {
+      const botbizRes = await axios.post('https://dash.botbiz.io/api/v1/whatsapp/send', {
+        number: "918796136115",
+        type: "text",
+        message: "Test message from API Debugger",
+        instance_id: "677FA09C87F7D"
+      }, { headers: { 'Authorization': `Bearer ${BOTBIZ_API_KEY}`, 'Content-Type': 'application/json' } });
+      result.botbiz = { status: 'Success', data: botbizRes.data };
+    } catch (e) {
+      result.botbiz = { status: 'Failed', error: e.response?.data || e.message };
+    }
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message, stack: err.stack });
+  }
+});
+
+// =============================================
 // CAMPAIGN API ENDPOINTS
 // =============================================
 
