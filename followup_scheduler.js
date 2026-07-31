@@ -20,7 +20,7 @@ async function generateAIFollowupMessage(phone, stage) {
 
   let stageGoal = '';
   if (stage === 1) {
-    stageGoal = '10 minutes after no reply. Send a gentle human check-in asking if they are still there or busy.';
+    stageGoal = '2 minutes after no reply. Ask them: "Aapka reply nahi aaya. Main aapse kab baat karu? Mujhe time bata dijiye taki main dobara message kar saku." (Send exactly this meaning)';
   } else if (stage === 2) {
     stageGoal = '15 minutes after no reply. Ask gently if they are facing any issues understanding the details.';
   } else if (stage === 3) {
@@ -86,15 +86,15 @@ function schedulePerLeadFollowup(phone) {
 
   const timers = {};
 
-  // STAGE 1: 10 Minutes (10 * 60 * 1000)
+  // STAGE 1: 2 Minutes (2 * 60 * 1000)
   timers.stage1 = setTimeout(async () => {
     const record = getLeadRecord(phone);
     if (hasLeadRepliedSinceLastAi(record)) return;
 
-    console.log(`⏰ [FOLLOWUP - STAGE 1 (10m)] Sending to ${phone}...`);
+    console.log(`⏱️ [FOLLOWUP - STAGE 1 (2m)] Sending to ${phone}...`);
     const msg = await generateAIFollowupMessage(phone, 1);
     if (msg) sendAndLogFollowup(phone, record, msg);
-  }, 10 * 60 * 1000);
+  }, 2 * 60 * 1000);
 
   // STAGE 2: 15 Minutes (15 * 60 * 1000)
   timers.stage2 = setTimeout(async () => {
