@@ -39,9 +39,10 @@ YOUR LAST MESSAGE TO THEM:
 "${lastAiMsg.substring(0, 150)}"
 
 STRICT INSTRUCTIONS:
-- Write in short, punchy 1-2 line chunks.
+- Write in EXTREMELY SHORT, punchy 1-line questions. Like a real person texting. Max 10-15 words!
 - Natural Hindi/Hinglish language.
-- NO XML tags, NO reasoning. Output ONLY the WhatsApp message text.`;
+- NO XML tags, NO reasoning. Output ONLY the WhatsApp message text.
+- IMPORTANT: ALWAYS END YOUR MESSAGE BY ASKING A DIRECT QUESTION to get them to reply.`;
 
   try {
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
