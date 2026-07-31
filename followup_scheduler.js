@@ -44,17 +44,22 @@ STRICT INSTRUCTIONS:
 - NO XML tags, NO reasoning. Output ONLY the WhatsApp message text.`;
 
   try {
+    const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
+    const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
+    const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-27b-it');
+
     const res = await axios.post(
-      'https://api.groq.com/openai/v1/chat/completions',
+      API_URL,
       {
-        model: 'llama-3.1-8b-instant',
+        model: MODEL,
         messages: [{ role: 'system', content: prompt }],
         max_tokens: 100,
         temperature: 0.8
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+          Authorization: `Bearer ${API_KEY}`,
           'Content-Type': 'application/json'
         },
         timeout: 10000

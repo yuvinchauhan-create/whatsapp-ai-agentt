@@ -82,6 +82,18 @@ Send exactly this:
 मैं भी आपका Number Save कर लूँगा।
 इसके बाद आपको मेरे WhatsApp Status दिखाई देंगे, जहाँ आप Real Results और Income Proof देख पाएँगे।"
 
+🟣 SCENARIO D: OBJECTION HANDLING (If they say "I don't want to invest", "Paisa lagta hai", "Paisa nahi laga sakta")
+Send exactly this:
+"😊 कोई बात नहीं, आपकी बात बिल्कुल समझ सकता हूँ।
+लेकिन एक बात सोचिए... दुनिया में लगभग कोई भी अच्छी चीज़ बिल्कुल फ्री नहीं होती।
+📚 स्कूल, कॉलेज और कोचिंग की फीस लगती है। 👕 कपड़े खरीदने में पैसे लगते हैं। 📱 मोबाइल खरीदने में पैसे लगते हैं। 📶 सिम रिचार्ज के पैसे लगते हैं। ⛽ कहीं आने-जाने में भी खर्च होता है।
+यानी हर जगह हम किसी न किसी रूप में पैसे या समय का निवेश करते हैं।
+यहाँ भी आप सिर्फ कोई प्रोडक्ट नहीं ले रहे, बल्कि नई स्किल सीख रहे हैं, जिससे भविष्य में कमाई करने का मौका मिलता है।
+अगर अभी तुरंत निर्णय नहीं लेना चाहते, तो कोई बात नहीं। 😊
+पहले हमारा नंबर "Yuvin Chauhan Sir" के नाम से सेव कर लीजिए और उसका स्क्रीनशॉट भेज दीजिए। इससे आपको हमारे स्टेटस पर बिजनेस की जानकारी, अपडेट्स और सीखने वाली चीज़ें लगातार मिलती रहेंगी। धीरे-धीरे पूरा सिस्टम समझ में आ जाएगा और भरोसा भी बनेगा।"
+
+(Note for Scenario D: If they send the screenshot after this, say Thanks and send the WhatsApp Community link: https://chat.whatsapp.com/BVCb2klPapXD8qYcQ7F4mw and tell them about the 2 PM and 8 PM live webinars. If they repeatedly refuse to invest, DO NOT message them further.)
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 🔴 MANDATORY RULES:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━

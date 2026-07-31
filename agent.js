@@ -176,14 +176,17 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
 
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
 
-    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
+    const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
+    const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-27b-it');
 
-    console.log(`🤖 Groq AI reply generating for ${phone}...`);
+    console.log(`🤖 AI reply generating for ${phone} using ${isGroq ? 'Groq' : 'OpenRouter'}...`);
 
     const response = await axios.post(
-      'https://api.groq.com/openai/v1/chat/completions',
+      API_URL,
       {
-        model: 'llama-3.1-8b-instant',
+        model: MODEL,
         messages: [
           { role: 'system', content: systemPrompt },
           ...history
@@ -193,14 +196,14 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
       },
       {
         headers: {
-          Authorization: `Bearer ${GROQ_API_KEY}`,
+          Authorization: `Bearer ${API_KEY}`,
           'Content-Type': 'application/json'
         },
         timeout: 20000
       }
     );
 
-    console.log(`✅ Groq reply received for ${phone}`);
+    console.log(`✅ AI reply received for ${phone}`);
 
     let reply = response.data.choices[0].message.content.trim();
 
