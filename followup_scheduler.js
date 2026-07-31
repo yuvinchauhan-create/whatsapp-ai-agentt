@@ -103,7 +103,7 @@ function schedulePerLeadFollowup(phone) {
 
   const timers = {};
 
-  // STAGE 1: 2 Minutes (2 * 60 * 1000)
+  // STAGE 1: 2 Minutes
   timers.stage1 = setTimeout(async () => {
     const record = getLeadRecord(phone);
     if (hasLeadRepliedSinceLastAi(record)) return;
@@ -113,38 +113,38 @@ function schedulePerLeadFollowup(phone) {
     if (msg) sendAndLogFollowup(phone, record, msg);
   }, 2 * 60 * 1000);
 
-  // STAGE 2: 15 Minutes (15 * 60 * 1000)
+  // STAGE 2: 4 Minutes (Aggressive)
   timers.stage2 = setTimeout(async () => {
     const record = getLeadRecord(phone);
     if (hasLeadRepliedSinceLastAi(record)) return;
 
-    console.log(`⏰ [FOLLOWUP - STAGE 2 (15m)] Sending to ${phone}...`);
+    console.log(`⏱️ [FOLLOWUP - STAGE 2 (4m)] Sending to ${phone}...`);
     const msg = await generateAIFollowupMessage(phone, 2);
     if (msg) sendAndLogFollowup(phone, record, msg);
-  }, 15 * 60 * 1000);
+  }, 4 * 60 * 1000);
 
-  // STAGE 3: 30 Minutes (30 * 60 * 1000)
+  // STAGE 3: 6 Minutes (Aggressive)
   timers.stage3 = setTimeout(async () => {
     const record = getLeadRecord(phone);
     if (hasLeadRepliedSinceLastAi(record)) return;
 
-    console.log(`⏰ [FOLLOWUP - STAGE 3 (30m)] Sending exact user-requested message to ${phone}...`);
+    console.log(`⏱️ [FOLLOWUP - STAGE 3 (6m)] Sending to ${phone}...`);
     const msg = await generateAIFollowupMessage(phone, 3);
     if (msg) sendAndLogFollowup(phone, record, msg);
-  }, 30 * 60 * 1000);
+  }, 6 * 60 * 1000);
 
-  // STAGE 4: 1 Hour (60 * 60 * 1000)
+  // STAGE 4: 8 Minutes (Aggressive)
   timers.stage4 = setTimeout(async () => {
     const record = getLeadRecord(phone);
     if (hasLeadRepliedSinceLastAi(record)) return;
 
-    console.log(`⏰ [FOLLOWUP - STAGE 4 (1h)] Sending to ${phone}...`);
+    console.log(`⏱️ [FOLLOWUP - STAGE 4 (8m)] Sending to ${phone}...`);
     const msg = await generateAIFollowupMessage(phone, 4);
     if (msg) sendAndLogFollowup(phone, record, msg);
-  }, 60 * 60 * 1000);
+  }, 8 * 60 * 1000);
 
   activeTimers[phone] = timers;
-  console.log(`⏱️ [SCHEDULER] Timers set for ${phone} (10m, 15m, 30m, 1h)`);
+  console.log(`⏱️🚨 [SCHEDULER] Aggressive Timers set for ${phone} (2m, 4m, 6m, 8m)`);
 }
 
 async function sendAndLogFollowup(phone, record, msg) {
