@@ -30,7 +30,7 @@ async function generateAIFollowupMessage(phone, stage) {
     stageGoal = '1 hour after no reply. Gentle reminder asking if they want to proceed with earning or miss out.';
   }
 
-  const prompt = `You are Yuvraj Chauhan Sir (AI & Automation Sales Mentor). 
+  const prompt = `You are Yuvin Chauhan Sir (AI & Automation Sales Mentor). 
 You are following up with lead (${record.leadName || 'Friend'}, Gender: ${gender.toUpperCase()}, Salutation: "${salutation}").
 
 STAGE: ${stageGoal}
