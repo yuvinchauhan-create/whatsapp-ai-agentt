@@ -553,18 +553,19 @@ app.all('/webhook', async (req, res) => {
       updateLeadStatus(phone, 'Not Interested');
       cancelPerLeadFollowup(phone);
 
-      await sendMessage(phone, "Okay! Thank you. Aapko ab message nahi aayega. Good luck! 😊");
+      await sendMessage(phone, "Okay! Thank you. Aapko ab message nahi aayega. Good luck! 😊 bas ap no save krke screnshot bejdo YUVIN CHAUHAN K NAAM SAY CHAT KA TAKI STATUS DIKHTE RHE KABHI BAAD MEH MOOD BANE AAPKA TOH KAAM KI JAANKARI MILL PAYE AAPKO YAA KOI NEW CHIJJ AAYE MERE PAAS.");
       console.log(`🛑 AI Agent turned OFF for lead ${phone} (Opted out / STOP received)`);
       return;
     }
 
-    if (upperText === 'RESTART' || upperText === 'START') {
+    if (upperText === 'RESTART' || upperText === 'START' || upperText === 'INTERESTED' || upperText === 'I AM INTERESTED' || upperText.includes('I AM INTERESTED')) {
       const record = getLeadRecord(phone);
       record.aiDisabled = false; // Turn AI BACK ON if requested
       record.status = 'New Lead';
       saveLeadRecord(phone, record);
       updateLeadStatus(phone, 'New Lead');
-      await sendMessage(phone, "Aapka subscription wapas active ho gaya hai! 🎉 Main Yuvin Chauhan aapki help ke liye ready hoon.");
+      await sendMessage(phone, "Aapka system wapas active ho gaya hai! ✨ Main Yuvin Chauhan aapki help ke liye ready hoon.");
+      schedulePerLeadFollowup(phone); // Start follow-ups again
       return;
     }
 
