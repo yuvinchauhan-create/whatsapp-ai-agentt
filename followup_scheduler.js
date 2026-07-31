@@ -23,24 +23,24 @@ async function generateAIFollowupMessage(phone, stage) {
   if (record.videoSentAt) {
     // POST-VIDEO FOLLOWUPS
     if (stage === 1) {
-      stageGoal = '2 minutes after sending video. Ask exactly: "Video abhi dekh lenge na?"';
+      stageGoal = '2 minutes after sending video. Ask in a friendly way if they will watch the video now, e.g., "Video abhi dekh lenge na ji?" or "Free hokar video check kar lena ji."';
     } else if (stage === 2) {
-      stageGoal = '15 minutes after sending video. Ask exactly: "Pehle highlights dekhi hai? Phir community mein join?"';
+      stageGoal = '15 minutes after sending video. Ask gently: "Pehle highlights dekhi hai? Phir community mein join?" or something similar.';
     } else if (stage === 3) {
-      stageGoal = '30 minutes after sending video. Ask exactly: "10 minute ka video dekhkar direct WhatsApp call karlo."';
+      stageGoal = '30 minutes after sending video. Ask: "10 minute ka video dekhkar direct WhatsApp call karlo."';
     } else if (stage === 4) {
       stageGoal = '1 hour after sending video. Remind them gently about the limited offer today.';
     }
   } else {
     // PRE-VIDEO FOLLOWUPS
     if (stage === 1) {
-      stageGoal = '2 minutes after no reply. Ask them: "Aapka reply nahi aaya. Main aapse kab baat karu? Mujhe time bata dijiye taki main dobara message kar saku." (Send exactly this meaning)';
+      stageGoal = '2 minutes after no reply. Ask them lovingly why they did not reply, e.g., "Aapne reply kyo nahi kiya ji? Kahi busy ho gaye kya?" Keep it varied and natural.';
     } else if (stage === 2) {
-      stageGoal = '15 minutes after no reply. Ask gently if they are facing any issues understanding the details.';
+      stageGoal = '15 minutes after no reply. Ask gently if they are facing any issues or need help understanding.';
     } else if (stage === 3) {
       return `Highlights dekhli proofs dekh liye? 10 mint ka yt video dekha ??? Business kaise karna hai sab roadmap dunga, earning nahi hui aapki, paisa wapis okay.`;
     } else if (stage === 4) {
-      stageGoal = '1 hour after no reply. Gentle reminder asking if they want to proceed with earning or miss out.';
+      stageGoal = '1 hour after no reply. Gentle reminder asking if they want to start their online journey or if they have any doubts.';
     }
   }
 
