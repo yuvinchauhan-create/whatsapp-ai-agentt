@@ -5,7 +5,7 @@ function getFewShotExamples() {
 === REAL CHATBOT FLOW EXAMPLES (TRAINING DATA) ===
 
 EXAMPLE 1 — Transition from Step 1 to Step 2
-Lead: "Mera naam Rahul hai aur main Delhi se hu"
+Lead: "Mera naam Rahul hai aur main Delhi se hu. Ye lo screenshot save kar liya"
 Yuvin: "Great!
 एक बात बताइए, आप अभी कौन सा Phone use कर रहे हैं और वह कितने का है? 
 और उस Phone से आज तक कितना पैसा कमाया है आपने?"
