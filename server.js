@@ -34,6 +34,14 @@ const knownLeads = new Map();
 const unsubscribedLeads = new Set();
 const followUpTimers = {};
 
+global.debugLogs = [];
+function addLog(msg) {
+  const ts = new Date().toISOString();
+  console.log(msg);
+  global.debugLogs.unshift(`[${ts}] ${msg}`);
+  if (global.debugLogs.length > 50) global.debugLogs.pop();
+}
+
 let last759RunDate = '';
 
 let broadcastTracker = {
@@ -484,7 +492,7 @@ app.post('/webhook', async (req, res) => {
     const body = req.body;
 
     // DEBUG: Log every incoming webhook payload on Render to diagnose format
-    console.log('📥 RAW BOTBIZ WEBHOOK PAYLOAD:', JSON.stringify(body));
+    addLog('📥 RAW BOTBIZ WEBHOOK PAYLOAD: ' + JSON.stringify(body));
 
     // Support ALL possible BotBiz field name variants
     const phone = (
@@ -584,7 +592,7 @@ app.post('/webhook', async (req, res) => {
     console.log(`\n📩 ${leadName} (${phone}): "${text}"`);
 
     if (!aiEnabled) {
-      console.log('⏸️ AI Agent is PAUSED — skipping automated reply');
+      addLog('⏸️ AI Agent is PAUSED — skipping automated reply');
       return;
     }
 
@@ -606,21 +614,36 @@ app.post('/webhook', async (req, res) => {
 
     const reply = await handleMessage(phone, text, leadName, customFields);
     if (reply) {
+      addLog(`🧠 AI GENERATED REPLY: ${reply.substring(0, 100)}...`);
       // Dynamic 5 to 8 Seconds Typing Delay gap for natural human feel
       const typingMs = Math.floor(Math.random() * 3000) + 5000; // 5000ms - 8000ms
-      console.log(`⏳ [HUMAN TYPING GAP] Waiting ${(typingMs/1000).toFixed(1)}s before replying to ${phone}...`);
+      addLog(`⏳ Waiting ${(typingMs/1000).toFixed(1)}s before replying...`);
       await sleep(typingMs);
 
-      await sendMessage(phone, reply);
-      console.log(`✅ WhatsApp Reply bheja to ${phone}: "${reply.substring(0, 100)}..."\n`);
+      const sendRes = await sendMessage(phone, reply);
+      if (sendRes) {
+        addLog(`✅ WhatsApp Send Success: ${JSON.stringify(sendRes)}`);
+      } else {
+        addLog(`❌ WhatsApp Send FAILED (check console)`);
+      }
 
       // Schedule smart 3-stage per-lead dynamic followups (20m, 1h, 4h)
       schedulePerLeadFollowup(phone);
+    } else {
+      addLog(`⚠️ AI Generated NULL reply for ${phone}. Check API keys or errors.`);
     }
 
   } catch (err) {
+    addLog(`❌ Webhook error: ${err.message}`);
     console.error('❌ Webhook error:', err.message);
   }
+});
+
+// =============================================
+// DEBUG LOGS ENDPOINT
+// =============================================
+app.get('/api/logs', (req, res) => {
+  res.json({ logs: global.debugLogs });
 });
 
 // =============================================
