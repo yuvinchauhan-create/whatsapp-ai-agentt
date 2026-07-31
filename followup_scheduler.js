@@ -47,7 +47,7 @@ STRICT INSTRUCTIONS:
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
     const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
     const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
-    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-27b-it');
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini');
 
     const res = await axios.post(
       API_URL,

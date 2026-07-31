@@ -179,9 +179,9 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
     const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
     const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
-    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-27b-it');
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini');
 
-    console.log(`🤖 AI reply generating for ${phone} using ${isGroq ? 'Groq' : 'OpenRouter'}...`);
+    console.log(`🤖 AI reply generating for ${phone} using ${isGroq ? 'Groq' : 'OpenRouter'} (Model: ${MODEL})...`);
 
     const response = await axios.post(
       API_URL,
