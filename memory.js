@@ -77,6 +77,8 @@ function createEmptyRecord(phone) {
     leadName: 'Lead',
     status: 'New Lead',
     welcomeEmailStatus: 'NOT SENT',
+    aiDisabled: false,          // Set true when lead says STOP
+    replyKariyeJiCount: 0,      // Track how many times "Reply kariye ji" sent
     profile: {
       name: '',
       age: '',
@@ -88,6 +90,7 @@ function createEmptyRecord(phone) {
       dream: '',
       email: ''
     },
+    activityLog: [],            // Full activity: timestamps, msg types, etc.
     createdAt: new Date(),
     updatedAt: new Date(),
     history: []

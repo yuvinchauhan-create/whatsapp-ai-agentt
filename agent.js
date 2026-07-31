@@ -95,8 +95,14 @@ function detectIntentStatus(userMessage, currentStatus) {
 async function handleMessage(phone, userMessage, leadName = '', customFields = {}) {
   try {
     const record = getLeadRecord(phone);
-    const history = record.history || [];
 
+    // If AI is disabled specifically for this lead (e.g., opted out / stopped), skip AI reply
+    if (record.aiDisabled) {
+      console.log(`⏸️ AI is OFF for lead ${phone} (Opted out)`);
+      return null;
+    }
+
+    const history = record.history || [];
     history.push({ role: 'user', content: userMessage });
 
     // Extract Profile & Intent
@@ -121,6 +127,14 @@ async function handleMessage(phone, userMessage, leadName = '', customFields = {
       record.email = record.profile.email;
     }
 
+    // Record activity log with timestamp
+    record.activityLog = record.activityLog || [];
+    record.activityLog.push({
+      timestamp: new Date(),
+      type: 'user_message',
+      content: userMessage
+    });
+
     // ✅ Send Welcome Email ONLY ONCE per user when email is first detected
     const emailInMessage = profileUpdates.email || record.profile.email;
     if (emailInMessage && record.welcomeEmailStatus !== 'SENT') {
@@ -134,20 +148,30 @@ async function handleMessage(phone, userMessage, leadName = '', customFields = {
       }
     }
 
+    const { detectGender, getRespectfulSalutation } = require('./gender');
+    const gender = record.profile.gender || detectGender(record.profile.name || record.leadName || leadName);
+    record.profile.gender = gender;
+    const salutation = getRespectfulSalutation(gender, record.leadName || record.profile.name);
+
     record.status = detectIntentStatus(userMessage, record.status);
 
-    console.log(`🤖 DeepSeek AI processing for ${record.leadName} (${phone}) [Profile Updated]...`);
+    console.log(`🤖 Groq Sales Master AI processing for ${record.leadName} (${phone}) [Gender: ${gender.toUpperCase()}]...`);
 
     let leadContext = `
-LEAD QUALIFICATION PROFILE:
+LEAD PROFILE & ACTIVITY HISTORY:
 - Name: ${record.profile.name || record.leadName || 'Not known'}
+- Gender: ${gender.toUpperCase()}
+- Address As: "${salutation}"
+${gender === 'female' ? '⚠️ CRITICAL: THIS LEAD IS FEMALE! Never use "bhai", "bro", "bhai/mam", or male slang! Address her ONLY as "Mam", "' + (record.leadName || 'Lead') + ' ji", or "Di"!' : ''}
+${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || 'Lead') + ' bhai".' : ''}
 - Age: ${record.profile.age || 'Not known'}
 - City: ${record.profile.city || 'Not known'}
 - Occupation: ${record.profile.occupation || 'Not known'}
 - Qualification: ${record.profile.qualification || 'Not known'}
 - Budget: ${record.profile.budget || 'Not known'}
-- Dream / Reason: ${record.profile.dream || 'Not known'}
+- Dream / Pain Point: ${record.profile.dream || record.profile.reason || 'Not known'}
 - Email: ${record.profile.email || 'Not known'}
+- Times "Reply kariye ji" sent so far: ${record.replyKariyeJiCount || 0} / 4 MAX
     `;
 
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
@@ -164,8 +188,8 @@ LEAD QUALIFICATION PROFILE:
           { role: 'system', content: systemPrompt },
           ...history
         ],
-        max_tokens: 300,
-        temperature: 0.85
+        temperature: 0.8,
+        max_tokens: 350
       },
       {
         headers: {
@@ -183,7 +207,7 @@ LEAD QUALIFICATION PROFILE:
     // 1. Remove XML/HTML style reasoning tags like <think>...</think> or <thought>...</thought>
     reply = reply.replace(/<(think|thought|reasoning)>[\s\S]*?<\/\1>/gi, '').trim();
 
-    // 2. Remove lines starting with "User Safety:", "Response Safety:", "Note:", "Thinking:"
+    // 2. Remove meta lines
     const lines = reply.split('\n');
     const cleanLines = lines.filter(line => {
       const l = line.trim().toLowerCase();
@@ -194,14 +218,24 @@ LEAD QUALIFICATION PROFILE:
 
     reply = cleanLines.join('\n').trim();
 
-    // 3. Fallback: If reply still has double breaks after meta header, take last section
-    if (reply.includes('\n\n')) {
-      const sections = reply.split('\n\n');
-      const lastSection = sections[sections.length - 1].trim();
-      if (lastSection.length > 5 && !lastSection.toLowerCase().includes('user safety:')) {
-        reply = lastSection;
+    // 3. Handle "Reply kariye ji" 4-times maximum rule per lead
+    const currentCount = record.replyKariyeJiCount || 0;
+    if (currentCount < 4) {
+      if (!reply.toLowerCase().includes('reply kariye ji')) {
+        reply = `${reply}\n\nReply kariye ji 🙏`;
       }
+      record.replyKariyeJiCount = currentCount + 1;
+    } else {
+      // Remove any trailing "Reply kariye ji" if count reached 4
+      reply = reply.replace(/reply kariye ji\s*🙏?/gi, '').trim();
     }
+
+    // Log AI activity
+    record.activityLog.push({
+      timestamp: new Date(),
+      type: 'ai_reply',
+      content: reply
+    });
 
     history.push({ role: 'assistant', content: reply });
     record.history = history;

@@ -1,11 +1,13 @@
-// server.js — BotBiz webhook handler + Dashboard + Qualification Profile + Date Filters + Simulation
+// server.js — BotBiz webhook handler + Dashboard + Qualification Profile + Campaign Engine
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { handleMessage } = require('./agent');
 const { sendMessage } = require('./whatsapp');
 const { sendWelcomeEmail, sendWebinarReminderEmail } = require('./email');
-const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord } = require('./memory');
+const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord, saveLeadRecord } = require('./memory');
+const { startWebinarCampaign, handleCampaignReply, cancelCampaignFollowup } = require('./campaign');
+const { schedulePerLeadFollowup, cancelPerLeadFollowup } = require('./followup_scheduler');
 
 const app = express();
 app.use(express.json());
@@ -30,57 +32,132 @@ const knownLeads = new Map();
 const unsubscribedLeads = new Set();
 const followUpTimers = {};
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let last759RunDate = '';
+
+let broadcastTracker = {
+  isRunning: false,
+  startTime: null,
+  endTime: null,
+  totalTarget: 0,
+  sentCount: 0,
+  pendingCount: 0,
+  skippedCount: 0,
+  failedCount: 0,
+  leadDetails: []
+};
 
 // =============================================
-// WEBINAR BLAST FUNCTION
+// REFINED 7:59 PM DAILY WEBINAR REMINDER BROADCAST
 // =============================================
-async function triggerWebinarBlast() {
+function get759ReminderMsg(leadName) {
+  const nameStr = leadName && leadName !== 'Lead' && leadName !== 'Subscriber' ? ` ${leadName}` : '';
+  return `🚨 *LAST REMINDER: 8:00 PM MEETING START HONE WALA HAI!* 🚀
+
+Namaste${nameStr}! 🙏
+
+Aaj raat *8:00 PM* ko hamara Special Live Workshop start hone wala hai jisme A to Z poora business aur earning process samjhaya jayega!
+
+👉 *Agar abhi tak WhatsApp Community join nahi kiya hai, toh abhi JOIN karo:*
+https://chat.whatsapp.com/GnC3hTbpeT4AR3DsgANnBp
+*(Meeting ka Zoom link issi group mein aayega — Join Fast! ⚡)*
+
+💬 *Agar aap pehle se Community mein ho:*
+Toh abhi Community message check kijiye, meeting link bhej diya gaya hai! Join karke poora kaam samjhiye.
+
+💡 *Agar aapne pehle Webinar dekh liya hai:*
+Toh apna time waste mat kijiye! Apne doubts clear karne ke liye mujhe *ABHI CALL KARO: 9217958980* aur aaj hi apna business & daily earning start karo! 🔥
+
+— Yuvin Chauhan | LeadsGuru Top Affiliate`;
+}
+
+async function triggerDaily759Broadcast() {
+  if (broadcastTracker.isRunning) {
+    console.log('⚠️ Broadcast already in progress — skipping duplicate trigger');
+    return broadcastTracker.sentCount;
+  }
+
   const leads = getAllLeads();
-  console.log(`\n🔴 [WEBINAR BLAST STARTED] Broadcasting to ${leads.length} leads with safety delays...`);
-  let count = 0;
+  console.log(`\n📢 [7:59 PM DAILY BROADCAST STARTED] Broadcasting to ${leads.length} leads...`);
 
-  const webinarBanner = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80";
-  const webinarLink = "https://www.zoom.com/8pm-meeting";
+  broadcastTracker = {
+    isRunning: true,
+    startTime: new Date(),
+    endTime: null,
+    totalTarget: leads.length,
+    sentCount: 0,
+    pendingCount: leads.length,
+    skippedCount: 0,
+    failedCount: 0,
+    leadDetails: leads.map(l => ({
+      phone: l.phone,
+      name: l.leadName || 'Lead',
+      status: 'PENDING',
+      sentAt: null,
+      error: null
+    }))
+  };
 
-  for (const lead of leads) {
-    if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested') {
-      console.log(`⏭️ Skipping unsubscribed/not interested lead: ${lead.phone}`);
+  for (let i = 0; i < leads.length; i++) {
+    const lead = leads[i];
+    const detail = broadcastTracker.leadDetails[i];
+
+    if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested' || lead.aiDisabled) {
+      detail.status = 'SKIPPED';
+      detail.error = 'Unsubscribed or Not Interested';
+      broadcastTracker.skippedCount++;
+      broadcastTracker.pendingCount--;
       continue;
     }
 
-    updateLeadStatus(lead.phone, 'Webinar Joined');
+    const msg = get759ReminderMsg(lead.leadName);
 
-    const waMsg = 
-`🔴 *EXCLUSIVE 8 PM LIVE WEBINAR!* 🚀
-
-Hi ${lead.leadName || 'Friend'},
-
-Aaj raat *8:00 PM* Yuvin Chauhan ka Exclusive Masterclass start hone wala hai! 
-
-Is session mein seekho kaise 5 saal mein *₹15 Lakh+* earn kiya gaya aur aap kaise start kar sakte ho.
-
-🖼️ *Banner:* ${webinarBanner}
-🔗 *Join Zoom Link:* ${webinarLink}
-
-⚠️ *Note:* Seats limited hain, 5 mins pehle join kar lena!
-
----
-🛑 *Reply STOP to unsubscribe from reminders anytime.*`;
-
-    await sendMessage(lead.phone, waMsg);
-    count++;
-
-    if (lead.email) {
-      await sendWebinarReminderEmail(lead.email, lead.leadName, webinarLink);
+    try {
+      const res = await sendMessage(lead.phone, msg);
+      if (res && (res.status === 'success' || res.message?.includes('success') || res.status === 200 || res.id)) {
+        detail.status = 'SENT';
+        detail.sentAt = new Date();
+        broadcastTracker.sentCount++;
+        console.log(`✅ [7:59 PM REMINDER] Sent to ${lead.leadName} (${lead.phone})`);
+      } else {
+        detail.status = 'SKIPPED';
+        detail.error = res?.message || 'Outside 24h Window';
+        broadcastTracker.skippedCount++;
+        console.log(`⏭️ [7:59 PM REMINDER] Skipped ${lead.leadName} (${lead.phone}): Outside 24h Window`);
+      }
+    } catch (err) {
+      detail.status = 'FAILED';
+      detail.error = err.message;
+      broadcastTracker.failedCount++;
+      console.error(`❌ Failed 7:59 PM reminder to ${lead.phone}:`, err.message);
     }
+    broadcastTracker.pendingCount--;
 
-    await sleep(1500);
+    await sleep(1500); // 1.5s gap between sends
   }
 
-  console.log(`✅ [WEBINAR BLAST COMPLETE] Sent to ${count} leads safely.`);
-  return count;
+  broadcastTracker.isRunning = false;
+  broadcastTracker.endTime = new Date();
+  console.log(`\n🎉 [7:59 PM DAILY BROADCAST COMPLETE] Sent to ${broadcastTracker.sentCount} leads!`);
+  return broadcastTracker.sentCount;
 }
+
+// Check every 60 seconds if current time is 7:59 PM IST (19:59)
+setInterval(() => {
+  const now = new Date();
+  // Format IST time
+  const istOffset = 5.5 * 60 * 60 * 1000;
+  const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
+  
+  const hours = istDate.getHours();
+  const minutes = istDate.getMinutes();
+  const dateStr = istDate.toISOString().split('T')[0];
+
+  if (hours === 19 && minutes === 59 && last759RunDate !== dateStr) {
+    last759RunDate = dateStr;
+    console.log(`⏰ [7:59 PM CRON TRIGGERED] Running daily 7:59 PM webinar broadcast for date: ${dateStr}`);
+    triggerDaily759Broadcast();
+  }
+}, 60000);
 
 // =============================================
 // DASHBOARD & CRM API ROUTES
@@ -266,10 +343,7 @@ app.get('/api/export-csv', (req, res) => {
   res.send(csv);
 });
 
-app.post('/api/send-webinar-now', async (req, res) => {
-  const count = await triggerWebinarBlast();
-  res.json({ success: true, count });
-});
+
 
 // =============================================
 // TEST SIMULATION FOR LEAD 8708538708
@@ -301,6 +375,48 @@ app.post('/api/simulate-test-lead', async (req, res) => {
 // Health check
 app.get('/', (req, res) => {
   res.redirect('/dashboard');
+});
+
+// =============================================
+// CAMPAIGN API ENDPOINTS
+// =============================================
+
+// Start Webinar Follow-up Campaign (Non-blocking background runner)
+app.post('/api/start-campaign', (req, res) => {
+  const { limit = 100 } = req.body;
+  console.log(`\n🚀 [CAMPAIGN API] Launching webinar campaign asynchronously for ${limit} leads...`);
+  res.json({ success: true, message: `Campaign launched in background for up to ${limit} leads!` });
+  startWebinarCampaign(Number(limit)).catch(err => console.error('❌ Campaign background error:', err.message));
+});
+
+// Trigger 7:59 PM Daily Broadcast Manually Anytime
+app.post('/api/trigger-759-broadcast', (req, res) => {
+  console.log(`\n📢 [API TRIGGER] Launching 7:59 PM Daily Broadcast asynchronously...`);
+  res.json({ success: true, message: '7:59 PM Daily Broadcast launched in background!' });
+  triggerDaily759Broadcast().catch(err => console.error('❌ Broadcast background error:', err.message));
+});
+
+// Get 8 PM Broadcast Live Tracker Stats
+app.get('/api/broadcast-tracker-stats', (req, res) => {
+  res.json(broadcastTracker);
+});
+
+// Get Hot Leads (I AM INTERESTED)
+app.get('/api/hot-leads', (req, res) => {
+  const leads = getAllLeads();
+  const hotLeads = leads.filter(l => l.status === 'Hot Lead' || l.profile?.campaignStatus === 'INTERESTED');
+  res.json({ count: hotLeads.length, leads: hotLeads });
+});
+
+// Reset campaign status for a lead (to resend campaign msg)
+app.post('/api/reset-campaign-lead', (req, res) => {
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ error: 'Phone required' });
+  const record = getLeadRecord(phone);
+  delete record.campaignStatus;
+  record.history = [];
+  saveLeadRecord(phone, record);
+  res.json({ success: true });
 });
 
 // =============================================
@@ -356,20 +472,27 @@ app.post('/webhook', async (req, res) => {
     const strText = String(text).trim();
     if (!strText) return;
 
-    if (strText.toUpperCase() === 'STOP' || strText.toUpperCase() === 'UNSUBSCRIBE') {
-      unsubscribedLeads.add(phone);
+    const upperText = strText.toUpperCase();
+    const isStopWord = upperText === 'STOP' || upperText === 'UNSUBSCRIBE' || upperText.includes('NOT INTERESTED') || upperText.includes('NAHI KARNA') || upperText.includes('IRRITATE') || upperText.includes('DON\'T MSG') || upperText.includes('MAT KARO MSG');
+
+    if (isStopWord) {
+      const record = getLeadRecord(phone);
+      record.aiDisabled = true; // Turn OFF AI agent for THIS specific lead only
+      record.status = 'Not Interested';
+      saveLeadRecord(phone, record);
       updateLeadStatus(phone, 'Not Interested');
-      if (followUpTimers[phone]) {
-        clearTimeout(followUpTimers[phone]);
-        delete followUpTimers[phone];
-      }
-      await sendMessage(phone, "Aapko reminders se unsubscribe kar diya gaya hai. Agar wapas start karna ho toh RESTART message bhejein. Thank you! 🙏");
-      console.log(`🛑 Lead ${phone} opted-out (STOP received)`);
+      cancelPerLeadFollowup(phone);
+
+      await sendMessage(phone, "Okay! Thank you. Aapko ab message nahi aayega. Good luck! 😊");
+      console.log(`🛑 AI Agent turned OFF for lead ${phone} (Opted out / STOP received)`);
       return;
     }
 
-    if (strText.toUpperCase() === 'RESTART') {
-      unsubscribedLeads.delete(phone);
+    if (upperText === 'RESTART' || upperText === 'START') {
+      const record = getLeadRecord(phone);
+      record.aiDisabled = false; // Turn AI BACK ON if requested
+      record.status = 'New Lead';
+      saveLeadRecord(phone, record);
       updateLeadStatus(phone, 'New Lead');
       await sendMessage(phone, "Aapka subscription wapas active ho gaya hai! 🎉 Main Yuvin Chauhan aapki help ke liye ready hoon.");
       return;
@@ -378,8 +501,8 @@ app.post('/webhook', async (req, res) => {
     if (followUpTimers[phone]) {
       clearTimeout(followUpTimers[phone]);
       delete followUpTimers[phone];
-      console.log(`🛑 40-Min Follow-up timer cancelled for ${phone} (User replied)`);
     }
+    cancelPerLeadFollowup(phone); // Cancel per-lead smart timer on reply
 
     if (messageId && processedMessages.has(messageId)) return;
     if (messageId) {
@@ -391,6 +514,11 @@ app.post('/webhook', async (req, res) => {
     knownLeads.set(phone, { leadName, email: leadEmail, lastSeen: new Date() });
 
     const leadRec = getLeadRecord(phone);
+    const nowTime = new Date();
+    leadRec.lastUserMsgAt = nowTime;
+    leadRec.windowExpiresAt = new Date(nowTime.getTime() + (24 * 60 * 60 * 1000)); // 24 Hours window
+    saveLeadRecord(phone, leadRec);
+
     if (leadEmail && leadRec.welcomeEmailStatus !== 'SENT') {
       console.log(`📧 Sending Welcome Email to ${leadEmail}...`);
       sendWelcomeEmail(leadEmail, leadName);
@@ -405,24 +533,34 @@ app.post('/webhook', async (req, res) => {
       return;
     }
 
+    // Check if this lead is in active campaign — route to campaign handler
+    const leadRec2 = getLeadRecord(phone);
+    if (leadRec2.campaignStatus && !['NOT_INTERESTED', 'INTERESTED', 'CLOSED'].includes(leadRec2.campaignStatus)) {
+      console.log(`🎯 [CAMPAIGN LEAD] Routing ${phone} to campaign handler...`);
+      cancelCampaignFollowup(phone);
+      await sleep(5000); // 5-sec typing gap
+      const campaignResult = await handleCampaignReply(phone, text, leadName);
+      console.log(`✅ Campaign reply handled for ${phone}: ${campaignResult}`);
+      // Also log to lead history
+      leadRec2.history = leadRec2.history || [];
+      leadRec2.history.push({ role: 'user', content: text });
+      saveLeadRecord(phone, leadRec2);
+      schedulePerLeadFollowup(phone); // Schedule smart per-lead followup
+      return;
+    }
+
     const reply = await handleMessage(phone, text, leadName, customFields);
     if (reply) {
-      // 5-Second Typing Delay gap for natural human feel
-      console.log(`⏳ [TYPING GAP] Waiting 5 seconds before replying to ${phone}...`);
-      await sleep(5000);
+      // Dynamic 5 to 8 Seconds Typing Delay gap for natural human feel
+      const typingMs = Math.floor(Math.random() * 3000) + 5000; // 5000ms - 8000ms
+      console.log(`⏳ [HUMAN TYPING GAP] Waiting ${(typingMs/1000).toFixed(1)}s before replying to ${phone}...`);
+      await sleep(typingMs);
 
       await sendMessage(phone, reply);
       console.log(`✅ WhatsApp Reply bheja to ${phone}: "${reply.substring(0, 100)}..."\n`);
 
-      // 1-Hour (60 Minutes) Automated Follow-up Timer
-      followUpTimers[phone] = setTimeout(async () => {
-        if (!unsubscribedLeads.has(phone)) {
-          const followUpText = `Hi ${leadName || 'Friend'}, 1 ghanta ho gaya aapka reply nahi aaya! 😊 Kya soch rahe ho? Agar course ya earning system se related koi bhi doubt hai toh bejhijhak pucho. Main help karne ke liye taiyar hoon! 🙏\n\n(Reply STOP to unsubscribe anytime)`;
-          await sendMessage(phone, followUpText);
-          console.log(`⏰ [1-HOUR FOLLOW-UP] Sent to ${phone}`);
-        }
-        delete followUpTimers[phone];
-      }, 60 * 60 * 1000);
+      // Schedule smart 3-stage per-lead dynamic followups (20m, 1h, 4h)
+      schedulePerLeadFollowup(phone);
     }
 
   } catch (err) {

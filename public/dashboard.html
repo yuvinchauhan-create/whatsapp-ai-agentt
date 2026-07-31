@@ -1,82 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuvin Chauhan — AI Sales Command Center</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Control Center — Yuvin Chauhan AI Sales Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #05070f;
-      --card: rgba(13, 20, 40, 0.85);
-      --card2: rgba(18, 28, 55, 0.7);
-      --border: rgba(120, 100, 255, 0.12);
-      --border2: rgba(255,255,255,0.06);
-      --purple: #7c3aed;
-      --indigo: #4f46e5;
-      --pink: #ec4899;
-      --cyan: #06b6d4;
-      --green: #10b981;
-      --yellow: #f59e0b;
-      --red: #ef4444;
-      --text: #f1f5f9;
+      --bg: #070b14;
+      --card: #0f172a;
+      --card2: #1e293b;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f8fafc;
       --sub: #94a3b8;
-      --muted: #475569;
-      --grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
-      --grad2: linear-gradient(135deg, #06b6d4 0%, #4f46e5 100%);
+      --muted: #64748b;
+      --grad: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+      --grad-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --grad-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      background-image:
-        radial-gradient(ellipse at 0% 0%, rgba(99,102,241,0.2) 0%, transparent 50%),
-        radial-gradient(ellipse at 100% 100%, rgba(236,72,153,0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.05) 0%, transparent 60%);
-      background-attachment: fixed;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; overflow-x: hidden; }
 
     /* ===== HEADER ===== */
     header {
-      background: rgba(8,12,25,0.95);
-      backdrop-filter: blur(20px);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       padding: 0 32px;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
     }
-
     .brand { display: flex; align-items: center; gap: 14px; }
-    .brand-logo {
-      width: 42px; height: 42px;
+    .brand-icon {
+      width: 42px; height: 42px; border-radius: 12px;
       background: var(--grad);
-      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 0 25px rgba(124,58,237,0.5);
-      animation: glow 2.5s ease-in-out infinite alternate;
+      font-size: 20px; box-shadow: 0 4px 20px rgba(124,58,237,0.4);
     }
-    @keyframes glow {
-      from { box-shadow: 0 0 15px rgba(124,58,237,0.4); }
-      to { box-shadow: 0 0 35px rgba(236,72,153,0.6); }
-    }
-    .brand-text h1 { font-size: 18px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .brand-text p { font-size: 11px; color: var(--sub); font-weight: 400; }
+    .brand-title { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(90deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-subtitle { font-size: 11px; color: var(--sub); font-weight: 500; }
 
-    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
 
-    .live-badge {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 14px;
-      background: rgba(16,185,129,0.1);
+    .ai-badge {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 14px; background: rgba(16,185,129,0.12);
       border: 1px solid rgba(16,185,129,0.25);
       border-radius: 30px;
       font-size: 12px; font-weight: 700; color: #34d399;
@@ -149,29 +121,23 @@
     .glow-cyan { color: #22d3ee; }
     .glow-green { color: #34d399; }
     .glow-yellow { color: #fbbf24; }
-    .glow-red { color: #f87171; }
-    .glow-white { color: #f1f5f9; }
 
-    /* ===== SECTION CARD ===== */
-    .section {
+    /* ===== MAIN CONTENT CARD ===== */
+    .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
+      box-shadow: var(--shadow);
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
-
-    .section-header {
+    .card-header {
       padding: 20px 24px;
-      border-bottom: 1px solid var(--border2);
-      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 12px;
-      background: rgba(255,255,255,0.02);
     }
-
-    .section-title { font-size: 15px; font-weight: 700; }
-
-    .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .card-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .card-tools { display: flex; align-items: center; gap: 10px; }
 
     .search-box {
       position: relative;
@@ -181,11 +147,8 @@
       border: 1px solid var(--border2);
       padding: 9px 14px 9px 36px;
       border-radius: 10px;
-      color: var(--text);
-      font-size: 13px;
-      width: 240px;
-      outline: none;
-      transition: border-color 0.2s;
+      color: var(--text); font-size: 13px; outline: none; width: 260px;
+      transition: all 0.2s;
     }
     .search-box input:focus { border-color: rgba(124,58,237,0.4); }
     .search-box .search-icon {
@@ -238,85 +201,68 @@
     }
     .pill b { color: #818cf8; }
 
-    /* email status badges */
-    .badge-sent { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-    .badge-failed { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-    .badge-pending { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    }
+    .badge-New { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+    .badge-Hot { background: rgba(236,72,153,0.15); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); }
+    .badge-Warm { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .badge-Cold { background: rgba(148,163,184,0.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .badge-Webinar { background: rgba(234,179,8,0.15); color: #fde047; border: 1px solid rgba(234,179,8,0.3); }
+    .badge-Closed { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-Not { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
 
     .status-sel {
-      background: #0b1120;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff; padding: 6px 10px;
-      border-radius: 8px; font-size: 12px; font-weight: 600;
-      cursor: pointer; outline: none; min-width: 140px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border2);
+      padding: 4px 8px; border-radius: 6px; color: var(--text); font-size: 12px; outline: none; cursor: pointer;
     }
 
     .btn-view {
-      background: rgba(99,102,241,0.1);
-      color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2);
-      padding: 6px 13px; border-radius: 8px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      transition: all 0.2s;
+      padding: 6px 12px; background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.25); border-radius: 8px;
+      color: #a78bfa; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
     }
-    .btn-view:hover { background: #4f46e5; color: #fff; }
+    .btn-view:hover { background: rgba(124,58,237,0.25); color: #fff; }
 
-    /* ===== MODAL ===== */
-    .overlay {
+    /* ===== CHAT MODAL ===== */
+    .modal-overlay {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
       z-index: 200; display: none;
       align-items: center; justify-content: center;
     }
-    .modal {
-      background: #0b1120;
-      border: 1px solid var(--border);
-      width: 95%; max-width: 1000px; height: 88vh;
-      border-radius: 22px;
+    .chat-modal {
+      background: #0f172a;
+      border: 1px solid var(--border2);
+      width: 95%; max-width: 1100px; height: 85vh;
+      border-radius: 24px;
       display: flex; flex-direction: column;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-      overflow: hidden;
+      box-shadow: var(--shadow); overflow: hidden;
     }
     .modal-head {
-      padding: 18px 24px;
-      background: linear-gradient(135deg, rgba(79,70,229,0.2) 0%, rgba(124,58,237,0.1) 100%);
-      border-bottom: 1px solid var(--border2);
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
     }
-    .modal-head h3 { font-size: 15px; font-weight: 700; }
-    .btn-close { background: none; border: none; color: var(--sub); font-size: 26px; cursor: pointer; line-height: 1; }
-    .btn-close:hover { color: var(--text); }
+    .modal-head h3 { font-size: 18px; font-weight: 800; color: var(--text); }
+    .close-btn { font-size: 24px; color: var(--sub); cursor: pointer; border: none; background: none; }
+    .close-btn:hover { color: #fff; }
 
-    .modal-body { display: flex; flex: 1; overflow: hidden; }
-
+    .chat-body { display: flex; flex: 1; overflow: hidden; }
     .profile-pane {
-      width: 300px; background: rgba(0,0,0,0.3);
-      border-right: 1px solid var(--border2);
-      padding: 22px; overflow-y: auto;
-    }
-    .profile-pane h4 {
-      font-size: 11px; font-weight: 700; color: #818cf8;
-      text-transform: uppercase; letter-spacing: 0.6px;
-      margin-bottom: 16px;
+      width: 320px; border-right: 1px solid var(--border);
+      padding: 20px; overflow-y: auto; background: rgba(0,0,0,0.2);
     }
     .profile-field { margin-bottom: 14px; }
-    .profile-field label { font-size: 10px; color: var(--muted); text-transform: uppercase; display: block; margin-bottom: 2px; }
-    .profile-field span { font-size: 14px; font-weight: 600; color: var(--text); }
+    .profile-field label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; }
+    .profile-field span { font-size: 13px; font-weight: 600; color: var(--text); }
 
-    .chat-pane {
-      flex: 1; padding: 20px; overflow-y: auto;
-      background: #060a14;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-
-    .bubble {
-      max-width: 78%;
-      padding: 11px 16px;
-      border-radius: 16px;
-      font-size: 13px; line-height: 1.6;
-    }
-    .bubble.user { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
-    .bubble.ai { align-self: flex-end; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+    .chat-pane { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: #070b14; }
+    .bubble { max-width: 80%; padding: 12px 18px; border-radius: 16px; font-size: 13px; line-height: 1.6; }
+    .bubble.user { align-self: flex-start; background: var(--card2); border: 1px solid var(--border2); color: var(--text); border-bottom-left-radius: 4px; }
+    .bubble.ai { align-self: flex-end; background: linear-gradient(135deg,#7c3aed,#6366f1); color: #fff; border-bottom-right-radius: 4px; }
     .bubble-role { font-size: 11px; font-weight: 700; opacity: 0.6; margin-bottom: 4px; }
 
     /* ===== IMPORT MODAL ===== */
@@ -368,20 +314,6 @@
     .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
     .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
     .empty h3 { font-size: 16px; font-weight: 700; color: var(--sub); }
-
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 10px; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      header { padding: 0 16px; }
-      .main { padding: 0 12px; margin-top: 16px; }
-      .modal { height: 95vh; }
-      .profile-pane { display: none; }
-      .search-box input { width: 180px; }
-    }
   </style>
 </head>
 <body>
@@ -389,18 +321,23 @@
 <!-- ===== HEADER ===== -->
 <header>
   <div class="brand">
-    <div class="brand-logo">🤖</div>
-    <div class="brand-text">
-      <h1>Yuvin Chauhan AI</h1>
-      <p>Sales Command Center & Lead CRM</p>
+    <div class="brand-icon">⚡</div>
+    <div>
+      <div class="brand-title">CRM Sales Control Center</div>
+      <div class="brand-subtitle">Yuvin Chauhan AI Sales Master | LeadsGuru</div>
     </div>
   </div>
-  <div class="header-right">
-    <div class="live-badge"><div class="live-dot"></div><span id="aiStatusText">AI ACTIVE</span></div>
+
+  <div class="header-actions">
+    <div class="ai-badge">
+      <div class="live-dot"></div>
+      <span>AI AGENT ONLINE</span>
+    </div>
     <button class="btn btn-danger active" id="toggleAiBtn" onclick="toggleAI()">⏸ Pause AI</button>
+    <button class="btn" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:700;" onclick="launchCampaign()">🚀 Launch Campaign</button>
+    <button class="btn" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;" onclick="showHotLeads()">🔥 Hot Leads</button>
     <button class="btn btn-cyan" onclick="openImport()">📥 Import Leads</button>
     <a href="/api/export-csv" class="btn btn-outline">⬇️ Export CSV</a>
-    <button class="btn btn-grad" onclick="sendWebinarBlast()">🔴 8 PM Blast</button>
   </div>
 </header>
 
@@ -417,104 +354,178 @@
     <div class="tab" onclick="setTab('Webinar Joined')" id="tab-Webinar Joined">🔴 Webinar Joined <span class="cnt" id="cnt-Webinar Joined">0</span></div>
     <div class="tab" onclick="setTab('Closed Sale')" id="tab-Closed Sale">💰 Closed Sales <span class="cnt" id="cnt-Closed Sale">0</span></div>
     <div class="tab" onclick="setTab('Not Interested')" id="tab-Not Interested">❌ Not Interested <span class="cnt" id="cnt-Not Interested">0</span></div>
+    <div class="tab" onclick="showBroadcastTracker()" id="tab-Tracker" style="background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;">📢 8 PM Reminder Tracker</div>
   </div>
 
-  <!-- Metrics -->
-  <div class="metrics">
-    <div class="metric">
-      <div class="metric-icon">👥</div>
-      <div class="metric-label">Total Leads</div>
-      <div class="metric-val glow-white" id="m-total">0</div>
-      <div class="metric-sub">All WhatsApp contacts</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">🔥</div>
-      <div class="metric-label">Hot Prospects</div>
-      <div class="metric-val glow-pink" id="m-hot">0</div>
-      <div class="metric-sub">Ready to convert</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">💰</div>
-      <div class="metric-label">Closed Sales</div>
-      <div class="metric-val glow-green" id="m-closed">0</div>
-      <div class="metric-sub">Paid customers</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">📧</div>
-      <div class="metric-label">Emails Sent</div>
-      <div class="metric-val glow-cyan" id="m-emails">0</div>
-      <div class="metric-sub">Welcome emails delivered</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">🔴</div>
-      <div class="metric-label">Webinar Joined</div>
-      <div class="metric-val glow-yellow" id="m-webinar">0</div>
-      <div class="metric-sub">Attended 8 PM session</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">💬</div>
-      <div class="metric-label">Total Messages</div>
-      <div class="metric-val glow-purple" id="m-msgs">0</div>
-      <div class="metric-sub">Total conversation turns</div>
-    </div>
-  </div>
-
-  <!-- Leads Table -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">📊 Live Lead Database</div>
-      <div class="controls">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Search name, phone, city, email..." oninput="renderTable()">
-        </div>
-        <select class="filter-sel" id="dateFilter" onchange="renderTable()">
-          <option value="ALL">🗓 All Time</option>
-          <option value="TODAY">📅 Today</option>
-          <option value="YESTERDAY">📅 Yesterday</option>
-          <option value="7DAYS">📅 Last 7 Days</option>
-          <option value="30DAYS">📅 Last 30 Days</option>
-        </select>
-        <select class="filter-sel" id="sortFilter" onchange="renderTable()">
-          <option value="NEWEST">↓ Newest First</option>
-          <option value="OLDEST">↑ Oldest First</option>
-          <option value="MESSAGES">💬 Most Messages</option>
-        </select>
-        <span id="tableCount" style="font-size:12px; color:var(--muted); font-weight:600;"></span>
+  <!-- LEADS MAIN VIEW -->
+  <div id="leads-main-view">
+    <!-- Metrics -->
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-icon">👥</div>
+        <div class="metric-label">Total Leads</div>
+        <div class="metric-val glow-white" id="m-total">0</div>
+        <div class="metric-sub">All WhatsApp contacts</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">🔥</div>
+        <div class="metric-label">Hot Prospects</div>
+        <div class="metric-val glow-pink" id="m-hot">0</div>
+        <div class="metric-sub">Ready to convert</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">💰</div>
+        <div class="metric-label">Closed Sales</div>
+        <div class="metric-val glow-green" id="m-closed">0</div>
+        <div class="metric-sub">Paid customers</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">📧</div>
+        <div class="metric-label">Emails Sent</div>
+        <div class="metric-val glow-cyan" id="m-emails">0</div>
+        <div class="metric-sub">Welcome emails delivered</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">🔴</div>
+        <div class="metric-label">Webinar Joined</div>
+        <div class="metric-val glow-yellow" id="m-webinar">0</div>
+        <div class="metric-sub">Attended 8 PM session</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">💬</div>
+        <div class="metric-label">Total Messages</div>
+        <div class="metric-val glow-purple" id="m-msgs">0</div>
+        <div class="metric-sub">Total conversation turns</div>
       </div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Lead Info</th>
-            <th>Qualification Details</th>
-            <th>📧 Email Status</th>
-            <th>Last Seen</th>
-            <th>CRM Label</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <tr><td colspan="7"><div class="empty"><div class="empty-icon">⏳</div><h3>Loading lead data...</h3></div></td></tr>
-        </tbody>
-      </table>
+
+    <!-- Main Card & Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title" id="tableTitle">📋 All Leads</div>
+        <div class="card-tools">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search by name, phone, city..." oninput="renderTable()" />
+          </div>
+          <select class="filter-sel" id="emailFilter" onchange="renderTable()">
+            <option value="ALL">All Emails</option>
+            <option value="SENT">Welcome Email Sent</option>
+            <option value="NOT SENT">Email Not Sent</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Lead Info</th>
+              <th>Qualification Profile</th>
+              <th>Email Status</th>
+              <th>Activity</th>
+              <th>Lead Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr><td colspan="7" class="empty">Loading leads...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <!-- 8 PM BROADCAST TRACKER SUB-DASHBOARD VIEW -->
+  <div id="tracker-view" style="display:none; margin-top:10px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+      <div>
+        <h2 style="font-size:22px; font-weight:800; background:linear-gradient(135deg,#a78bfa,#f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">📢 8 PM Broadcast Live Tracker Sub-Dashboard</h2>
+        <p style="font-size:13px; color:var(--sub);">Live tracking for 8:00 PM Webinar Reminder Broadcast — Sent, Pending, Skipped & Delivery Timestamps</p>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-outline" onclick="loadTrackerStats()">🔄 Refresh Tracker Data</button>
+        <button class="btn btn-grad" onclick="trigger759Now()">🚀 Trigger 8 PM Broadcast Now</button>
+      </div>
+    </div>
+
+    <!-- Tracker Metrics -->
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-icon">🎯</div>
+        <div class="metric-label">Target Contacts</div>
+        <div class="metric-val glow-purple" id="tr-total">0</div>
+        <div class="metric-sub">Total eligible leads</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">✅</div>
+        <div class="metric-label">Sent / Delivered (Beja Gya)</div>
+        <div class="metric-val glow-green" id="tr-sent">0</div>
+        <div class="metric-sub">Successfully delivered</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">⏳</div>
+        <div class="metric-label">Pending Queue (Baki Hai)</div>
+        <div class="metric-val glow-cyan" id="tr-pending">0</div>
+        <div class="metric-sub">Waiting in delivery queue</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">🛑</div>
+        <div class="metric-label">Skipped / Opted Out</div>
+        <div class="metric-val glow-pink" id="tr-skipped">0</div>
+        <div class="metric-sub">Unsubscribed / Not Interested</div>
+      </div>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="card" style="margin-bottom:24px; padding:20px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:700; font-size:14px;">
+        <span>Live Delivery Progress Bar</span>
+        <span id="tr-progress-pct" style="color:#a78bfa; font-size:16px;">0%</span>
+      </div>
+      <div style="width:100%; height:14px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden;">
+        <div id="tr-progress-bar" style="width:0%; height:100%; background:linear-gradient(90deg,#7c3aed,#ec4899); transition:width 0.4s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Leads Broadcast Log Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Live Leads Delivery Status Table</div>
+        <span style="font-size:12px; color:var(--muted);" id="tr-last-run">Status: Idle</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phone</th>
+              <th>Lead Name</th>
+              <th>Delivery Status</th>
+              <th>Sent Timestamp</th>
+              <th>Note / Details</th>
+            </tr>
+          </thead>
+          <tbody id="tr-table-body">
+            <tr><td colspan="5" style="text-align:center; padding:40px; color:var(--muted);">Click "Trigger 8 PM Broadcast Now" or wait for 7:59 PM cron trigger to see live data.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ===== CHAT MODAL ===== -->
-<div class="overlay" id="chatOverlay">
-  <div class="modal">
+<div class="modal-overlay" id="chatOverlay">
+  <div class="chat-modal">
     <div class="modal-head">
-      <h3 id="modalTitle">💬 Lead Profile & Chat</h3>
-      <button class="btn-close" onclick="closeModal()">×</button>
+      <h3 id="modalTitle">💬 Lead Qualification Chat</h3>
+      <button class="close-btn" onclick="closeModal()">✕</button>
     </div>
-    <div class="modal-body">
+    <div class="chat-body">
       <div class="profile-pane">
-        <h4>📋 Qualification</h4>
-        <div class="profile-field"><label>Name</label><span id="pName">—</span></div>
+        <div class="profile-field"><label>Full Name</label><span id="pName">—</span></div>
         <div class="profile-field"><label>Age</label><span id="pAge">—</span></div>
         <div class="profile-field"><label>City</label><span id="pCity">—</span></div>
         <div class="profile-field"><label>Occupation</label><span id="pOccupation">—</span></div>
@@ -537,14 +548,7 @@
 <div class="import-overlay" id="importOverlay">
   <div class="import-modal">
     <h2>📥 Import BotBiz Subscribers</h2>
-    <p>Apne BotBiz subscribers ko JSON format mein paste karo. Har subscriber mein <b>phone</b> field zaruri hai. Optional: name, email, city, status.</p>
-    <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 10px; padding: 14px; margin-bottom: 14px; font-size: 12px; font-family: monospace; color: #a5b4fc;">
-      Example Format:<br/>
-      [<br/>
-      &nbsp;&nbsp;{ "phone": "919876543210", "name": "Rahul", "email": "r@gmail.com", "city": "Delhi" },<br/>
-      &nbsp;&nbsp;{ "phone": "918708538708", "name": "Priya", "city": "Mumbai" }<br/>
-      ]
-    </div>
+    <p>Apne BotBiz subscribers ko JSON format mein paste karo.</p>
     <textarea id="importJson" placeholder='[{"phone":"919876543210","name":"Rahul Sharma","email":"rahul@gmail.com","city":"Delhi"},...]'></textarea>
     <div class="import-btns">
       <button class="btn btn-outline" onclick="closeImport()">Cancel</button>
@@ -577,74 +581,52 @@
       document.getElementById('m-webinar').innerText = c.webinarJoined || 0;
       document.getElementById('m-msgs').innerText = data.totalMessages || 0;
 
-      const cnts = {
-        'ALL': data.totalLeads || 0,
-        'New Lead': c.newLeads || 0,
-        'Hot Lead': c.hotLeads || 0,
-        'Warm Lead': c.warmLeads || 0,
-        'Cold Lead': c.coldLeads || 0,
-        'Webinar Joined': c.webinarJoined || 0,
-        'Closed Sale': c.closedSale || 0,
-        'Not Interested': c.notInterested || 0,
-      };
-      Object.keys(cnts).forEach(k => {
-        const el = document.getElementById(`cnt-${k}`);
-        if (el) el.innerText = cnts[k];
-      });
+      document.getElementById('cnt-ALL').innerText = data.totalLeads || 0;
+      document.getElementById('cnt-New Lead').innerText = c.newLeads || 0;
+      document.getElementById('cnt-Hot Lead').innerText = c.hotLeads || 0;
+      document.getElementById('cnt-Warm Lead').innerText = c.warmLeads || 0;
+      document.getElementById('cnt-Cold Lead').innerText = c.coldLeads || 0;
+      document.getElementById('cnt-Webinar Joined').innerText = c.webinarJoined || 0;
+      document.getElementById('cnt-Closed Sale').innerText = c.closedSale || 0;
+      document.getElementById('cnt-Not Interested').innerText = c.notInterested || 0;
 
-      updateAiUI();
       renderTable();
-    } catch(e) { console.error(e); }
+    } catch (err) {
+      console.error(err);
+      toast('❌ Failed to connect to server', 'error');
+    }
   }
 
-  // ===== TABLE RENDER =====
   function renderTable() {
-    const tbody = document.getElementById('tableBody');
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    const df = document.getElementById('dateFilter').value;
-    const sf = document.getElementById('sortFilter').value;
-    const now = new Date();
+    const q = (document.getElementById('searchInput').value || '').toLowerCase();
+    const ef = document.getElementById('emailFilter').value;
 
-    let rows = allLeads.filter(l => {
+    let filtered = allLeads.filter(l => {
       if (activeTab !== 'ALL' && l.status !== activeTab) return false;
-      if (q) {
-        const p = l.profile || {};
-        const combo = [l.phone, l.leadName, p.city, p.email, l.email, p.name].join(' ').toLowerCase();
-        if (!combo.includes(q)) return false;
-      }
-      if (df !== 'ALL') {
-        const d = new Date(l.updatedAt);
-        const diff = (now - d) / 86400000;
-        if (df === 'TODAY' && d.toDateString() !== now.toDateString()) return false;
-        if (df === 'YESTERDAY') {
-          const yd = new Date(); yd.setDate(now.getDate()-1);
-          if (d.toDateString() !== yd.toDateString()) return false;
-        }
-        if (df === '7DAYS' && diff > 7) return false;
-        if (df === '30DAYS' && diff > 30) return false;
-      }
-      return true;
+      if (ef === 'SENT' && l.welcomeEmailStatus !== 'SENT') return false;
+      if (ef === 'NOT SENT' && l.welcomeEmailStatus === 'SENT') return false;
+
+      if (!q) return true;
+      const p = l.profile || {};
+      const searchStr = `${l.phone} ${l.leadName} ${p.name} ${p.city} ${p.occupation} ${p.email} ${l.email}`.toLowerCase();
+      return searchStr.includes(q);
     });
 
-    if (sf === 'OLDEST') rows.sort((a,b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-    else if (sf === 'MESSAGES') rows.sort((a,b) => (b.totalMessages||0) - (a.totalMessages||0));
-
-    document.getElementById('tableCount').innerText = `${rows.length} lead${rows.length !== 1 ? 's' : ''}`;
-
-    if (rows.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">🔍</div><h3>Koi lead nahi mila</h3></div></td></tr>`;
+    const body = document.getElementById('tableBody');
+    if (filtered.length === 0) {
+      body.innerHTML = `<tr><td colspan="7" class="empty"><div class="empty-icon">🔍</div><h3>No leads found</h3></td></tr>`;
       return;
     }
 
-    tbody.innerHTML = rows.map((l, i) => {
+    body.innerHTML = filtered.map((l, i) => {
       const p = l.profile || {};
-      const dt = new Date(l.updatedAt).toLocaleString('en-IN', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:true});
-
-      let ebadge = `<span class="badge-pending">⏳ NOT SENT</span>`;
-      if (l.welcomeEmailStatus === 'SENT') ebadge = `<span class="badge-sent">✅ SENT</span>`;
-      else if (l.welcomeEmailStatus && l.welcomeEmailStatus.includes('FAILED')) ebadge = `<span class="badge-failed">❌ FAILED</span>`;
-
-      const source = l.source === 'BotBiz Import' ? '📥 Imported' : '💬 WhatsApp';
+      const statusClass = `badge-${l.status ? l.status.split(' ')[0] : 'New'}`;
+      const dt = l.updatedAt ? new Date(l.updatedAt).toLocaleDateString('en-IN', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
+      const source = l.source || 'WhatsApp';
+      const emailStatus = l.welcomeEmailStatus || 'NOT SENT';
+      const ebadge = emailStatus === 'SENT' 
+        ? `<span style="color:#34d399;font-weight:700;font-size:11px;">✅ Sent</span>` 
+        : `<span style="color:#64748b;font-size:11px;">Not Sent</span>`;
 
       return `<tr>
         <td style="color:var(--muted);font-size:12px;font-weight:700;">#${i+1}</td>
@@ -660,15 +642,14 @@
             ${p.occupation ? `<div class="pill">💼 <b>Occ:</b> ${esc(p.occupation)}</div>` : ''}
             ${p.budget ? `<div class="pill">💰 <b>Budget:</b> ${esc(p.budget)}</div>` : ''}
             ${p.email||l.email ? `<div class="pill">📧 ${esc(p.email||l.email)}</div>` : ''}
-            ${!p.age && !p.city && !p.budget ? `<span style="font-size:11px;color:var(--muted);">Collecting info...</span>` : ''}
           </div>
         </td>
-        <td>${ebadge}${(p.email||l.email) ? `<div style="font-size:10px;color:var(--muted);margin-top:3px;">${esc(p.email||l.email)}</div>` : ''}</td>
-        <td style="font-size:12px;color:var(--sub);white-space:nowrap;">${dt}<div style="font-size:10px;color:var(--muted);">${l.totalMessages||0} messages</div></td>
+        <td>${ebadge}</td>
+        <td style="font-size:12px;color:var(--sub);white-space:nowrap;">${dt}<div style="font-size:10px;color:var(--muted);">${l.totalMessages||0} msgs</div></td>
         <td>
           <select class="status-sel" onchange="updateStatus('${l.phone}', this.value)">
             ${['New Lead','Hot Lead','Warm Lead','Cold Lead','Webinar Joined','Closed Sale','Not Interested'].map(s =>
-              `<option value="${s}" ${l.status===s?'selected':''}>${statusEmoji(s)} ${s}</option>`).join('')}
+              `<option value="${s}" ${l.status===s?'selected':''}>${s}</option>`).join('')}
           </select>
         </td>
         <td><button class="btn-view" onclick="openChat('${l.phone}')">💬 View Chat</button></td>
@@ -676,15 +657,80 @@
     }).join('');
   }
 
-  // ===== TAB =====
   function setTab(tab) {
+    document.getElementById('leads-main-view').style.display = 'block';
+    document.getElementById('tracker-view').style.display = 'none';
     activeTab = tab;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById(`tab-${tab}`)?.classList.add('active');
     renderTable();
   }
 
-  // ===== STATUS UPDATE =====
+  function showBroadcastTracker() {
+    document.getElementById('leads-main-view').style.display = 'none';
+    document.getElementById('tracker-view').style.display = 'block';
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-Tracker')?.classList.add('active');
+    loadTrackerStats();
+  }
+
+  async function loadTrackerStats() {
+    try {
+      const res = await fetch('/api/broadcast-tracker-stats');
+      const data = await res.json();
+
+      document.getElementById('tr-total').innerText = data.totalTarget || 0;
+      document.getElementById('tr-sent').innerText = data.sentCount || 0;
+      document.getElementById('tr-pending').innerText = data.pendingCount || 0;
+      document.getElementById('tr-skipped').innerText = data.skippedCount || 0;
+
+      const total = data.totalTarget || 1;
+      const processed = (data.sentCount || 0) + (data.skippedCount || 0) + (data.failedCount || 0);
+      const pct = Math.round((processed / total) * 100) || 0;
+
+      document.getElementById('tr-progress-pct').innerText = `${pct}%`;
+      document.getElementById('tr-progress-bar').style.width = `${pct}%`;
+
+      document.getElementById('tr-last-run').innerText = data.isRunning 
+        ? `Status: 🔴 BROADCAST RUNNING (Started ${new Date(data.startTime).toLocaleTimeString()})`
+        : data.endTime ? `Status: Idle (Last run finished ${new Date(data.endTime).toLocaleTimeString()})` : `Status: Idle`;
+
+      const tbody = document.getElementById('tr-table-body');
+      const details = data.leadDetails || [];
+      if (details.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--muted);">No broadcast data recorded yet. Click "Trigger 8 PM Broadcast Now" to run.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = details.map((d, i) => {
+        let badge = `<span style="color:#fbbf24; font-weight:700;">⏳ PENDING</span>`;
+        if (d.status === 'SENT') badge = `<span style="color:#34d399; font-weight:700;">✅ SENT</span>`;
+        else if (d.status === 'SKIPPED') badge = `<span style="color:#f472b6; font-weight:700;">🛑 SKIPPED</span>`;
+        else if (d.status === 'FAILED') badge = `<span style="color:#f87171; font-weight:700;">❌ FAILED</span>`;
+
+        const sentTime = d.sentAt ? new Date(d.sentAt).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) : '—';
+
+        return `<tr>
+          <td style="font-family:monospace; color:#818cf8; font-weight:700;">+${d.phone}</td>
+          <td style="font-weight:700;">${esc(d.name)}</td>
+          <td>${badge}</td>
+          <td style="font-size:12px; color:var(--sub);">${sentTime}</td>
+          <td style="font-size:11px; color:var(--muted);">${d.error ? esc(d.error) : '—'}</td>
+        </tr>`;
+      }).join('');
+    } catch(e) { console.error(e); }
+  }
+
+  async function trigger759Now() {
+    toast('🚀 Launching 8 PM Broadcast in background...', 'info');
+    try {
+      const res = await fetch('/api/trigger-759-broadcast', { method: 'POST' });
+      const data = await res.json();
+      toast(`✅ ${data.message}`, 'success');
+      setTimeout(loadTrackerStats, 1500);
+    } catch(e) { toast('❌ Error triggering broadcast', 'error'); }
+  }
+
   async function updateStatus(phone, status) {
     try {
       await fetch('/api/update-lead-status', {
@@ -696,12 +742,9 @@
     } catch(e) { toast('❌ Failed to update', 'error'); }
   }
 
-  // ===== CHAT MODAL =====
   async function openChat(phone) {
     document.getElementById('chatOverlay').style.display = 'flex';
     document.getElementById('modalTitle').innerText = `💬 Lead Chat — +${phone}`;
-    document.getElementById('chatPane').innerHTML = `<div class="empty"><div class="empty-icon">⏳</div><h3>Loading...</h3></div>`;
-
     try {
       const res = await fetch(`/api/lead-history?phone=${phone}`);
       const data = await res.json();
@@ -737,88 +780,74 @@
   }
   function closeModal() { document.getElementById('chatOverlay').style.display = 'none'; }
 
-  // ===== IMPORT =====
   function openImport() { document.getElementById('importOverlay').style.display = 'flex'; }
   function closeImport() { document.getElementById('importOverlay').style.display = 'none'; document.getElementById('importJson').value = ''; }
 
   async function processImport() {
     const raw = document.getElementById('importJson').value.trim();
     if (!raw) return toast('JSON paste karo!', 'error');
-    let subs;
-    try { subs = JSON.parse(raw); }
-    catch(e) { return toast('❌ Invalid JSON format!', 'error'); }
-    if (!Array.isArray(subs)) return toast('❌ Array format chahiye!', 'error');
-
     try {
+      const subs = JSON.parse(raw);
       const res = await fetch('/api/import-subscribers', {
         method: 'POST', headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ subscribers: subs })
       });
       const data = await res.json();
-      toast(`✅ ${data.imported} leads imported! (${data.skipped} skipped)`, 'success');
+      toast(`✅ Imported ${data.imported} leads!`, 'success');
       closeImport();
       loadStats();
-    } catch(e) { toast('❌ Import failed!', 'error'); }
+    } catch(e) { toast('❌ Invalid JSON format', 'error'); }
   }
 
-  // ===== WEBINAR BLAST =====
-  async function sendWebinarBlast() {
-    if (!confirm('8 PM Webinar Blast sabhi eligible leads ko bhejna chahte hain?')) return;
-    try {
-      const res = await fetch('/api/send-webinar-now', { method: 'POST' });
-      const data = await res.json();
-      toast(`🔴 Blast bheja: ${data.count} leads!`, 'success');
-      loadStats();
-    } catch(e) { toast('❌ Blast failed!', 'error'); }
-  }
-
-  // ===== AI TOGGLE =====
   async function toggleAI() {
     try {
       const res = await fetch('/api/toggle-ai', { method: 'POST' });
       const data = await res.json();
       aiEnabled = data.aiEnabled;
-      updateAiUI();
-      toast(aiEnabled ? '✅ AI Agent Resumed!' : '⏸ AI Agent Paused!', 'info');
-    } catch(e) { toast('❌ Toggle failed!', 'error'); }
-  }
-  function updateAiUI() {
-    const btn = document.getElementById('toggleAiBtn');
-    const txt = document.getElementById('aiStatusText');
-    if (aiEnabled) {
-      btn.innerText = '⏸ Pause AI'; btn.className = 'btn btn-danger active';
-      txt.innerText = 'AI ACTIVE';
-    } else {
-      btn.innerText = '▶ Resume AI'; btn.className = 'btn btn-danger';
-      txt.innerText = 'AI PAUSED';
-    }
+      const btn = document.getElementById('toggleAiBtn');
+      if (aiEnabled) {
+        btn.innerText = '⏸ Pause AI';
+        btn.className = 'btn btn-danger active';
+        toast('🟢 AI Agent Activated!', 'success');
+      } else {
+        btn.innerText = '▶ Resume AI';
+        btn.className = 'btn btn-danger';
+        toast('⏸ AI Agent Paused', 'info');
+      }
+    } catch(e) { toast('❌ Failed to toggle AI', 'error'); }
   }
 
-  // ===== TOAST =====
-  function toast(msg, type='info') {
-    const el = document.getElementById('toast');
-    el.className = `toast ${type} show`;
-    el.innerText = msg;
-    setTimeout(() => el.classList.remove('show'), 3500);
+  async function launchCampaign() {
+    if (!confirm('🚀 100 leads ke liye Webinar Follow-up Campaign launch karein?')) return;
+    toast('🚀 Launching Webinar Campaign...', 'info');
+    try {
+      const res = await fetch('/api/start-campaign', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ limit: 100 })
+      });
+      const data = await res.json();
+      toast(`✅ ${data.message}`, 'success');
+      setTimeout(loadStats, 2000);
+    } catch(e) { toast('❌ Error launching campaign', 'error'); }
   }
 
-  // ===== HELPERS =====
-  function esc(t) {
-    if (!t) return '';
-    return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function statusEmoji(s) {
-    const m = { 'New Lead':'✨','Hot Lead':'🔥','Warm Lead':'⚡','Cold Lead':'❄️','Webinar Joined':'🔴','Closed Sale':'💰','Not Interested':'❌' };
-    return m[s] || '📋';
+  function showHotLeads() { setTab('Hot Lead'); }
+
+  function toast(msg, type = 'info') {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.className = `toast show ${type}`;
+    setTimeout(() => t.className = 'toast', 4000);
   }
 
-  // Close modal on overlay click
-  document.getElementById('chatOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
-  document.getElementById('importOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeImport(); });
+  function esc(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
-  // Auto refresh every 5 seconds
-  setInterval(loadStats, 5000);
   loadStats();
+  setInterval(loadStats, 15000);
+  setInterval(loadTrackerStats, 5000); // Auto-refresh tracker every 5 seconds
 </script>
 </body>
 </html>
