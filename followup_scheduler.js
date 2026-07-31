@@ -19,15 +19,29 @@ async function generateAIFollowupMessage(phone, stage) {
   const lastAiMsg = history.filter(h => h.role === 'assistant').pop()?.content || '';
 
   let stageGoal = '';
-  if (stage === 1) {
-    stageGoal = '2 minutes after no reply. Ask them: "Aapka reply nahi aaya. Main aapse kab baat karu? Mujhe time bata dijiye taki main dobara message kar saku." (Send exactly this meaning)';
-  } else if (stage === 2) {
-    stageGoal = '15 minutes after no reply. Ask gently if they are facing any issues understanding the details.';
-  } else if (stage === 3) {
-    // Stage 3 uses the EXACT hardcoded structure from the user request
-    return `Highlights dekhli proofs dekh liye? 10 mint ka yt video dekha ??? Business kaise karna hai sab roadmap dunga, earning nahi hui aapki, paisa wapis okay.`;
-  } else if (stage === 4) {
-    stageGoal = '1 hour after no reply. Gentle reminder asking if they want to proceed with earning or miss out.';
+  
+  if (record.videoSentAt) {
+    // POST-VIDEO FOLLOWUPS
+    if (stage === 1) {
+      stageGoal = '2 minutes after sending video. Ask exactly: "Video abhi dekh lenge na?"';
+    } else if (stage === 2) {
+      stageGoal = '15 minutes after sending video. Ask exactly: "Pehle highlights dekhi hai? Phir community mein join?"';
+    } else if (stage === 3) {
+      stageGoal = '30 minutes after sending video. Ask exactly: "10 minute ka video dekhkar direct WhatsApp call karlo."';
+    } else if (stage === 4) {
+      stageGoal = '1 hour after sending video. Remind them gently about the limited offer today.';
+    }
+  } else {
+    // PRE-VIDEO FOLLOWUPS
+    if (stage === 1) {
+      stageGoal = '2 minutes after no reply. Ask them: "Aapka reply nahi aaya. Main aapse kab baat karu? Mujhe time bata dijiye taki main dobara message kar saku." (Send exactly this meaning)';
+    } else if (stage === 2) {
+      stageGoal = '15 minutes after no reply. Ask gently if they are facing any issues understanding the details.';
+    } else if (stage === 3) {
+      return `Highlights dekhli proofs dekh liye? 10 mint ka yt video dekha ??? Business kaise karna hai sab roadmap dunga, earning nahi hui aapki, paisa wapis okay.`;
+    } else if (stage === 4) {
+      stageGoal = '1 hour after no reply. Gentle reminder asking if they want to proceed with earning or miss out.';
+    }
   }
 
   const prompt = `You are Yuvin Chauhan Sir (AI & Automation Sales Mentor). 
@@ -48,7 +62,9 @@ STRICT INSTRUCTIONS:
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
     const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
     const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
-    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini');
+    
+    // Default to free model to avoid API key limits throwing NULL responses
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-9b-it:free');
 
     const res = await axios.post(
       API_URL,

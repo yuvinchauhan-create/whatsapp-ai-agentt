@@ -127,6 +127,14 @@ async function handleMessage(phone, userMessage, leadName = '', customFields = {
       record.email = record.profile.email;
     }
 
+    const fs = require('fs');
+    const path = require('path');
+    const DYNAMIC_RULES_PATH = path.join(__dirname, 'dynamic_rules.txt');
+    let dynamicRules = '';
+    if (fs.existsSync(DYNAMIC_RULES_PATH)) {
+      dynamicRules = fs.readFileSync(DYNAMIC_RULES_PATH, 'utf8');
+    }
+
     // Record activity log with timestamp
     record.activityLog = record.activityLog || [];
     record.activityLog.push({
@@ -172,6 +180,9 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
 - Dream / Pain Point: ${record.profile.dream || record.profile.reason || 'Not known'}
 - Email: ${record.profile.email || 'Not known'}
 - Times "Reply kariye ji" sent so far: ${record.replyKariyeJiCount || 0} / 4 MAX
+
+DYNAMIC MANAGER RULES (FOLLOW THESE TO CORRECT PAST MISTAKES):
+${dynamicRules}
     `;
 
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
@@ -179,7 +190,9 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;
     const isGroq = !process.env.OPENROUTER_API_KEY && process.env.GROQ_API_KEY;
     const API_URL = isGroq ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
-    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini');
+    
+    // Default to free model to avoid API key limits throwing NULL responses
+    const MODEL = isGroq ? 'llama-3.1-8b-instant' : (process.env.OPENROUTER_MODEL || 'google/gemma-2-9b-it:free');
 
     console.log(`🤖 AI reply generating for ${phone} using ${isGroq ? 'Groq' : 'OpenRouter'} (Model: ${MODEL})...`);
 
@@ -231,6 +244,12 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
     } else {
       // Remove any trailing "Reply kariye ji" if count reached 4
       reply = reply.replace(/reply kariye ji\s*🙏?/gi, '').trim();
+    }
+
+    // 4. Track if video was sent
+    if (reply.includes('youtu.be/U8J4QPppN-k')) {
+      record.videoSentAt = new Date();
+      console.log(`🎥 Video link sent to ${phone}`);
     }
 
     // Log AI activity

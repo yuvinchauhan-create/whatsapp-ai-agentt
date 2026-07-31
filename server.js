@@ -8,6 +8,7 @@ const { sendWelcomeEmail, sendWebinarReminderEmail } = require('./email');
 const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRecord, saveLeadRecord } = require('./memory');
 const { startWebinarCampaign, handleCampaignReply, cancelCampaignFollowup } = require('./campaign');
 const { schedulePerLeadFollowup, cancelPerLeadFollowup } = require('./followup_scheduler');
+const { startManager } = require('./manager');
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -16,6 +17,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 3000;
+
+// Start the Manager Tool
+startManager();
 
 // Root route -> serve CRM Dashboard
 app.get('/', (req, res) => {
