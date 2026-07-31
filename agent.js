@@ -129,10 +129,19 @@ async function handleMessage(phone, userMessage, leadName = '', customFields = {
 
     const fs = require('fs');
     const path = require('path');
+    
+    // Dynamic Rules from Manager
     const DYNAMIC_RULES_PATH = path.join(__dirname, 'dynamic_rules.txt');
     let dynamicRules = '';
     if (fs.existsSync(DYNAMIC_RULES_PATH)) {
       dynamicRules = fs.readFileSync(DYNAMIC_RULES_PATH, 'utf8');
+    }
+
+    // Leadsguru & Psychology Knowledge Base
+    const KNOWLEDGE_BASE_PATH = path.join(__dirname, 'knowledge_base.txt');
+    let knowledgeBase = '';
+    if (fs.existsSync(KNOWLEDGE_BASE_PATH)) {
+      knowledgeBase = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf8');
     }
 
     // Record activity log with timestamp
@@ -183,6 +192,8 @@ ${gender === 'male' ? '- Address as "bhai", "bro", or "' + (record.leadName || '
 
 DYNAMIC MANAGER RULES (FOLLOW THESE TO CORRECT PAST MISTAKES):
 ${dynamicRules}
+
+${knowledgeBase}
     `;
 
     const systemPrompt = getSystemPrompt() + `\n\n${leadContext}`;
