@@ -485,14 +485,14 @@ app.post('/api/reset-campaign-lead', (req, res) => {
 // =============================================
 // BOTBIZ INCOMING WEBHOOK
 // =============================================
-app.post('/webhook', async (req, res) => {
+app.all('/webhook', async (req, res) => {
+  addLog(`📥 [${req.method}] RAW BOTBIZ WEBHOOK PAYLOAD: ` + JSON.stringify(req.body || req.query));
   res.sendStatus(200);
+
+  if (req.method !== 'POST') return; // Only process POST requests further
 
   try {
     const body = req.body;
-
-    // DEBUG: Log every incoming webhook payload on Render to diagnose format
-    addLog('📥 RAW BOTBIZ WEBHOOK PAYLOAD: ' + JSON.stringify(body));
 
     // Support ALL possible BotBiz field name variants
     const phone = (
