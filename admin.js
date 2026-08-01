@@ -115,6 +115,44 @@ Nayi Knowledge:
 Ab AI iss naye point ko sales conversations mein use karega! 🚀`;
   }
 
+  // 6. TEST WEBINAR REMINDER COMMAND
+  if (lowerClean.includes('test') || lowerClean.includes('reminder') || lowerClean.includes('8 bje') || lowerClean.includes('8pm')) {
+    const { sendMessage } = require('./whatsapp');
+    const testWebinarMsg = `🚨 *LAST REMINDER: 8:00 PM MEETING START HONE WALA HAI!* 🚀
+
+Namaste Yuvin Sir! 🙏
+
+Aaj raat *8:00 PM* ko hamara Special Live Workshop start hone wala hai jisme A to Z poora business aur earning process samjhaya jayega!
+
+👉 *Agar abhi tak WhatsApp Community join nahi kiya hai, toh abhi JOIN karo:*
+https://chat.whatsapp.com/BVCb2klPapXD8qYcQ7F4mw
+*(Meeting ka Zoom link issi group mein aayega — Join Fast! ⚡)*
+
+💬 *Agar aap pehle se Community mein ho:*
+Toh abhi Community message check kijiye, meeting link bhej diya gaya hai! Join karke poora kaam samjhiye.
+
+💡 *Agar aapne pehle Webinar dekh liya hai:*
+Toh apna time waste mat kijiye! Apne doubts clear karne ke liye mujhe *ABHI CALL KARO: 9217958980* aur aaj hi apna business & daily earning start karo! 🔥
+
+— Yuvin Chauhan | LeadsGuru Top Affiliate`;
+    await sendMessage(phone, testWebinarMsg);
+    return `✅ *TEST WEBINAR REMINDER SENT TO YOUR WHATSAPP!*`;
+  }
+
+  // 7. FOLLOW-UPS TRIGGER COMMAND
+  if (lowerClean.includes('followup') || lowerClean.includes('follow-up') || lowerClean.includes('follow')) {
+    const { schedulePerLeadFollowup } = require('./followup_scheduler');
+    const leads = getAllLeads();
+    let count = 0;
+    leads.forEach(l => {
+      if (l.phone && !l.aiDisabled && l.status !== 'Closed Sale' && !isAdmin(l.phone)) {
+        schedulePerLeadFollowup(l.phone);
+        count++;
+      }
+    });
+    return `⚡ *FOLLOW-UPS STARTED FOR ALL ${count} LEADS!* 🚀\n\nAb sabhi leads ko 2m, 4m, 6m, 8m mein aggressive follow-ups milne lage hain!`;
+  }
+
   // 6. NATURAL LANGUAGE ADMIN AI PROCESSOR (For complex custom instructions)
   try {
     const API_KEY = process.env.OPENROUTER_API_KEY || process.env.GROQ_API_KEY;

@@ -554,10 +554,11 @@ app.all('/webhook', async (req, res) => {
 
     // WHATSAPP REMOTE ADMIN CONTROLLER (Strictly Admin ONLY — No Lead Sales / No Followups)
     if (isAdmin(phone)) {
-      console.log(`👑 ADMIN MESSAGE RECEIVED from ${phone}: "${strText}"`);
+      addLog(`👑 ADMIN MESSAGE RECEIVED from ${phone}: "${strText}"`);
       cancelPerLeadFollowup(phone); // Ensure no followups scheduled for Admin
       const adminReply = await handleAdminCommand(phone, strText);
       if (adminReply) {
+        addLog(`💬 ADMIN REPLY SENT to ${phone}: "${adminReply.substring(0, 80)}..."`);
         await sendMessage(phone, adminReply);
       }
       return; // Stop processing immediately. NEVER process Admin as a normal lead!
