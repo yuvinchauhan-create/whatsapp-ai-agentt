@@ -3,6 +3,7 @@
 const { getLeadRecord, saveLeadRecord } = require('./memory');
 const { sendMessage } = require('./whatsapp');
 const { detectGender, getRespectfulSalutation } = require('./gender');
+const { isAdmin } = require('./admin');
 const axios = require('axios');
 
 const activeTimers = {}; // phone -> { stage1, stage2, stage3, stage4 }
@@ -100,6 +101,8 @@ STRICT INSTRUCTIONS:
 // =============================================
 function schedulePerLeadFollowup(phone) {
   cancelPerLeadFollowup(phone); // Clear existing timers
+
+  if (isAdmin(phone)) return; // NEVER schedule follow-ups for Admin number!
 
   const timers = {};
 

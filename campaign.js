@@ -4,6 +4,7 @@
 const { getAllLeads, getLeadRecord, saveLeadRecord, updateLeadStatus } = require('./memory');
 const { sendMessage } = require('./whatsapp');
 const { detectGender, getRespectfulSalutation } = require('./gender');
+const { isAdmin } = require('./admin');
 
 const campaignTimers = {}; // phone -> followup timer
 
@@ -93,6 +94,7 @@ async function startWebinarCampaign(limit = 100) {
   const BANNED_NUMBERS = ['917976936971', '918887739583', '919455263249', '7976936971', '8887739583', '9455263249'];
 
   const targetLeads = allLeads
+    .filter(l => !isAdmin(l.phone))
     .filter(l => !['Closed Sale', 'Not Interested', 'Hot Lead'].includes(l.status))
     .filter(l => !BANNED_NUMBERS.includes(l.phone))
     .slice(0, limit);
