@@ -12,6 +12,7 @@ const { getHistory, getAllLeads, updateLeadStatus, updateLeadProfile, getLeadRec
 const { startWebinarCampaign, handleCampaignReply, cancelCampaignFollowup } = require('./campaign');
 const { schedulePerLeadFollowup, cancelPerLeadFollowup } = require('./followup_scheduler');
 const { startManager } = require('./manager');
+const { isAdmin, handleAdminCommand, getBannedNumbers } = require('./admin');
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -542,7 +543,7 @@ app.all('/webhook', async (req, res) => {
     }
     
     // HARD BANNED NUMBERS (No AI, No Followup, No Response forever)
-    const BANNED_NUMBERS = ['917976936971', '918887739583', '919455263249', '7976936971', '8887739583', '9455263249'];
+    const BANNED_NUMBERS = getBannedNumbers();
     if (BANNED_NUMBERS.includes(phone)) {
       console.log(`🛑 BLOCKLIST: Ignored webhook for banned number ${phone}`);
       return; // Stop processing immediately
@@ -550,6 +551,28 @@ app.all('/webhook', async (req, res) => {
 
     const strText = String(text).trim();
     if (!strText) return;
+
+    // WHATSAPP REMOTE ADMIN CONTROLLER (Change rules/status/block numbers from WhatsApp)
+    if (isAdmin(phone)) {
+      const lowerStr = strText.toLowerCase();
+      const isCmdPrefix = strText.match(/^(admin:|cmd:|\/admin|!admin|!)/i) || 
+                          ['status', 'stats'].includes(lowerStr) || 
+                          lowerStr.startsWith('block ') || 
+                          lowerStr.startsWith('unblock ') ||
+                          lowerStr.startsWith('rule add ') ||
+                          lowerStr.startsWith('add rule ') ||
+                          lowerStr.startsWith('kb add ') ||
+                          lowerStr.startsWith('add kb ');
+
+      if (isCmdPrefix) {
+        console.log(`👑 Admin Command received from ${phone}: "${strText}"`);
+        const adminReply = await handleAdminCommand(phone, strText);
+        if (adminReply) {
+          await sendMessage(phone, adminReply);
+        }
+        return; // Stop processing further for Admin commands
+      }
+    }
 
     const upperText = strText.toUpperCase();
     const isStopWord = upperText === 'STOP' || upperText === 'UNSUBSCRIBE' || upperText.includes('NOT INTERESTED') || upperText.includes('NAHI KARNA') || upperText.includes('IRRITATE') || upperText.includes('DON\'T MSG') || upperText.includes('MAT KARO MSG');
