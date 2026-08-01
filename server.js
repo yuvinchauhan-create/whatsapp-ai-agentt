@@ -75,7 +75,7 @@ Namaste${nameStr}! 🙏
 Aaj raat *8:00 PM* ko hamara Special Live Workshop start hone wala hai jisme A to Z poora business aur earning process samjhaya jayega!
 
 👉 *Agar abhi tak WhatsApp Community join nahi kiya hai, toh abhi JOIN karo:*
-https://chat.whatsapp.com/GnC3hTbpeT4AR3DsgANnBp
+https://chat.whatsapp.com/BVCb2klPapXD8qYcQ7F4mw
 *(Meeting ka Zoom link issi group mein aayega — Join Fast! ⚡)*
 
 💬 *Agar aap pehle se Community mein ho:*
@@ -118,9 +118,10 @@ async function triggerDaily759Broadcast() {
     const lead = leads[i];
     const detail = broadcastTracker.leadDetails[i];
 
-    if (unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested' || lead.aiDisabled) {
+    const BANNED_NUMBERS = ['917976936971', '918887739583', '919455263249', '7976936971', '8887739583', '9455263249'];
+    if (BANNED_NUMBERS.includes(lead.phone) || unsubscribedLeads.has(lead.phone) || lead.status === 'Not Interested' || lead.aiDisabled) {
       detail.status = 'SKIPPED';
-      detail.error = 'Unsubscribed or Not Interested';
+      detail.error = 'Banned, Unsubscribed or Not Interested';
       broadcastTracker.skippedCount++;
       broadcastTracker.pendingCount--;
       continue;
