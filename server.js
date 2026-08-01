@@ -750,9 +750,24 @@ app.listen(PORT, () => {
 ║  Port          : ${PORT}                      ║
 ║  Dashboard     : http://localhost:${PORT}/  ║
 ║  Webhook       : POST /webhook             ║
-║  Follow-Up     : 40 Minutes ⏱️              ║
+║  Follow-Up     : 2m, 4m, 6m, 8m ⏱️           ║
 ║  Webinar Alert : 8 PM Daily 🔴             ║
 ║  Status        : LIVE ✅                   ║
 ╚════════════════════════════════════════╝
   `);
+
+  // Auto-schedule follow-ups for all active leads on boot
+  try {
+    const leads = getAllLeads();
+    let count = 0;
+    leads.forEach(l => {
+      if (l.phone && !l.aiDisabled && l.status !== 'Closed Sale' && !isAdmin(l.phone)) {
+        schedulePerLeadFollowup(l.phone);
+        count++;
+      }
+    });
+    console.log(`⏱️ [STARTUP] Auto-scheduled follow-ups for ${count} active leads.`);
+  } catch(e) {
+    console.error('❌ Auto followup startup error:', e.message);
+  }
 });
