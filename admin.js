@@ -199,7 +199,13 @@ REPLY: <friendly confirmation message in Hinglish for Yuvin Sir>`;
 ${finalReply}`;
 
   } catch (err) {
-    return `✅ Admin Instruction Received: "${cleanText}". (Updated in System Rules)`;
+    fs.appendFileSync(DYNAMIC_RULES_PATH, `\n- ${cleanText}`, 'utf8');
+    return `👑 *ADMIN INSTRUCTION SAVED!*
+
+Aapki instruction:
+*"${cleanText}"*
+
+Ko AI Agent ke live rules mein save kar diya gaya hai! Ab AI iss rule ko follow karega. ✅`;
   }
 }
 
