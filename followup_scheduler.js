@@ -158,6 +158,13 @@ async function sendAndLogFollowup(phone, record, msg) {
     record.lastAiMsgAt = new Date();
     saveLeadRecord(phone, record);
     console.log(`✅ Followup sent to ${phone}: "${msg.substring(0, 80)}..."`);
+
+    // Notify Admin on WhatsApp in real-time
+    const ADMIN_NOTIFY_NUMBER = '918708538708';
+    if (phone !== ADMIN_NOTIFY_NUMBER && !phone.endsWith('8708538708')) {
+      const adminReport = `📢 *[FOLLOW-UP SENT]*\n👤 Lead: *${record.leadName || 'Lead'}* (${phone})\n💬 Message: "${msg}"`;
+      await sendMessage(ADMIN_NOTIFY_NUMBER, adminReport);
+    }
   } catch (e) {
     console.error(`❌ Followup send error for ${phone}:`, e.message);
   }
