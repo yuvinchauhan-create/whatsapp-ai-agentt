@@ -539,6 +539,14 @@ app.all('/webhook', async (req, res) => {
       console.log('⚠️ Webhook missing phone or text — payload was:', JSON.stringify(body));
       return;
     }
+    
+    // HARD BANNED NUMBERS (No AI, No Followup, No Response forever)
+    const BANNED_NUMBERS = ['917976936971', '918887739583', '919455263249', '7976936971', '8887739583', '9455263249'];
+    if (BANNED_NUMBERS.includes(phone)) {
+      console.log(`🛑 BLOCKLIST: Ignored webhook for banned number ${phone}`);
+      return; // Stop processing immediately
+    }
+
     const strText = String(text).trim();
     if (!strText) return;
 
