@@ -724,7 +724,7 @@ setInterval(async () => {
 
   if (hours === 20 && minutes === 0 && !webinarReminderSentToday) {
     webinarReminderSentToday = true;
-    await triggerWebinarBlast();
+    await startWebinarCampaign();
   }
 }, 60000);
 

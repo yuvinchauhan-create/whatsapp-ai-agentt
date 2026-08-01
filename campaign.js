@@ -90,8 +90,11 @@ Yahan sirf dekho status story mein rehne se kuch nahi hoga. Jo action leta hai, 
 async function startWebinarCampaign(limit = 100) {
   const allLeads = getAllLeads();
   
+  const BANNED_NUMBERS = ['917976936971', '918887739583', '919455263249', '7976936971', '8887739583', '9455263249'];
+
   const targetLeads = allLeads
     .filter(l => !['Closed Sale', 'Not Interested', 'Hot Lead'].includes(l.status))
+    .filter(l => !BANNED_NUMBERS.includes(l.phone))
     .slice(0, limit);
 
   console.log(`\n🚀 [CAMPAIGN STARTED] Targeting ${targetLeads.length} leads with gender awareness...`);
