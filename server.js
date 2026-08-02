@@ -160,23 +160,8 @@ async function triggerDaily759Broadcast() {
   return broadcastTracker.sentCount;
 }
 
-// Check every 60 seconds if current time is 7:59 PM IST (19:59)
-setInterval(() => {
-  const now = new Date();
-  // Format IST time
-  const istOffset = 5.5 * 60 * 60 * 1000;
-  const istDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + istOffset);
-  
-  const hours = istDate.getHours();
-  const minutes = istDate.getMinutes();
-  const dateStr = istDate.toISOString().split('T')[0];
-
-  if (hours === 19 && minutes === 59 && last759RunDate !== dateStr) {
-    last759RunDate = dateStr;
-    console.log(`⏰ [7:59 PM CRON TRIGGERED] Running daily 7:59 PM webinar broadcast for date: ${dateStr}`);
-    triggerDaily759Broadcast();
-  }
-}, 60000);
+// 8 PM WEBINAR REMINDER CRON DISABLED BY USER REQUEST
+// setInterval(() => { ... }, 60000);
 
 // =============================================
 // DASHBOARD & CRM API ROUTES
@@ -722,25 +707,8 @@ app.get('/api/logs', (req, res) => {
 // =============================================
 // SCHEDULER
 // =============================================
-let webinarReminderSentToday = false;
-
-setInterval(async () => {
-  const now = new Date();
-  const istOffset = 5.5 * 60 * 60 * 1000;
-  const istTime = new Date(now.getTime() + istOffset);
-
-  const hours = istTime.getUTCHours();
-  const minutes = istTime.getUTCMinutes();
-
-  if (hours === 0 && minutes === 0) {
-    webinarReminderSentToday = false;
-  }
-
-  if (hours === 20 && minutes === 0 && !webinarReminderSentToday) {
-    webinarReminderSentToday = true;
-    await startWebinarCampaign();
-  }
-}, 60000);
+// 8 PM WEBINAR REMINDER CRON DISABLED BY USER REQUEST
+// setInterval(async () => { ... }, 60000);
 
 app.listen(PORT, () => {
   console.log(`
